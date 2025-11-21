@@ -82,7 +82,7 @@ flowchart TD
     WRAPPERS --> CORE
 
     %% Core Engine
-    subgraph CORE[adaptive core engine<br/>(@adapt-ux/core)]
+    subgraph CORE["adaptive core engine<br/>(@adapt-ux/core)"]
         ST[State Manager]
         RP[Rule Processor]
         EV[Event Hub]
@@ -92,7 +92,7 @@ flowchart TD
     SIGNALS --> CORE
 
     %% Signals
-    subgraph SIGNALS[behavior & cognitive detection<br/>(@adapt-ux/signals)]
+    subgraph SIGNALS["behavior & cognitive detection<br/>(@adapt-ux/signals)"]
         ATT[Attention Signals]
         CL[Cognitive Load Signals]
         OS[Overstimulation Signals]
@@ -104,7 +104,7 @@ flowchart TD
     CORE --> ASSIST
 
     %% Styles
-    subgraph STYLES[SCSS Tokens & Themes<br/>(@adapt-ux/styles)]
+    subgraph STYLES["SCSS Tokens & Themes<br/>(@adapt-ux/styles)"]
         CT[Color Tokens]
         FT[Font & Readability Tokens]
         SP[Spacing & Layout Tokens]
@@ -112,7 +112,7 @@ flowchart TD
     end
 
     %% Assist UI Layer
-    subgraph ASSIST[Adaptive Web Components<br/>(@adapt-ux/assist)]
+    subgraph ASSIST["Adaptive Web Components<br/>(@adapt-ux/assist)"]
         TOGGLE[Adaptation Toggle]
         BANNER[Focus Mode Banner]
         CONTRAST[Contrast Switcher]
