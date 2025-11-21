@@ -2,6 +2,8 @@
 
 # **NeuroUX SDK**
 
+[![Roadmap](https://img.shields.io/badge/roadmap-available-blue?style=for-the-badge)](docs/roadmap/ROADMAP.md)
+
 Adaptive User Experience Framework for Cognitive Diversity
 
 ---
@@ -250,6 +252,15 @@ nx build assist
 nx build react
 # ... etc
 ```
+
+---
+
+## 🗺️ Roadmap
+
+Our development plans, research milestones, and long-term goals are documented in the roadmap.
+
+👉 **[Open ROADMAP.md](docs/roadmap/ROADMAP.md)**  
+This document is frequently updated as the project evolves.
 
 ---
 
