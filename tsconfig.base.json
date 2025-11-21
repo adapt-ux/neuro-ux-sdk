@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@adapt-ux/neuro-core": ["libs/core/src/index.ts"],
+      "@adapt-ux/neuro-assist": ["libs/assist/src/index.ts"],
+      "@adapt-ux/neuro-styles": ["libs/styles/src/index.ts"],
+      "@adapt-ux/neuro-signals": ["libs/signals/src/index.ts"],
+      "@adapt-ux/neuro-utils": ["libs/utils/src/index.ts"],
+      "@adapt-ux/neuro-react": ["libs/neuro-react/src/index.ts"],
+      "@adapt-ux/neuro-vue": ["libs/neuro-vue/src/index.ts"],
+      "@adapt-ux/neuro-svelte": ["libs/neuro-svelte/src/index.ts"],
+      "@adapt-ux/neuro-angular": ["libs/neuro-angular/src/index.ts"],
+      "@adapt-ux/neuro-js": ["libs/neuro-js/src/index.ts"]
+    }
+  }
+}

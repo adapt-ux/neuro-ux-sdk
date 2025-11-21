@@ -1,0 +1,10 @@
+{
+  "name": "neuro-svelte",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/neuro-svelte/src",
+  "projectType": "library",
+  "importPath": "@adapt-ux/neuro-svelte",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project neuro-svelte --web",
+  "targets": {}
+}

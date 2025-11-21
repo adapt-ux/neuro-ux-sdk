@@ -1,0 +1,10 @@
+{
+  "name": "neuro-react",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/neuro-react/src",
+  "projectType": "library",
+  "importPath": "@adapt-ux/neuro-react",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project neuro-react --web",
+  "targets": {}
+}

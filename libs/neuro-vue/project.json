@@ -1,0 +1,10 @@
+{
+  "name": "neuro-vue",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/neuro-vue/src",
+  "projectType": "library",
+  "importPath": "@adapt-ux/neuro-vue",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project neuro-vue --web",
+  "targets": {}
+}

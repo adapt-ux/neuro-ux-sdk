@@ -1,0 +1,10 @@
+{
+  "name": "neuro-angular",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/neuro-angular/src",
+  "projectType": "library",
+  "importPath": "@adapt-ux/neuro-angular",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project neuro-angular --web",
+  "targets": {}
+}

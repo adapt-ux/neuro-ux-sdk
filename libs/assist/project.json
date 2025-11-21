@@ -1,0 +1,19 @@
+{
+  "name": "assist",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/assist/src",
+  "projectType": "library",
+  "importPath": "@adapt-ux/neuro-assist",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project assist --web",
+  "targets": {
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "{workspaceRoot}/coverage/{projectRoot}"
+      }
+    }
+  }
+}
