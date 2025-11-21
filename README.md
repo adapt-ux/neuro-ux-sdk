@@ -1,4 +1,5 @@
 <img width="1536" height="1024" alt="ChatGPT Image 21 de nov  de 2025, 19_30_17" src="https://github.com/user-attachments/assets/48be33dc-bc4d-4257-a16c-9e39f39c5a7c" />
+
 # **NeuroUX SDK**
 
 Adaptive User Experience Framework for Cognitive Diversity
