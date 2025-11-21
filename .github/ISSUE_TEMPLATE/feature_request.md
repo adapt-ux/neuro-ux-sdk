@@ -1,0 +1,59 @@
+name: "💡 Feature Request"
+description: "Suggest a new feature or improvement"
+title: "[FEATURE] "
+labels: ["enhancement"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement!  
+        Please fill out the details below.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Motivation
+      description: "Is this related to a problem or friction point?"
+      placeholder: "Describe why this feature should exist..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Solution
+      description: "Describe the feature you'd like to see"
+      placeholder: "What should the new API or behavior look like?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      placeholder: "Explain any alternative solutions or workarounds you’ve tried"
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: Relevant Package(s)
+      options:
+        - core
+        - assist
+        - styles
+        - signals
+        - utils
+        - react
+        - vue
+        - angular
+        - svelte
+        - js
+      multiple: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      placeholder: "Any extra information, links, sketches, or research?"

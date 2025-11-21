@@ -1,0 +1,60 @@
+name: Test Individual Packages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test - ${{ matrix.package }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - core
+          - assist
+          - styles
+          - signals
+          - utils
+          - react
+          - vue
+          - angular
+          - svelte
+          - js
+
+    steps:
+      # Checkout
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Node
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Restore Nx Cache
+      - name: Restore Nx Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .nx/cache
+            node_modules/.cache
+          key: nx-tests-${{ runner.os }}-${{ matrix.package }}-${{ hashFiles('**/project.json', '**/package.json', 'package-lock.json') }}
+          restore-keys: |
+            nx-tests-${{ runner.os }}-${{ matrix.package }}-
+
+      # Run tests for a specific library
+      - name: Run tests for ${{ matrix.package }}
+        run: npx nx test ${{ matrix.package }}
