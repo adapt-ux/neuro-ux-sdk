@@ -8,7 +8,7 @@
 ![NPM Version](https://img.shields.io/npm/v/neuro-ux-sdk?style=flat)
 ![Downloads](https://img.shields.io/npm/dm/neuro-ux-sdk?style=flat)
 ![Discussions](https://img.shields.io/github/discussions/adapt-ux/neuro-ux-sdk?style=flat)
-![Roadmap](https://img.shields.io/badge/roadmap-available-blue?style=for-the-badge?style=flat)
+[![Roadmap](https://img.shields.io/badge/roadmap-available-blue?style=for-the-badge?style=flat)](docs/roadmap/ROADMAP.md)
 
 Adaptive User Experience Framework for Cognitive Diversity
 
