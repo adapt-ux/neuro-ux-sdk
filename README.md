@@ -1,8 +1,14 @@
-<img width="1536" height="1024" alt="ChatGPT Image 21 de nov  de 2025, 19_30_17" src="https://github.com/user-attachments/assets/48be33dc-bc4d-4257-a16c-9e39f39c5a7c" />
+<img width="1536" height="1024" alt="Banner " src="https://github.com/user-attachments/assets/48be33dc-bc4d-4257-a16c-9e39f39c5a7c" />
 
 # **NeuroUX SDK**
 
-[![Roadmap](https://img.shields.io/badge/roadmap-available-blue?style=for-the-badge)](docs/roadmap/ROADMAP.md)
+![Build](https://img.shields.io/github/actions/workflow/status/adapt-ux/neuro-ux-sdk/ci.yml?label=build&style=flat)
+![Release](https://img.shields.io/github/v/release/adapt-ux/neuro-ux-sdk?style=flat)
+![License](https://img.shields.io/github/license/adapt-ux/neuro-ux-sdk?style=flat)
+![NPM Version](https://img.shields.io/npm/v/neuro-ux-sdk?style=flat)
+![Downloads](https://img.shields.io/npm/dm/neuro-ux-sdk?style=flat)
+![Discussions](https://img.shields.io/github/discussions/adapt-ux/neuro-ux-sdk?style=flat)
+![Roadmap](https://img.shields.io/badge/roadmap-available-blue?style=for-the-badge?style=flat)
 
 Adaptive User Experience Framework for Cognitive Diversity
 
