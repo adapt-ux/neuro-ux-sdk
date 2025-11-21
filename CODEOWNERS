@@ -1,0 +1,41 @@
+# Global owners for the entire repository
+*       @samuelfabel @adaptux-team
+
+# Core engine
+/libs/core/        @samuelfabel @adaptux-team
+
+# Adaptive UI components (Web Components)
+/libs/assist/      @samuelfabel @adaptux-team
+
+# SCSS tokens and styles
+/libs/styles/      @samuelfabel @adaptux-team
+
+# Behavioral/Interaction Signals
+/libs/signals/     @samuelfabel @adaptux-team
+
+# Utilities shared across packages
+/libs/utils/       @samuelfabel @adaptux-team
+
+# React wrapper
+/libs/react/       @samuelfabel @adaptux-team
+
+# Vue wrapper
+/libs/vue/         @samuelfabel @adaptux-team
+
+# Angular wrapper
+/libs/angular/     @samuelfabel @adaptux-team
+
+# Svelte wrapper
+/libs/svelte/      @samuelfabel @adaptux-team
+
+# Vanilla JS loader
+/libs/js/          @samuelfabel @adaptux-team
+
+# Demo application
+/apps/demo/        @samuelfabel @adaptux-team
+
+# Documentation
+/docs/             @samuelfabel @adaptux-team
+
+# GitHub workflows
+/.github/          @samuelfabel @adaptux-team
