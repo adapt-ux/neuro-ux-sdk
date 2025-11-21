@@ -1,0 +1,58 @@
+{
+  "name": "@adapt-ux/neuro-assist",
+  "version": "0.0.1",
+  "description": "Framework-agnostic Web Components UI providing customizable accessibility and comfort tools for adaptive user experiences.",
+  "keywords": [
+    "web-components",
+    "custom-elements",
+    "ui-components",
+    "adaptive-ui",
+    "inclusive-design",
+    "ux",
+    "a11y",
+    "neurodiversity",
+    "lit",
+    "scss"
+  ],
+  "license": "MIT",
+  "author": "AdaptUX",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "**/*.scss"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "nx build assist",
+    "test": "nx test assist"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adapt-ux/neuro-ux-sdk",
+    "directory": "libs/assist"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "sass": "^1.77.8"
+  }
+}

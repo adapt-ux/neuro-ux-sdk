@@ -1,77 +1,206 @@
-# NeuroUxSdk
+# **NeuroUX SDK**
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Adaptive User Experience Framework for Cognitive Diversity
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+---
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## 🌐 Overview
 
-## Finish your CI setup
+**NeuroUX SDK** is an open, framework-agnostic toolkit designed to make digital experiences more adaptable, inclusive, and comfortable for people with diverse cognitive and sensory processing styles.
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/5Y2jHZPa3P)
+Instead of enforcing a one-size-fits-all interface, NeuroUX enables **dynamic UI adjustments** that respect attention patterns, reading styles, sensory thresholds, and cognitive load — without diagnosing, tracking, or labeling users.
 
+Built with **TypeScript**, **Web Components**, and optional wrappers for React/Vue, the SDK can run anywhere: from enterprise platforms to static HTML pages.
 
-## Run tasks
+---
 
-To run tasks with Nx use:
+## ✨ Key Features
 
-```sh
-npx nx <target> <project-name>
+### **🔸 Universal Compatibility**
+
+Runs in:
+
+* React
+* Vue
+* Svelte
+* Angular
+* HTML/vanilla JavaScript
+* CMS platforms (WordPress, Shopify, etc.)
+
+### **🔸 Evidence-Based Adaptive Engine**
+
+Behavioral signals detect when users may benefit from:
+
+* Reduced visual noise
+* Increased focus
+* Enhanced readability
+* Lower cognitive load
+* Simplified interactions
+
+All adaptations are **optional**, **transparent**, and **opt-in**.
+
+### **🔸 Web Components UI (NeuroAssist)**
+
+A universal widget that allows users to adjust:
+
+* Motion reduction
+* Focus mode
+* Typography tuning
+* Contrast
+* Spacing
+* Reading aids
+* Highlighting features
+
+### **🔸 Framework Wrappers (Optional)**
+
+Lightweight bindings:
+
+* `@adapt-ux/neuro-react`
+* `@adapt-ux/neuro-vue`
+
+### **🔸 Zero Diagnosis, Zero Tracking**
+
+The SDK does **not**:
+
+* infer medical conditions
+* store cognitive profiles
+* track identity
+* require accounts
+
+It only adapts based on **interaction patterns** and **user preference**.
+
+---
+
+## 📦 Packages
+
+The monorepo contains:
+
+```
+libs/
+  core/        # Adaptive engine (TS)
+  assist/      # Web Components UI
+  styles/      # Tokens, themes, SCSS utilities
+  signals/     # Behavioral detection logic
+  utils/       # Shared utilities
+
+  react/       # Optional React wrapper
+  vue/         # Optional Vue wrapper
+apps/
+  demo/        # Example app for testing
+docs/          # Internal documentation
 ```
 
-For example:
+---
 
-```sh
-npx nx build myproject
+## 🚀 Getting Started
+
+### **Install the universal SDK**
+
+```bash
+npm install @adapt-ux/neuro-core @adapt-ux/neuro-assist
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+### **Using the NeuroAssist Web Component (HTML)**
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```html
+<script type="module" src="https://cdn.adaptux.dev/neuro-assist.js"></script>
 
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-To install a new plugin you can use the `nx add` command. Here's an example of adding the React plugin:
-```sh
-npx nx add @nx/react
+<neuro-assist></neuro-assist>
 ```
 
-Use the plugin's generator to create new projects. For example, to create a new React app or library:
+---
 
-```sh
-# Generate an app
-npx nx g @nx/react:app demo
+## 🧩 Framework Examples
 
-# Generate a library
-npx nx g @nx/react:lib some-lib
+### **React**
+
+```bash
+npm install @adapt-ux/neuro-react
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+```tsx
+import { NeuroAssist } from '@adapt-ux/neuro-react';
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+export default function Page() {
+  return <NeuroAssist />;
+}
+```
 
+---
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### **Vue**
 
-## Install Nx Console
+```bash
+npm install @adapt-ux/neuro-vue
+```
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+```vue
+<template>
+  <neuro-assist />
+</template>
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+<script setup>
+import '@adapt-ux/neuro-assist';
+</script>
+```
 
-## Useful links
+---
 
-Learn more:
+## 🛠 Development
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Run the demo app:
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```bash
+nx serve demo
+```
+
+### Build all packages:
+
+```bash
+nx run-many --target=build --all
+```
+
+### Test:
+
+```bash
+nx test core
+nx test assist
+```
+
+---
+
+## 🔬 Vision & Philosophy
+
+NeuroUX is guided by these principles:
+
+* **Adaptation over standardization**
+* **Inclusion without identification**
+* **Respect by default**
+* **Evidence-driven design**
+* **Framework-agnostic architecture**
+* **Developer-first ergonomics**
+
+Our goal is simple:
+
+### **Make the web more comfortable for everyone — without assumptions, labels, or friction.**
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions in:
+
+* Accessibility research
+* UI/UX behavior experiments
+* New adaptive patterns
+* Code improvements
+* Documentation
+* Testing & QA
+
+Please open a discussion or pull request.
+
+---
+
+## 📜 License
+
+MIT License — freely usable and modifiable for personal or commercial purposes.

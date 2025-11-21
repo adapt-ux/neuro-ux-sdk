@@ -1,0 +1,63 @@
+{
+  "name": "@adapt-ux/neuro-react",
+  "version": "0.0.1",
+  "description": "React wrapper for NeuroUX Web Components, providing seamless integration with the adaptive UI engine.",
+  "keywords": [
+    "react",
+    "react-components",
+    "adaptive-ui",
+    "ui-components",
+    "accessibility",
+    "web-components",
+    "neurodiversity"
+  ],
+  "license": "MIT",
+  "author": "AdaptUX",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "nx build react",
+    "test": "nx test react",
+    "lint": "nx lint react",
+    "prepare": "nx build react"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adapt-ux/neuro-ux-sdk",
+    "directory": "libs/react"
+  },
+  "homepage": "https://github.com/adapt-ux/neuro-ux-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/adapt-ux/neuro-ux-sdk/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "@adapt-ux/neuro-assist": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0"
+  },
+  "sideEffects": false
+}

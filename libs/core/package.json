@@ -1,0 +1,51 @@
+{
+  "name": "@adapt-ux/neuro-core",
+  "version": "0.0.1",
+  "description": "Universal adaptive UX engine that enables cognitive-friendly interface adjustments based on user interaction patterns.",
+  "keywords": [
+    "adaptive-ui",
+    "ux",
+    "a11y",
+    "accessibility",
+    "cognitive-accessibility",
+    "neurodiversity",
+    "interaction-signals",
+    "behavioral-signals",
+    "framework-agnostic",
+    "typescript"
+  ],
+  "license": "MIT",
+  "author": "AdaptUX",
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "nx build core",
+    "test": "nx test core"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adapt-ux/neuro-ux-sdk",
+    "directory": "libs/core"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

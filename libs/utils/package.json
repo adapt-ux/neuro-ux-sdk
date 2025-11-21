@@ -1,0 +1,46 @@
+{
+  "name": "@adapt-ux/neuro-utils",
+  "version": "0.0.1",
+  "description": "Shared utility functions supporting the NeuroUX adaptive engine and UI components.",
+  "keywords": [
+    "utils",
+    "helpers",
+    "typescript",
+    "adaptive-ui",
+    "a11y"
+  ],
+  "license": "MIT",
+  "author": "AdaptUX",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "nx build utils",
+    "test": "nx test utils"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adapt-ux/neuro-ux-sdk",
+    "directory": "libs/utils"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

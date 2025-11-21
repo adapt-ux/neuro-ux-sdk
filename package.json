@@ -65,5 +65,24 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tslib": "^2.3.0"
-  }
+  },
+  "keywords": [
+    "ux",
+    "a11y",
+    "accessibility",
+    "adaptive-ui",
+    "cognitive-accessibility",
+    "inclusive-design",
+    "neurodiversity",
+    "design-tokens",
+    "web-components",
+    "custom-elements",
+    "ui-components",
+    "framework-agnostic",
+    "typescript",
+    "scss",
+    "lit",
+    "react",
+    "vue"
+  ]
 }
