@@ -59,68 +59,81 @@ This “DEA loop” repeats continuously, similar to an accessibility-focused fe
 
 ---
 
-# 🔌 **3. High-Level Architecture Diagram**
+# 🔌 **3.Architecture Diagram**
 
 ```mermaid
-flowchart TD
+flowchart TB
 
-    %% Applications
-    subgraph APP[Applications<br/>React • Vue • Angular • Svelte • JS]
+    %% System Boundary
+    subgraph NeuroUXSDK [NeuroUX SDK]
+    
+        %% Core Engine
+        subgraph CoreEngine [Core Engine]
+            CE_LABEL["@adapt-ux/core"]
+            CE1[Component: State Manager]
+            CE2[Component: Rule Processor]
+            CE3[Component: Event Hub]
+            CE4[Component: Config Loader]
+        end
+
+        %% Signals System
+        subgraph Signals [Signals System]
+            SIG_LABEL["@adapt-ux/signals"]
+            SIG1[Attention Detector]
+            SIG2[Cognitive Load Detector]
+            SIG3[Motion Sensitivity Detector]
+            SIG4[Overstimulation Detector]
+            SIG5[Stress Pattern Detector]
+        end
+
+        %% Assist UI
+        subgraph AssistUI [Assist UI Components]
+            ASSIST_LABEL["@adapt-ux/assist"]
+            UI1[Adaptation Toggle]
+            UI2[Focus Mode Banner]
+            UI3[Contrast Switcher]
+            UI4[Reduce Motion Control]
+        end
+
+        %% Style System
+        subgraph Styles [Style System]
+            STYLES_LABEL["@adapt-ux/styles"]
+            ST1[Color Tokens]
+            ST2[Font & Readability Tokens]
+            ST3[Spacing Tokens]
+            ST4[Neurodivergent Profile Themes]
+        end
+
+        %% Framework Wrappers
+        subgraph Wrappers [Framework Wrappers]
+            WR_LABEL["Multi-Framework API"]
+            WR1[React Wrapper]
+            WR2[Vue Wrapper]
+            WR3[Angular Wrapper]
+            WR4[Svelte Wrapper]
+            WR5[Vanilla JS Adapter]
+        end
+
     end
 
-    APP --> WRAPPERS
-
-    %% Wrappers
-    subgraph WRAPPERS[Framework Wrappers]
-        R[React Wrapper]
-        V[Vue Wrapper]
-        A[Angular Wrapper]
-        S[Svelte Wrapper]
-        J[Vanilla JS Adapter]
+    %% External Systems (Apps)
+    subgraph Apps [Application Layer]
+        APP1[React App]
+        APP2[Vue App]
+        APP3[Angular App]
+        APP4[Svelte App]
+        APP5[Vanilla JS App]
     end
 
-    WRAPPERS --> CORE
-
-    %% Core Engine
-    subgraph CORE["adaptive core engine<br/>(@adapt-ux/core)"]
-        ST[State Manager]
-        RP[Rule Processor]
-        EV[Event Hub]
-        DL[Config Loader]
-    end
-
-    SIGNALS --> CORE
-
-    %% Signals
-    subgraph SIGNALS["behavior & cognitive detection<br/>(@adapt-ux/signals)"]
-        ATT[Attention Signals]
-        CL[Cognitive Load Signals]
-        OS[Overstimulation Signals]
-        MS[Motion Sensitivity Signals]
-        SI[Stress Indicators]
-    end
-
-    CORE --> STYLES
-    CORE --> ASSIST
-
-    %% Styles
-    subgraph STYLES["SCSS Tokens & Themes<br/>(@adapt-ux/styles)"]
-        CT[Color Tokens]
-        FT[Font & Readability Tokens]
-        SP[Spacing & Layout Tokens]
-        TH[Neurodivergent Profiles]
-    end
-
-    %% Assist UI Layer
-    subgraph ASSIST["Adaptive Web Components<br/>(@adapt-ux/assist)"]
-        TOGGLE[Adaptation Toggle]
-        BANNER[Focus Mode Banner]
-        CONTRAST[Contrast Switcher]
-        MOTION[Reduce Motion Control]
-    end
-
-    STYLES --> APP
-    ASSIST --> APP
+    %% Connections
+    Signals --> CoreEngine
+    CoreEngine --> Styles
+    CoreEngine --> AssistUI
+    AssistUI --> Apps
+    Styles --> Apps
+    Wrappers --> Apps
+    Apps --> Wrappers
+    Wrappers --> CoreEngine
 ```
 
 
