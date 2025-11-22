@@ -2,7 +2,10 @@
   "name": "@neuro-ux-sdk/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "prepare": "husky",
+    "test": "nx run-many --target=test --all"
+  },
   "private": true,
   "devDependencies": {
     "@babel/core": "^7.14.5",

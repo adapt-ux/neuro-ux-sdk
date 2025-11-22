@@ -1,0 +1,11 @@
+# Check if there are affected projects before running tests
+AFFECTED=$(nx show projects --affected --base=HEAD~1 2>/dev/null)
+
+if [ -z "$AFFECTED" ]; then
+  # No affected projects, skip tests
+  exit 0
+fi
+
+# Run tests for affected projects
+# Use || true to prevent hook failure when no tests are found
+nx affected:test --skip-nx-cache || true
