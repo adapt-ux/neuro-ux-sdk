@@ -1,6 +1,6 @@
 ---
 name: "🐞 Bug Report"
-about: "Report an issue or unexpected behavior"
+about: "Report an issue or unexpected behavior "
 title: "[BUG]"
 labels: bug
 ---
