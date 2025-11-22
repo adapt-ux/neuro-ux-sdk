@@ -1,9 +1,8 @@
 ---
 name: "🐞 Bug Report"
-description: "Report an issue or unexpected behavior"
-title: "[BUG] "
-labels: ["bug"]
-assignees: []
+about: "Report an issue or unexpected behavior"
+title: "[BUG]"
+labels: bug
 ---
 
 body:
