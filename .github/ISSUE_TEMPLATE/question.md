@@ -1,8 +1,9 @@
+---
 name: "❓ Question"
-description: "Ask a question about usage, design, or architecture"
+about: "Ask a question about usage, design, or architecture"
 title: "[QUESTION] "
-labels: ["question"]
-assignees: []
+labels: question
+---
 
 body:
   - type: markdown
