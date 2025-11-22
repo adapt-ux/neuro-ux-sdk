@@ -5,24 +5,25 @@ on:
     tags:
       - 'v*.*.*' # Ex: v1.0.0, v2.3.4
 
+permissions:
+  contents: write
+
 jobs:
   create-release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # Extract tag name
       - name: Extract tag
         id: vars
         run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
-      # Generate release notes automatically
+      # Automatic changelog via GitHub Release Notes + Conventional Commit labels
       - name: Generate Release Notes
         id: notes
         uses: actions/github-script@v7
@@ -35,17 +36,18 @@ jobs:
             });
             core.setOutput("notes", data.body);
 
-      # Create the release on GitHub
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.tag }}
           name: 'Release ${{ env.tag }}'
           body: ${{ steps.notes.outputs.notes }}
+          generate_release_notes: true
+          omit_name: false
+          fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Optional: build artifacts (enable if needed)
   build-artifacts:
     name: Build packages
     runs-on: ubuntu-latest
@@ -66,8 +68,7 @@ jobs:
       - name: Build all packages (Nx)
         run: npx nx run-many --target=build --all
 
-      # Upload build artifacts to the release (optional)
-      - name: Upload artifacts
+      - name: Upload build artifacts
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.tag }}
