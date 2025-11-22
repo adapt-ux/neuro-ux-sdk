@@ -1,1 +1,2 @@
-export * from './lib/neuro-react';
+export * from './useNeuroUX';
+export * from './NeuroProvider';
