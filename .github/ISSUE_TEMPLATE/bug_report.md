@@ -1,8 +1,10 @@
+---
 name: "🐞 Bug Report"
 description: "Report an issue or unexpected behavior"
 title: "[BUG] "
 labels: ["bug"]
 assignees: []
+---
 
 body:
   - type: markdown
