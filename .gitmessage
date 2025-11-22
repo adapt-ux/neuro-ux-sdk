@@ -1,0 +1,30 @@
+# <type>(<scope>): <subject>
+#
+# <body>
+#
+# <footer>
+#
+# Types:
+#   feat:     New feature
+#   fix:      Bug fix
+#   docs:     Documentation changes
+#   style:    Formatting, missing semicolons, etc; no code change
+#   refactor: Production code refactoring
+#   perf:     Performance improvement
+#   test:     Adding missing tests or fixing existing tests
+#   build:    Changes that affect the build system or external dependencies
+#   ci:       Changes to CI files and scripts
+#   chore:    Other changes that don't modify src or test files
+#   revert:   Reverts a previous commit
+#
+# Scope (optional): package name (e.g., react, core, styles)
+#
+# Subject: use imperative, lowercase and don't end with a period
+#
+# Body (optional): explain what and why, not how
+# - Keep lines under 100 characters
+# - Use imperative mood
+#
+# Footer (optional): reference issues, PRs, or breaking changes
+# - Closes #123
+# - BREAKING CHANGE: description
