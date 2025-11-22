@@ -1,10 +1,7 @@
----
 name: "💡 Feature Request"
-about: "Suggest a new feature or improvement"
+description: "Suggest a new feature or improvement"
 title: "[FEATURE] "
-labels: enhancement
----
-
+labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
@@ -34,7 +31,7 @@ body:
     id: alternatives
     attributes:
       label: Alternatives Considered
-      placeholder: "Explain any alternative solutions or workarounds you’ve tried"
+      placeholder: "Explain any alternative solutions or workarounds you've tried"
 
   - type: dropdown
     id: package
@@ -51,7 +48,8 @@ body:
         - angular
         - svelte
         - js
-      multiple: true
+    validations:
+      required: false
 
   - type: textarea
     id: additional

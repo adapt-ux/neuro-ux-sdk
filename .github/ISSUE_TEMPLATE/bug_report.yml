@@ -1,10 +1,7 @@
----
 name: "🐞 Bug Report"
-about: "Report an issue or unexpected behavior "
-title: "[BUG]"
-labels: bug
----
-
+description: "Report an issue or unexpected behavior"
+title: "[BUG] "
+labels: ["bug"]
 body:
   - type: markdown
     attributes:
@@ -64,7 +61,8 @@ body:
         - angular
         - svelte
         - js
-      multiple: true
+    validations:
+      required: false
 
   - type: textarea
     id: additional
