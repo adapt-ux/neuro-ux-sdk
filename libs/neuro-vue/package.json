@@ -28,10 +28,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "nx build vue",
-    "test": "nx test vue",
-    "lint": "nx lint vue",
-    "prepare": "nx build vue"
+    "build": "nx build neuro-vue",
+    "test": "nx test neuro-vue",
+    "lint": "nx lint neuro-vue"
   },
   "publishConfig": {
     "access": "public"
