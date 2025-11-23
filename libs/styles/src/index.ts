@@ -1,1 +1,3 @@
-export * from './lib/styles';
+export const styles = {
+  version: '0.0.1',
+};
