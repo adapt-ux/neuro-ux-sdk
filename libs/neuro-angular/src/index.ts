@@ -1,1 +1,1 @@
-export * from './lib/neuro-angular';
+export * from './lib';
