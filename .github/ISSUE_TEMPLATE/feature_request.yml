@@ -1,20 +1,20 @@
-name: "💡 Feature Request"
-description: "Suggest a new feature or improvement"
-title: "[FEATURE] "
-labels: ["enhancement"]
+name: '💡 Feature Request'
+description: 'Suggest a new feature or improvement'
+title: '[FEATURE] '
+labels: ['enhancement']
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for suggesting an improvement!  
+        Thanks for suggesting an improvement!
         Please fill out the details below.
 
   - type: textarea
     id: problem
     attributes:
       label: Problem / Motivation
-      description: "Is this related to a problem or friction point?"
-      placeholder: "Describe why this feature should exist..."
+      description: 'Is this related to a problem or friction point?'
+      placeholder: 'Describe why this feature should exist...'
     validations:
       required: true
 
@@ -23,7 +23,7 @@ body:
     attributes:
       label: Proposed Solution
       description: "Describe the feature you'd like to see"
-      placeholder: "What should the new API or behavior look like?"
+      placeholder: 'What should the new API or behavior look like?'
     validations:
       required: true
 
@@ -43,11 +43,11 @@ body:
         - styles
         - signals
         - utils
-        - react
-        - vue
-        - angular
-        - svelte
-        - js
+        - neuro-react
+        - neuro-vue
+        - neuro-angular
+        - neuro-svelte
+        - neuro-js
     validations:
       required: false
 
@@ -55,4 +55,4 @@ body:
     id: additional
     attributes:
       label: Additional Context
-      placeholder: "Any extra information, links, sketches, or research?"
+      placeholder: 'Any extra information, links, sketches, or research?'
