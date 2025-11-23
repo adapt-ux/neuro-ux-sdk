@@ -25,6 +25,7 @@ jobs:
           - angular
           - svelte
           - js
+          - neuro-next
 
     steps:
       # Checkout

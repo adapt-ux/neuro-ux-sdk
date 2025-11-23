@@ -72,7 +72,8 @@ It also applies when individuals represent the project in public, such as at con
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported privately to the project team at:
 
 **[conduct@adaptux.org](mailto:conduct@adaptux.org)**
-*(email fictício — posso gerar outro se quiser)*
+
+> *(This is a fictional email that will be implemented in the future.)*
 
 All complaints will be reviewed in a reasonable time and investigated fairly and confidentially.
 

@@ -39,6 +39,7 @@ body:
         - angular
         - svelte
         - js
+        - neuro-next
     validations:
       required: false
 

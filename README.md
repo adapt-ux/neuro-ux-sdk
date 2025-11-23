@@ -20,7 +20,7 @@ Adaptive User Experience Framework for Cognitive Diversity
 
 Instead of enforcing a one-size-fits-all interface, NeuroUX enables **dynamic UI adjustments** that respect attention patterns, reading styles, sensory thresholds, and cognitive load — without diagnosing, tracking, or labeling users.
 
-Built with **TypeScript**, **Web Components**, and optional wrappers for React, Vue, Angular, Svelte, and vanilla JavaScript, the SDK can run anywhere: from enterprise platforms to static HTML pages.
+Built with **TypeScript**, **Web Components**, and optional wrappers for React, Vue, Angular, Svelte, Next and vanilla JavaScript, the SDK can run anywhere: from enterprise platforms to static HTML pages.
 
 ---
 
@@ -35,6 +35,7 @@ Runs in:
 * Svelte
 * Angular
 * HTML/vanilla JavaScript
+* Next
 * CMS platforms (WordPress, Shopify, etc.)
 
 ### **🔸 Evidence-Based Adaptive Engine**
@@ -70,6 +71,7 @@ Lightweight bindings for popular frameworks:
 * `@adapt-ux/neuro-angular` - Angular wrapper
 * `@adapt-ux/neuro-svelte` - Svelte wrapper
 * `@adapt-ux/neuro-js` - Vanilla JavaScript loader
+* `@adapt-ux/neuro-next` - Next wrapper
 
 ### **🔸 Zero Diagnosis, Zero Tracking**
 
@@ -101,6 +103,7 @@ libs/
   neuro-angular/ # @adapt-ux/neuro-angular - Angular wrapper
   neuro-svelte/  # @adapt-ux/neuro-svelte - Svelte wrapper
   neuro-js/      # @adapt-ux/neuro-js - Vanilla JavaScript loader
+  neuro-next/    # @adapt-ux/neuro-next - Next wrapper
 apps/
   demo/          # Example app for testing
 docs/            # Internal documentation
@@ -149,6 +152,47 @@ import { NeuroAssist } from '@adapt-ux/neuro-react';
 
 export default function Page() {
   return <NeuroAssist />;
+}
+```
+
+---
+
+### **Next.js**
+
+```bash
+npm install @adapt-ux/neuro-next
+```
+
+**app/layout.tsx** (Root Layout):
+```tsx
+import { NeuroUXProvider } from '@adapt-ux/neuro-next';
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <NeuroUXProvider>
+      {children}
+    </NeuroUXProvider>
+  );
+}
+```
+
+**app/page.tsx** (Client Component):
+```tsx
+'use client';
+
+import { NeuroUXToggle } from '@adapt-ux/neuro-next';
+
+export default function Page() {
+  return (
+    <div>
+      <h1>My Next.js App</h1>
+      <NeuroUXToggle />
+    </div>
+  );
 }
 ```
 

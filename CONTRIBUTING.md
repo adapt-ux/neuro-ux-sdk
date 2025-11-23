@@ -105,6 +105,7 @@ libs/
   neuro-angular/      # Angular wrapper
   neuro-svelte/       # Svelte wrapper
   neuro-js/           # Vanilla JS loader
+  neuro-next/         # Next wrapper
 ```
 
 All packages follow a **design-first** and **framework-agnostic-first** philosophy.
@@ -236,7 +237,8 @@ If you discover a vulnerability, **do not open a public issue**.
 Report it privately via:
 
 📧 **[security@adaptux.org](mailto:security@adaptux.org)**
-*(email can be changed if needed)*
+
+> *(This is a fictional email that will be implemented in the future.)*
 
 ---
 

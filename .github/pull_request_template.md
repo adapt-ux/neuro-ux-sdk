@@ -57,11 +57,12 @@ Mark all that apply:
 - [ ] `styles`
 - [ ] `signals`
 - [ ] `utils`
-- [ ] `react`
-- [ ] `vue`
-- [ ] `angular`
-- [ ] `svelte`
-- [ ] `js`
+- [ ] `neuro-react`
+- [ ] `neuro-vue`
+- [ ] `neuro-angular`
+- [ ] `neuro-svelte`
+- [ ] `neuro-js`
+- [ ] `neuro-next`
 - [ ] `demo`
 
 ---

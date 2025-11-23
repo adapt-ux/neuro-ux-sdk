@@ -12,6 +12,7 @@
       "@adapt-ux/neuro-signals": ["libs/signals/src/index.ts"],
       "@adapt-ux/neuro-utils": ["libs/utils/src/index.ts"],
       "@adapt-ux/neuro-react": ["libs/neuro-react/src/index.ts"],
+      "@adapt-ux/neuro-next": ["libs/neuro-next/src/index.ts"],
       "@adapt-ux/neuro-vue": ["libs/neuro-vue/src/index.ts"],
       "@adapt-ux/neuro-svelte": ["libs/neuro-svelte/src/index.ts"],
       "@adapt-ux/neuro-angular": ["libs/neuro-angular/src/index.ts"],

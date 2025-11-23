@@ -12,15 +12,16 @@ This project adheres to **[Semantic Versioning](https://semver.org/)** and the *
 * Initial repository structure using Nx monorepo.
 * Core packages:
 
-  * `@adapt-ux/core`
-  * `@adapt-ux/signals`
-  * `@adapt-ux/tokens`
-  * `@adapt-ux/assist`
-  * `@adapt-ux/react`
-  * `@adapt-ux/vue`
-  * `@adapt-ux/angular`
-  * `@adapt-ux/svelte`
-  * `@adapt-ux/js`
+  * `@adapt-ux/neuro-core`
+  * `@adapt-ux/neuro-signals`
+  * `@adapt-ux/neuro-tokens`
+  * `@adapt-ux/neuro-assist`
+  * `@adapt-ux/neuro-react`
+  * `@adapt-ux/neuro-vue`
+  * `@adapt-ux/neuro-angular`
+  * `@adapt-ux/neuro-svelte`
+  * `@adapt-ux/neuro-js`
+  * `@adapt-ux/neuro-next`
 * Initial documentation folder (`docs/`) with architecture outline.
 * GitHub Actions:
 

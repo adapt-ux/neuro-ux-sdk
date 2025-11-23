@@ -61,6 +61,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "next": "^13.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tslib": "^2.3.0"
