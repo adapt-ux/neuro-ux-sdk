@@ -1,1 +1,3 @@
-export * from './lib/neuro-js';
+import { createNeuroUX } from '@adapt-ux/neuro-core';
+
+export const neuroUX = createNeuroUX();
