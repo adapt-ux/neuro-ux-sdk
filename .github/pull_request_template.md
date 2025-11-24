@@ -39,7 +39,7 @@ Explain how reviewers can test this change locally.
 
 Provide steps such as:
 
-1. Run `pnpm install`
+1. Run `npm install`
 2. Run `nx serve demo`
 3. Use the component/system in scenario XYZ
 4. Observe behavior
