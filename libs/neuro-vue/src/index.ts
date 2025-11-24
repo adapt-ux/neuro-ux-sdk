@@ -1,1 +1,1 @@
-export * from './lib/neuro-vue';
+export * from './useNeuroUX';

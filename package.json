@@ -61,10 +61,13 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "@angular/core": "^18.0.0",
+    "@angular/common": "^18.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "svelte": "^5.0.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "vue": "^3.4.0"
   },
   "keywords": [
     "ux",
