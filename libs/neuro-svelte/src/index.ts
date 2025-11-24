@@ -1,1 +1,1 @@
-export * from './lib/neuro-svelte';
+export * from './useNeuroUX';
