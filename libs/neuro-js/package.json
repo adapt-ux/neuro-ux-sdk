@@ -32,10 +32,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "nx build js",
-    "test": "nx test js",
-    "lint": "nx lint js",
-    "prepare": "nx build js"
+    "build": "nx build neuro-js",
+    "test": "nx test neuro-js",
+    "lint": "nx lint neuro-js",
+    "prepare": "nx build neuro-js"
   },
   "publishConfig": {
     "access": "public"
@@ -43,7 +43,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/adapt-ux/neuro-ux-sdk",
-    "directory": "libs/js"
+    "directory": "libs/neuro-js"
   },
   "homepage": "https://github.com/adapt-ux/neuro-ux-sdk#readme",
   "bugs": {
