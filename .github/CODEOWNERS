@@ -31,6 +31,9 @@
 # Vanilla JS loader
 /libs/js/          @samuelfabel
 
+# Next wrapper
+/libs/neuro-next   @samuelfabel
+
 # Demo application
 /apps/demo/        @samuelfabel
 

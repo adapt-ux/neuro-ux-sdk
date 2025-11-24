@@ -15,7 +15,7 @@ Instead, please report it privately via email:
 
 ### **📧 [security@adaptux.org](mailto:security@adaptux.org)**
 
-*(Email fictício — posso ajustar para algo real quando quiser.)*
+> *(This is a fictional email that will be implemented in the future.)*
 
 Include the following (when possible):
 
@@ -88,7 +88,7 @@ This security policy covers:
 * `@adapt-ux/neuro-styles`
 * `@adapt-ux/neuro-signals`
 * `@adapt-ux/neuro-utils`
-* Framework wrappers (React, Vue, Angular, Svelte, JS)
+* Framework wrappers (React, Vue, Angular, Svelte, JS, Next)
 
 We **cannot** guarantee or patch security issues caused by:
 

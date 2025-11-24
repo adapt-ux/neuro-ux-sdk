@@ -99,6 +99,8 @@ Instead, report them privately:
 
 📧 **[security@adaptux.org](mailto:security@adaptux.org)**
 
+> *(This is a fictional email that will be implemented in the future.)*
+
 You can read more in our full **[Security Policy](./SECURITY.md)**.
 
 ---
@@ -117,7 +119,8 @@ If you or your organization need:
 Contact us at:
 
 📧 **[support@adaptux.org](mailto:support@adaptux.org)**
-*(email placeholder — posso ajudar a definir real quando você quiser)*
+
+> *(This is a fictional email that will be implemented in the future.)*
 
 ---
 

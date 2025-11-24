@@ -39,6 +39,7 @@ body:
         - neuro-angular
         - neuro-svelte
         - neuro-js
+        - neuro-next
     validations:
       required: false
 
