@@ -1,27 +1,44 @@
-import { EventBus } from './events';
-import { NeuroUXInstance, NeuroUXOptions } from './types';
+import { loadConfig, NeuroUXConfig } from './config';
+import { createStateContainer } from './state';
+import { createRuleProcessor } from './rule-processor';
+import { createEventBus } from './event-bus';
 
-export function createNeuroUX(options: NeuroUXOptions = {}): NeuroUXInstance {
-  const events = new EventBus();
-  const state: Record<string, any> = {
-    initialized: false,
-    profile: options.profile ?? 'default',
-  };
+export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
+  const config = loadConfig(userConfig);
+
+  const eventBus = createEventBus();
+  const state = createStateContainer({
+    profile: config.profile,
+    signals: {},
+    ui: {},
+  });
+
+  const processor = createRuleProcessor(config);
+
+  // Reavaliar regras quando o estado mudar
+  state.subscribe((current) => {
+    const uiOutput = processor.evaluate(current);
+
+    eventBus.emit('ui:update', uiOutput);
+  });
+
+  function destroy() {
+    eventBus.emit('destroy');
+  }
 
   return {
-    init() {
-      state['initialized'] = true;
-      events.emit('ready', state);
-    },
-    destroy() {
-      state['initialized'] = false;
-      events.emit('destroy');
-    },
-    getState() {
-      return state;
-    },
-    on(event, handler) {
-      events.on(event, handler);
-    },
+    config,
+
+    // state
+    getState: state.getState,
+    setState: state.setState,
+    subscribe: state.subscribe,
+
+    // events
+    on: eventBus.on,
+    off: eventBus.off,
+    emit: eventBus.emit,
+
+    destroy,
   };
 }
