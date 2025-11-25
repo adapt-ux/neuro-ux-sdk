@@ -27,7 +27,7 @@ jobs:
 
       # Instala dependências usando npm
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       # Cache do Nx
       - name: Restore Nx Cache

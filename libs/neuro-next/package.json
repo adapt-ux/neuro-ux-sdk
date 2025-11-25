@@ -50,17 +50,17 @@
     "node": ">=18"
   },
   "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18",
-    "next": ">=13.0.0"
+    "react": ">=19",
+    "react-dom": ">=19",
+    "next": ">=14"
   },
   "dependencies": {
-    "@adapt-ux/neuro-assist": "^0.0.1"
+    "@adapt-ux/core": "^0.0.1"
   },
   "devDependencies": {
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "next": "^13.0.0"
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "next": "^14.0.0"
   },
   "sideEffects": false
 }
