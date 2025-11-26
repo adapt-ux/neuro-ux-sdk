@@ -1,7 +1,7 @@
 import { loadConfig, NeuroUXConfig } from './config';
 import { createStateContainer } from './state';
-import { createRuleProcessor } from './rule-processor';
 import { createEventBus } from './event-bus';
+import { createSignalsRegistry } from './signals/signals-registry';
 
 export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
   const config = loadConfig(userConfig);
@@ -13,18 +13,32 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
     ui: {},
   });
 
-  const processor = createRuleProcessor(config);
+  const signals = createSignalsRegistry();
 
-  // Reavaliar regras quando o estado mudar
-  state.subscribe((current) => {
-    const uiOutput = processor.evaluate(current);
-
-    eventBus.emit('ui:update', uiOutput);
+  // Sync signal updates to state
+  signals.onUpdate((name, value) => {
+    state.setState({
+      signals: {
+        ...state.getState().signals,
+        [name]: value,
+      },
+    });
   });
 
-  function destroy() {
-    eventBus.emit('destroy');
-  }
+  // Propagate signal:update to main event bus
+  signals.onUpdate((name, value) => {
+    eventBus.emit('signal:update', { name, value });
+  });
+
+  // Propagate signal:register to main event bus
+  signals.onRegister((data) => {
+    eventBus.emit('signal:register', data);
+  });
+
+  // Propagate signal:error to main event bus
+  signals.onError((error) => {
+    eventBus.emit('signal:error', error);
+  });
 
   return {
     config,
@@ -39,6 +53,10 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
     off: eventBus.off,
     emit: eventBus.emit,
 
-    destroy,
+    signals,
+
+    destroy() {
+      eventBus.emit('destroy');
+    },
   };
 }

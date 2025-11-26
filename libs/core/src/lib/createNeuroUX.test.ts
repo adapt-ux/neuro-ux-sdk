@@ -15,6 +15,7 @@ describe('createNeuroUX', () => {
       expect(instance).toHaveProperty('on');
       expect(instance).toHaveProperty('off');
       expect(instance).toHaveProperty('emit');
+      expect(instance).toHaveProperty('signals');
       expect(instance).toHaveProperty('destroy');
     });
 
@@ -122,14 +123,39 @@ describe('createNeuroUX', () => {
       expect(handler).not.toHaveBeenCalled();
     });
 
-    it('should emit ui:update event when state changes', () => {
+    it('should emit signal:update event when signals are updated', () => {
       const instance = createNeuroUX();
       const handler = vi.fn();
 
-      instance.on('ui:update', handler);
-      instance.setState({ profile: 'new' });
+      instance.on('signal:update', handler);
+      instance.signals.register('test-signal', 0);
+      instance.signals.update('test-signal', 100);
 
-      expect(handler).toHaveBeenCalled();
+      expect(handler).toHaveBeenCalledWith({ name: 'test-signal', value: 100 });
+    });
+
+    it('should emit signal:register event when signals are registered', () => {
+      const instance = createNeuroUX();
+      const handler = vi.fn();
+
+      instance.on('signal:register', handler);
+      instance.signals.register('test-signal', 42);
+
+      expect(handler).toHaveBeenCalledWith({ name: 'test-signal', value: 42 });
+    });
+
+    it('should emit signal:error event when invalid operations occur', () => {
+      const instance = createNeuroUX();
+      const handler = vi.fn();
+
+      instance.on('signal:error', handler);
+      instance.signals.update('unknown-signal', 100); // Try to update non-existent signal
+
+      expect(handler).toHaveBeenCalledWith({
+        type: 'unknown',
+        name: 'unknown-signal',
+        attemptedValue: 100,
+      });
     });
 
     it('should allow multiple listeners for the same event', () => {
@@ -173,17 +199,48 @@ describe('createNeuroUX', () => {
     });
   });
 
-  describe('integration', () => {
-    it('should re-evaluate rules and emit ui:update when state changes', () => {
+  describe('signals integration', () => {
+    it('should update state when signals are updated', () => {
       const instance = createNeuroUX();
-      const uiUpdateHandler = vi.fn();
+      const subscriber = vi.fn();
 
-      instance.on('ui:update', uiUpdateHandler);
-      instance.setState({ profile: 'new-profile' });
+      instance.subscribe(subscriber);
 
-      expect(uiUpdateHandler).toHaveBeenCalled();
+      instance.signals.register('test-signal', 0);
+      instance.signals.update('test-signal', 100);
+
+      const state = instance.getState();
+      expect(state.signals).toHaveProperty('test-signal', 100);
+      expect(subscriber).toHaveBeenCalled();
     });
 
+    it('should emit signal:update event when signals are updated', () => {
+      const instance = createNeuroUX();
+      const handler = vi.fn();
+
+      instance.on('signal:update', handler);
+
+      instance.signals.register('test-signal', 0);
+      instance.signals.update('test-signal', 100);
+
+      expect(handler).toHaveBeenCalledWith({ name: 'test-signal', value: 100 });
+    });
+
+    it('should maintain signal state across multiple updates', () => {
+      const instance = createNeuroUX();
+
+      instance.signals.register('signal1', 0);
+      instance.signals.register('signal2', 'initial');
+
+      instance.signals.update('signal1', 100);
+      instance.signals.update('signal2', 'updated');
+
+      const state = instance.getState();
+      expect(state.signals).toEqual({ signal1: 100, signal2: 'updated' });
+    });
+  });
+
+  describe('integration', () => {
     it('should work correctly with multiple subscribers and events', () => {
       const instance = createNeuroUX();
       const stateSubscriber = vi.fn();
