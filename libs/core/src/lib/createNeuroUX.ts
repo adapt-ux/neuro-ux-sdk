@@ -2,6 +2,8 @@ import { loadConfig, NeuroUXConfig } from './config';
 import { createStateContainer } from './state';
 import { createEventBus } from './event-bus';
 import { createSignalsRegistry } from './signals/signals-registry';
+import { createUiChannel } from './ui-channel';
+import { createRuleProcessor } from './rule-processor';
 
 export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
   const config = loadConfig(userConfig);
@@ -14,6 +16,10 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
   });
 
   const signals = createSignalsRegistry();
+  const ui = createUiChannel((event, payload) => {
+    eventBus.emit(event, payload);
+  });
+  const ruleProcessor = createRuleProcessor(config);
 
   // Sync signal updates to state
   signals.onUpdate((name, value) => {
@@ -40,6 +46,36 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
     eventBus.emit('signal:error', error);
   });
 
+  // Sync UI channel updates to state
+  ui.onUpdate((updates) => {
+    const currentUi = state.getState().ui || {};
+    state.setState({
+      ui: {
+        ...currentUi,
+        ...updates,
+      },
+    });
+  });
+
+  // Evaluate rules and update UI channel when state changes
+  function evaluateRules() {
+    const currentState = state.getState();
+    const uiOutput = ruleProcessor.evaluate(currentState);
+    
+    // Write rule processor output to UI channel
+    Object.entries(uiOutput).forEach(([key, value]) => {
+      ui.set(key, value);
+    });
+  }
+
+  // Subscribe to state changes to re-evaluate rules
+  state.subscribe(() => {
+    evaluateRules();
+  });
+
+  // Initial rule evaluation
+  evaluateRules();
+
   return {
     config,
 
@@ -54,6 +90,7 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
     emit: eventBus.emit,
 
     signals,
+    ui,
 
     destroy() {
       eventBus.emit('destroy');

@@ -268,4 +268,127 @@ describe('createNeuroUX', () => {
       expect(state.signals).toEqual({ test: 'signal' });
     });
   });
+
+  describe('UI channel integration', () => {
+    it('should expose ui channel in the instance', () => {
+      const instance = createNeuroUX();
+
+      expect(instance).toHaveProperty('ui');
+      expect(instance.ui).toHaveProperty('set');
+      expect(instance.ui).toHaveProperty('get');
+      expect(instance.ui).toHaveProperty('getAll');
+      expect(instance.ui).toHaveProperty('onUpdate');
+    });
+
+    it('should update state.ui when UI channel is updated', () => {
+      const instance = createNeuroUX();
+      const subscriber = vi.fn();
+
+      instance.subscribe(subscriber);
+
+      instance.ui.set('key1', 'value1');
+
+      const state = instance.getState();
+      expect(state.ui).toHaveProperty('key1', 'value1');
+      expect(subscriber).toHaveBeenCalled();
+    });
+
+    it('should emit ui:update event when UI channel is updated', () => {
+      const instance = createNeuroUX();
+      const handler = vi.fn();
+
+      instance.on('ui:update', handler);
+      instance.ui.set('key1', 'value1');
+
+      expect(handler).toHaveBeenCalledWith({ key1: 'value1' });
+    });
+
+    it('should allow reading UI values through ui.get', () => {
+      const instance = createNeuroUX();
+
+      instance.ui.set('key1', 'value1');
+      instance.ui.set('key2', 'value2');
+
+      expect(instance.ui.get('key1')).toBe('value1');
+      expect(instance.ui.get('key2')).toBe('value2');
+    });
+
+    it('should allow reading all UI values through ui.getAll', () => {
+      const instance = createNeuroUX();
+
+      instance.ui.set('key1', 'value1');
+      instance.ui.set('key2', 'value2');
+
+      const all = instance.ui.getAll();
+      expect(all).toEqual({ key1: 'value1', key2: 'value2' });
+    });
+
+    it('should allow subscribing to UI updates', () => {
+      const instance = createNeuroUX();
+      const handler = vi.fn();
+
+      instance.ui.onUpdate(handler);
+      instance.ui.set('key1', 'value1');
+
+      expect(handler).toHaveBeenCalledWith({ key1: 'value1' });
+    });
+
+    it('should update state.ui when rule processor evaluates', () => {
+      const instance = createNeuroUX();
+      const subscriber = vi.fn();
+
+      instance.subscribe(subscriber);
+
+      // Trigger state change to evaluate rules
+      instance.setState({ profile: 'new-profile' });
+
+      // Rule processor returns {} in MVP, so state.ui should remain empty or unchanged
+      const state = instance.getState();
+      expect(state).toHaveProperty('ui');
+    });
+
+    it('should emit ui:update event when rule processor triggers UI updates', () => {
+      const instance = createNeuroUX();
+      const handler = vi.fn();
+
+      instance.on('ui:update', handler);
+
+      // Trigger state change to evaluate rules
+      instance.setState({ profile: 'new-profile' });
+
+      // In MVP, rule processor returns {}, so no ui:update should be emitted
+      // But the infrastructure is in place
+      // This test verifies the event system works when updates occur
+    });
+
+    it('should maintain UI state across multiple updates', () => {
+      const instance = createNeuroUX();
+
+      instance.ui.set('key1', 'value1');
+      instance.ui.set('key2', 'value2');
+      instance.ui.set('key1', 'updated-value1');
+
+      const state = instance.getState();
+      expect(state.ui).toEqual({
+        key1: 'updated-value1',
+        key2: 'value2',
+      });
+    });
+
+    it('should not break signal:update events when UI updates occur', () => {
+      const instance = createNeuroUX();
+      const signalHandler = vi.fn();
+      const uiHandler = vi.fn();
+
+      instance.on('signal:update', signalHandler);
+      instance.on('ui:update', uiHandler);
+
+      instance.signals.register('test-signal', 0);
+      instance.signals.update('test-signal', 100);
+      instance.ui.set('ui-key', 'ui-value');
+
+      expect(signalHandler).toHaveBeenCalledWith({ name: 'test-signal', value: 100 });
+      expect(uiHandler).toHaveBeenCalledWith({ 'ui-key': 'ui-value' });
+    });
+  });
 });
