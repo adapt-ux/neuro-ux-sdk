@@ -334,31 +334,47 @@ describe('createNeuroUX', () => {
     });
 
     it('should update state.ui when rule processor evaluates', () => {
-      const instance = createNeuroUX();
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { signal: 'focus', op: '<', value: 0.4 },
+            apply: { ui: { highlight: true } },
+          },
+        ],
+      });
       const subscriber = vi.fn();
 
       instance.subscribe(subscriber);
 
-      // Trigger state change to evaluate rules
-      instance.setState({ profile: 'new-profile' });
+      // Set signal value that matches the rule
+      instance.signals.register('focus', 0);
+      instance.signals.update('focus', 0.3);
 
-      // Rule processor returns {} in MVP, so state.ui should remain empty or unchanged
+      // Wait for rule evaluation
       const state = instance.getState();
-      expect(state).toHaveProperty('ui');
+      expect(state.ui).toHaveProperty('highlight', true);
+      expect(subscriber).toHaveBeenCalled();
     });
 
     it('should emit ui:update event when rule processor triggers UI updates', () => {
-      const instance = createNeuroUX();
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { signal: 'focus', op: '<', value: 0.4 },
+            apply: { ui: { highlight: true } },
+          },
+        ],
+      });
       const handler = vi.fn();
 
       instance.on('ui:update', handler);
 
-      // Trigger state change to evaluate rules
-      instance.setState({ profile: 'new-profile' });
+      // Set signal value that matches the rule
+      instance.signals.register('focus', 0);
+      instance.signals.update('focus', 0.3);
 
-      // In MVP, rule processor returns {}, so no ui:update should be emitted
-      // But the infrastructure is in place
-      // This test verifies the event system works when updates occur
+      // Rule processor should trigger ui:update event
+      expect(handler).toHaveBeenCalledWith({ highlight: true });
     });
 
     it('should maintain UI state across multiple updates', () => {
@@ -389,6 +405,229 @@ describe('createNeuroUX', () => {
 
       expect(signalHandler).toHaveBeenCalledWith({ name: 'test-signal', value: 100 });
       expect(uiHandler).toHaveBeenCalledWith({ 'ui-key': 'ui-value' });
+    });
+  });
+
+  describe('Rule processor integration', () => {
+    it('should evaluate rules when signals are updated', () => {
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { signal: 'focus', op: '<', value: 0.4 },
+            apply: { ui: { highlight: true } },
+          },
+        ],
+      });
+
+      instance.signals.register('focus', 0);
+      instance.signals.update('focus', 0.3);
+
+      const state = instance.getState();
+      expect(state.ui).toHaveProperty('highlight', true);
+    });
+
+    it('should evaluate rules when state is manually updated', () => {
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { signal: 'focus', op: '<', value: 0.4 },
+            apply: { ui: { highlight: true } },
+          },
+        ],
+      });
+
+      instance.setState({
+        signals: { focus: 0.3 },
+      });
+
+      const state = instance.getState();
+      expect(state.ui).toHaveProperty('highlight', true);
+    });
+
+    it('should update UI channel when rules match', () => {
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { signal: 'attention', op: '>', value: 0.6 },
+            apply: { ui: { emphasize: true } },
+          },
+        ],
+      });
+
+      instance.signals.register('attention', 0);
+      instance.signals.update('attention', 0.7);
+
+      expect(instance.ui.get('emphasize')).toBe(true);
+    });
+
+    it('should emit ui:update event when rules match', () => {
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { signal: 'focus', op: '<', value: 0.4 },
+            apply: { ui: { highlight: true } },
+          },
+        ],
+      });
+      const handler = vi.fn();
+
+      instance.on('ui:update', handler);
+
+      instance.signals.register('focus', 0);
+      instance.signals.update('focus', 0.3);
+
+      expect(handler).toHaveBeenCalledWith({ highlight: true });
+    });
+
+    it('should handle multiple rules and merge outputs', () => {
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { signal: 'focus', op: '<', value: 0.4 },
+            apply: { ui: { highlight: true } },
+          },
+          {
+            when: { signal: 'attention', op: '>', value: 0.6 },
+            apply: { ui: { emphasize: true } },
+          },
+        ],
+      });
+
+      instance.signals.register('focus', 0);
+      instance.signals.register('attention', 0);
+      instance.signals.update('focus', 0.3);
+      instance.signals.update('attention', 0.7);
+
+      const state = instance.getState();
+      expect(state.ui).toEqual({
+        highlight: true,
+        emphasize: true,
+      });
+    });
+
+    it('should handle AND rule groups', () => {
+      const instance = createNeuroUX({
+        rules: [
+          {
+            and: [
+              {
+                when: { signal: 'focus', op: '<', value: 0.4 },
+                apply: { ui: { highlight: true } },
+              },
+              {
+                when: { signal: 'attention', op: '>', value: 0.6 },
+                apply: { ui: { emphasize: true } },
+              },
+            ],
+          },
+        ],
+      });
+
+      instance.signals.register('focus', 0);
+      instance.signals.register('attention', 0);
+
+      // Only first condition matches - rule should not match
+      instance.signals.update('focus', 0.3);
+      instance.signals.update('attention', 0.5);
+      expect(instance.ui.get('highlight')).toBeUndefined();
+
+      // Both conditions match - rule should match
+      instance.signals.update('attention', 0.7);
+      const state = instance.getState();
+      expect(state.ui).toEqual({
+        highlight: true,
+        emphasize: true,
+      });
+    });
+
+    it('should handle OR rule groups', () => {
+      const instance = createNeuroUX({
+        rules: [
+          {
+            or: [
+              {
+                when: { signal: 'focus', op: '<', value: 0.4 },
+                apply: { ui: { highlight: true } },
+              },
+              {
+                when: { signal: 'attention', op: '>', value: 0.6 },
+                apply: { ui: { emphasize: true } },
+              },
+            ],
+          },
+        ],
+      });
+
+      instance.signals.register('focus', 0);
+      instance.signals.register('attention', 0);
+
+      // First condition matches
+      instance.signals.update('focus', 0.3);
+      expect(instance.ui.get('highlight')).toBe(true);
+
+      // Reset
+      instance.signals.update('focus', 0.5);
+      instance.setState({ signals: { focus: 0.5, attention: 0.5 } });
+
+      // Second condition matches
+      instance.signals.update('attention', 0.7);
+      expect(instance.ui.get('emphasize')).toBe(true);
+    });
+
+    it('should not update UI when rules do not match', () => {
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { signal: 'focus', op: '<', value: 0.4 },
+            apply: { ui: { highlight: true } },
+          },
+        ],
+      });
+
+      instance.signals.register('focus', 0);
+      instance.signals.update('focus', 0.5); // Does not match
+
+      expect(instance.ui.get('highlight')).toBeUndefined();
+    });
+
+    it('should handle unknown signal names gracefully', () => {
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { signal: 'unknownSignal', op: '<', value: 0.4 },
+            apply: { ui: { highlight: true } },
+          },
+        ],
+      });
+
+      instance.signals.register('focus', 0);
+      instance.signals.update('focus', 0.3);
+
+      // Rule should not match because signal is unknown
+      expect(instance.ui.get('highlight')).toBeUndefined();
+    });
+
+    it('should re-evaluate rules when state changes', () => {
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { signal: 'focus', op: '<', value: 0.4 },
+            apply: { ui: { highlight: true } },
+          },
+        ],
+      });
+
+      instance.signals.register('focus', 0);
+
+      // First update - matches
+      instance.signals.update('focus', 0.3);
+      expect(instance.ui.get('highlight')).toBe(true);
+
+      // Second update - does not match
+      instance.signals.update('focus', 0.5);
+      // Note: Rule processor doesn't clear previous outputs, it only adds/overwrites
+      // This is expected behavior - UI channel maintains state
+      expect(instance.ui.get('highlight')).toBe(true);
     });
   });
 });
