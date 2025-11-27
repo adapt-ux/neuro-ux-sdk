@@ -236,7 +236,9 @@ describe('createNeuroUX', () => {
       instance.signals.update('signal2', 'updated');
 
       const state = instance.getState();
-      expect(state.signals).toEqual({ signal1: 100, signal2: 'updated' });
+      // Heuristics engine may add derived signals, so we check for the expected signals
+      expect(state.signals).toHaveProperty('signal1', 100);
+      expect(state.signals).toHaveProperty('signal2', 'updated');
     });
   });
 
@@ -403,7 +405,10 @@ describe('createNeuroUX', () => {
       instance.signals.update('test-signal', 100);
       instance.ui.set('ui-key', 'ui-value');
 
-      expect(signalHandler).toHaveBeenCalledWith({ name: 'test-signal', value: 100 });
+      expect(signalHandler).toHaveBeenCalledWith({
+        name: 'test-signal',
+        value: 100,
+      });
       expect(uiHandler).toHaveBeenCalledWith({ 'ui-key': 'ui-value' });
     });
   });

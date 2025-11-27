@@ -4,6 +4,7 @@ import { createEventBus } from './event-bus';
 import { createSignalsRegistry } from './signals/signals-registry';
 import { createUiChannel } from './ui-channel';
 import { createRuleProcessor } from './rule-processor';
+import { createHeuristicsEngine } from './heuristics-engine';
 
 export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
   const config = loadConfig(userConfig);
@@ -20,14 +21,24 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
     eventBus.emit(event, payload);
   });
   const ruleProcessor = createRuleProcessor(config);
+  const heuristics = createHeuristicsEngine(signals, eventBus);
 
   // Sync signal updates to state
   signals.onUpdate((name, value) => {
+    const currentState = state.getState();
+    const updatedSignals = {
+      ...currentState.signals,
+      [name]: value,
+    };
+    
     state.setState({
-      signals: {
-        ...state.getState().signals,
-        [name]: value,
-      },
+      signals: updatedSignals,
+    });
+
+    // Evaluate heuristics when signals update
+    heuristics.evaluate({
+      signals: updatedSignals,
+      profile: currentState.profile,
     });
   });
 
@@ -93,6 +104,7 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
     ui,
 
     destroy() {
+      heuristics.destroy();
       eventBus.emit('destroy');
     },
   };
