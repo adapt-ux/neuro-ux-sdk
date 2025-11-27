@@ -7,3 +7,4 @@ export * from './lib/rule-processor';
 export * from './lib/event-bus';
 export * from './lib/signals';
 export * from './lib/ui-channel';
+export * from './lib/heuristics-engine';
