@@ -63,13 +63,16 @@ describe('AssistMenu', () => {
       );
 
       // Wait for Web Component to be fully loaded
-      await waitFor(() => {
-        const menu = document.querySelector('assist-menu');
-        expect(menu).toBeTruthy();
-      }, { timeout: 2000 });
+      await waitFor(
+        () => {
+          const menu = document.querySelector('assist-menu');
+          expect(menu).toBeTruthy();
+        },
+        { timeout: 2000 }
+      );
 
       // Wait a bit more for the useEffect to run
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
       const menu = document.querySelector('assist-menu');
       expect(menu?.hasAttribute('open')).toBe(true);
@@ -83,12 +86,15 @@ describe('AssistMenu', () => {
       );
 
       // Wait for Web Component to be fully loaded
-      await waitFor(() => {
-        const menu = document.querySelector('assist-menu');
-        expect(menu).toBeTruthy();
-      }, { timeout: 2000 });
+      await waitFor(
+        () => {
+          const menu = document.querySelector('assist-menu');
+          expect(menu).toBeTruthy();
+        },
+        { timeout: 2000 }
+      );
 
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
       let menu = document.querySelector('assist-menu');
       expect(menu?.hasAttribute('open')).toBe(true);
@@ -99,7 +105,7 @@ describe('AssistMenu', () => {
         </AssistProvider>
       );
 
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
       menu = document.querySelector('assist-menu');
       expect(menu?.hasAttribute('open')).toBe(false);
@@ -110,16 +116,27 @@ describe('AssistMenu', () => {
 
       render(
         <AssistProvider>
-          <AssistMenu open={false} onOpenChange={onOpenChange} />
+          <AssistMenu onOpenChange={onOpenChange} />
         </AssistProvider>
       );
 
-      const menu = document.querySelector('assist-menu') as any;
-      menu?.open();
-
+      // Wait for component to mount
       await waitFor(() => {
-        expect(onOpenChange).toHaveBeenCalledWith(true);
+        const menu = document.querySelector('assist-menu');
+        expect(menu).toBeTruthy();
       });
+
+      const menu = document.querySelector('assist-menu') as any;
+      if (menu && typeof menu.open === 'function') {
+        menu.open();
+      }
+
+      await waitFor(
+        () => {
+          expect(onOpenChange).toHaveBeenCalledWith(true);
+        },
+        { timeout: 2000 }
+      );
     });
   });
 

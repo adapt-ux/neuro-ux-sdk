@@ -113,6 +113,33 @@ export const AssistMenu = forwardRef<AssistMenuRef, AssistMenuProps>(
       },
     }));
 
+    // Listen to attribute changes from Web Component
+    useEffect(() => {
+      const menu = menuRef.current;
+      if (!menu) return;
+
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'open') {
+            const isNowOpen = menu.hasAttribute('open');
+            if (!isControlled && isNowOpen !== internalOpen) {
+              setInternalOpen(isNowOpen);
+              onOpenChange?.(isNowOpen);
+            }
+          }
+        });
+      });
+
+      observer.observe(menu, {
+        attributes: true,
+        attributeFilter: ['open'],
+      });
+
+      return () => {
+        observer.disconnect();
+      };
+    }, [isControlled, internalOpen, onOpenChange]);
+
     // Sync controlled open state
     useEffect(() => {
       if (menuRef.current && isControlled) {
