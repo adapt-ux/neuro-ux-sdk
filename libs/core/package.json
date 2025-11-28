@@ -45,6 +45,8 @@
   "engines": {
     "node": ">=18"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@adapt-ux/neuro-styles": "workspace:*"
+  },
   "devDependencies": {}
 }
