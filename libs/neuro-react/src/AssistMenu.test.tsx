@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, waitFor } from '@testing-library/react';
+import { render, waitFor, act } from '@testing-library/react';
 import { AssistMenu } from './AssistMenu';
 import { AssistProvider } from './AssistProvider';
 
@@ -261,13 +261,17 @@ describe('AssistMenu', () => {
       const menu = document.querySelector('assist-menu');
       expect(menu?.hasAttribute('open')).toBe(false);
 
-      ref.current.open();
+      act(() => {
+        ref.current.open();
+      });
 
       await waitFor(() => {
         expect(menu?.hasAttribute('open')).toBe(true);
       });
 
-      ref.current.close();
+      act(() => {
+        ref.current.close();
+      });
 
       await waitFor(() => {
         expect(menu?.hasAttribute('open')).toBe(false);
@@ -289,7 +293,9 @@ describe('AssistMenu', () => {
 
       expect(ref.current.getOptionChecked('calmMode')).toBe(false);
 
-      ref.current.setOptionChecked('calmMode', true);
+      act(() => {
+        ref.current.setOptionChecked('calmMode', true);
+      });
 
       await waitFor(() => {
         expect(ref.current.getOptionChecked('calmMode')).toBe(true);

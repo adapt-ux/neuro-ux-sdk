@@ -4,9 +4,28 @@ import { AssistProvider, NeuroContext } from './AssistProvider';
 import type { NeuroUXInstance } from './AssistProvider';
 import * as React from 'react';
 
+// Mock the createNeuroUX function
+const mockCreateNeuroUX = vi.fn();
+vi.mock('@adapt-ux/neuro-core', async () => {
+  const actual = await vi.importActual('@adapt-ux/neuro-core');
+  return {
+    ...actual,
+    createNeuroUX: mockCreateNeuroUX,
+  };
+});
+
 describe('AssistProvider', () => {
-  beforeEach(() => {
+  let actualCreateNeuroUX: any;
+
+  beforeEach(async () => {
     vi.clearAllMocks();
+    // Get actual implementation once
+    if (!actualCreateNeuroUX) {
+      const mod = await import('@adapt-ux/neuro-core');
+      actualCreateNeuroUX = mod.createNeuroUX;
+    }
+    // Reset mock to return actual implementation by default
+    mockCreateNeuroUX.mockImplementation(actualCreateNeuroUX);
   });
 
   describe('initialization', () => {
@@ -21,25 +40,16 @@ describe('AssistProvider', () => {
     });
 
     it('should create NeuroUX instance', () => {
-      const createSpy = vi.spyOn(
-        require('@adapt-ux/neuro-core'),
-        'createNeuroUX'
-      );
-
       render(
         <AssistProvider>
           <div>Test</div>
         </AssistProvider>
       );
 
-      expect(createSpy).toHaveBeenCalledTimes(1);
+      expect(mockCreateNeuroUX).toHaveBeenCalledTimes(1);
     });
 
     it('should create NeuroUX instance with config', () => {
-      const createSpy = vi.spyOn(
-        require('@adapt-ux/neuro-core'),
-        'createNeuroUX'
-      );
       const config = { profile: 'test-profile' };
 
       render(
@@ -48,7 +58,7 @@ describe('AssistProvider', () => {
         </AssistProvider>
       );
 
-      expect(createSpy).toHaveBeenCalledWith(config);
+      expect(mockCreateNeuroUX).toHaveBeenCalledWith(config);
     });
 
     it('should provide NeuroUX instance via context', () => {
@@ -75,12 +85,17 @@ describe('AssistProvider', () => {
   describe('cleanup', () => {
     it('should destroy NeuroUX instance on unmount', () => {
       const destroySpy = vi.fn();
-      vi.spyOn(
-        require('@adapt-ux/neuro-core'),
-        'createNeuroUX'
-      ).mockReturnValue({
-        ui: { getAll: () => ({}) },
-        styling: { apply: vi.fn() },
+      mockCreateNeuroUX.mockReturnValue({
+        config: { profile: 'default', signals: [], rules: [] },
+        getState: vi.fn(() => ({ profile: 'default', signals: {}, ui: {} })),
+        setState: vi.fn(),
+        subscribe: vi.fn(() => () => {}),
+        on: vi.fn(() => () => {}),
+        off: vi.fn(),
+        emit: vi.fn(),
+        signals: {} as any,
+        ui: { getAll: () => ({}) } as any,
+        styling: { apply: vi.fn() } as any,
         destroy: destroySpy,
       });
 
@@ -101,12 +116,17 @@ describe('AssistProvider', () => {
       const applySpy = vi.fn();
       const initialUi = { colorMode: 'calm' };
 
-      vi.spyOn(
-        require('@adapt-ux/neuro-core'),
-        'createNeuroUX'
-      ).mockReturnValue({
-        ui: { getAll: () => initialUi },
-        styling: { apply: applySpy },
+      mockCreateNeuroUX.mockReturnValue({
+        config: { profile: 'default', signals: [], rules: [] },
+        getState: vi.fn(() => ({ profile: 'default', signals: {}, ui: initialUi })),
+        setState: vi.fn(),
+        subscribe: vi.fn(() => () => {}),
+        on: vi.fn(() => () => {}),
+        off: vi.fn(),
+        emit: vi.fn(),
+        signals: {} as any,
+        ui: { getAll: () => initialUi } as any,
+        styling: { apply: applySpy } as any,
         destroy: vi.fn(),
       });
 
@@ -122,12 +142,17 @@ describe('AssistProvider', () => {
     it('should not apply styling if UI state is empty', () => {
       const applySpy = vi.fn();
 
-      vi.spyOn(
-        require('@adapt-ux/neuro-core'),
-        'createNeuroUX'
-      ).mockReturnValue({
-        ui: { getAll: () => ({}) },
-        styling: { apply: applySpy },
+      mockCreateNeuroUX.mockReturnValue({
+        config: { profile: 'default', signals: [], rules: [] },
+        getState: vi.fn(() => ({ profile: 'default', signals: {}, ui: {} })),
+        setState: vi.fn(),
+        subscribe: vi.fn(() => () => {}),
+        on: vi.fn(() => () => {}),
+        off: vi.fn(),
+        emit: vi.fn(),
+        signals: {} as any,
+        ui: { getAll: () => ({}) } as any,
+        styling: { apply: applySpy } as any,
         destroy: vi.fn(),
       });
 

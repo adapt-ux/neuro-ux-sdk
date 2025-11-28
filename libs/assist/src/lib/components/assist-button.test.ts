@@ -49,7 +49,7 @@ describe('AssistButton', () => {
       
       const shadowRoot = button.shadowRoot;
       const buttonElement = shadowRoot?.querySelector('button');
-      expect(buttonElement?.textContent).toBe('⚙️');
+      expect(buttonElement?.textContent?.trim()).toBe('⚙️');
     });
 
     it('should use custom label when specified', () => {
@@ -59,7 +59,7 @@ describe('AssistButton', () => {
       
       const shadowRoot = button.shadowRoot;
       const buttonElement = shadowRoot?.querySelector('button');
-      expect(buttonElement?.textContent).toBe('Settings');
+      expect(buttonElement?.textContent?.trim()).toBe('Settings');
     });
 
     it('should have appropriate ARIA attributes', () => {
@@ -161,12 +161,12 @@ describe('AssistButton', () => {
       
       let shadowRoot = button.shadowRoot;
       let buttonElement = shadowRoot?.querySelector('button');
-      expect(buttonElement?.textContent).toBe('⚙️');
+      expect(buttonElement?.textContent?.trim()).toBe('⚙️');
       
       button.setAttribute('label', 'New Label');
       shadowRoot = button.shadowRoot;
       buttonElement = shadowRoot?.querySelector('button');
-      expect(buttonElement?.textContent).toBe('New Label');
+      expect(buttonElement?.textContent?.trim()).toBe('New Label');
     });
 
     it('should update aria-label when attribute changes', () => {
