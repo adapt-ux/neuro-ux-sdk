@@ -18,12 +18,11 @@
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     }
   },
   "files": [
@@ -55,7 +54,8 @@
     "next": ">=14"
   },
   "dependencies": {
-    "@adapt-ux/core": "^0.0.1"
+    "@adapt-ux/neuro-core": "workspace:*",
+    "@adapt-ux/neuro-react": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",
