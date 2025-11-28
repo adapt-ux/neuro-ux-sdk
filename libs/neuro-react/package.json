@@ -53,7 +53,8 @@
     "react-dom": ">=18"
   },
   "dependencies": {
-    "@adapt-ux/neuro-assist": "^0.0.1"
+    "@adapt-ux/neuro-assist": "workspace:*",
+    "@adapt-ux/neuro-core": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
