@@ -4,26 +4,29 @@ import { AssistProvider, NeuroContext } from './AssistProvider';
 import type { NeuroUXInstance } from './AssistProvider';
 import * as React from 'react';
 
-// Mock the createNeuroUX function
-const mockCreateNeuroUX = vi.fn();
+// Mock the createNeuroUX function - define inside factory to avoid hoisting issues
 vi.mock('@adapt-ux/neuro-core', async () => {
   const actual = await vi.importActual('@adapt-ux/neuro-core');
+  const mockFn = vi.fn();
   return {
     ...actual,
-    createNeuroUX: mockCreateNeuroUX,
+    createNeuroUX: mockFn,
   };
 });
 
 describe('AssistProvider', () => {
   let actualCreateNeuroUX: any;
+  let mockCreateNeuroUX: any;
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    // Get actual implementation once
+    // Get actual implementation and mock function
     if (!actualCreateNeuroUX) {
-      const mod = await import('@adapt-ux/neuro-core');
-      actualCreateNeuroUX = mod.createNeuroUX;
+      const mod = await vi.importActual('@adapt-ux/neuro-core');
+      actualCreateNeuroUX = (mod as any).createNeuroUX;
     }
+    const mod = await import('@adapt-ux/neuro-core');
+    mockCreateNeuroUX = vi.mocked(mod.createNeuroUX);
     // Reset mock to return actual implementation by default
     mockCreateNeuroUX.mockImplementation(actualCreateNeuroUX);
   });

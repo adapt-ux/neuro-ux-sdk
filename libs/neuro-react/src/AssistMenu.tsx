@@ -47,7 +47,10 @@ export const AssistMenu = forwardRef<AssistMenuRef, AssistMenuProps>(
     useImperativeHandle(ref, () => ({
       open: () => {
         if (menuRef.current) {
-          menuRef.current.open();
+          const menu = menuRef.current as any;
+          if (typeof menu.open === 'function') {
+            menu.open();
+          }
         }
         if (!isControlled) {
           setInternalOpen(true);
@@ -56,7 +59,10 @@ export const AssistMenu = forwardRef<AssistMenuRef, AssistMenuProps>(
       },
       close: () => {
         if (menuRef.current) {
-          menuRef.current.close();
+          const menu = menuRef.current as any;
+          if (typeof menu.close === 'function') {
+            menu.close();
+          }
         }
         if (!isControlled) {
           setInternalOpen(false);
@@ -66,7 +72,10 @@ export const AssistMenu = forwardRef<AssistMenuRef, AssistMenuProps>(
       toggle: () => {
         if (isOpen) {
           if (menuRef.current) {
-            menuRef.current.close();
+            const menu = menuRef.current as any;
+            if (typeof menu.close === 'function') {
+              menu.close();
+            }
           }
           if (!isControlled) {
             setInternalOpen(false);
@@ -74,7 +83,10 @@ export const AssistMenu = forwardRef<AssistMenuRef, AssistMenuProps>(
           onOpenChange?.(false);
         } else {
           if (menuRef.current) {
-            menuRef.current.open();
+            const menu = menuRef.current as any;
+            if (typeof menu.open === 'function') {
+              menu.open();
+            }
           }
           if (!isControlled) {
             setInternalOpen(true);
@@ -84,21 +96,41 @@ export const AssistMenu = forwardRef<AssistMenuRef, AssistMenuProps>(
       },
       setOptionChecked: (optionId: string, checked: boolean) => {
         if (menuRef.current) {
-          menuRef.current.setOptionChecked(optionId, checked);
+          const menu = menuRef.current as any;
+          if (typeof menu.setOptionChecked === 'function') {
+            menu.setOptionChecked(optionId, checked);
+          }
         }
       },
       getOptionChecked: (optionId: string) => {
-        return menuRef.current?.getOptionChecked(optionId) || false;
+        if (menuRef.current) {
+          const menu = menuRef.current as any;
+          if (typeof menu.getOptionChecked === 'function') {
+            return menu.getOptionChecked(optionId);
+          }
+        }
+        return false;
       },
     }));
 
     // Sync controlled open state
     useEffect(() => {
       if (menuRef.current && isControlled) {
+        const menu = menuRef.current as any;
         if (controlledOpen) {
-          menuRef.current.open();
+          if (typeof menu.open === 'function') {
+            menu.open();
+          } else {
+            // Fallback: set attribute directly
+            menu.setAttribute('open', '');
+          }
         } else {
-          menuRef.current.close();
+          if (typeof menu.close === 'function') {
+            menu.close();
+          } else {
+            // Fallback: remove attribute directly
+            menu.removeAttribute('open');
+          }
         }
       }
     }, [controlledOpen, isControlled]);
@@ -140,21 +172,24 @@ export const AssistMenu = forwardRef<AssistMenuRef, AssistMenuProps>(
     useEffect(() => {
       if (!menuRef.current) return;
 
+      const menu = menuRef.current as any;
+      if (typeof menu.setOptionChecked !== 'function') return;
+
       const uiState = neuroUX.ui.getAll();
       
       // Set calm mode
       if (uiState.colorMode === 'calm') {
-        menuRef.current.setOptionChecked('calmMode', true);
+        menu.setOptionChecked('calmMode', true);
       }
       
       // Set contrast
       if (uiState.contrast === 'high') {
-        menuRef.current.setOptionChecked('contrast', true);
+        menu.setOptionChecked('contrast', true);
       }
       
       // Set focus mode
       if (uiState.highlight === true) {
-        menuRef.current.setOptionChecked('focusMode', true);
+        menu.setOptionChecked('focusMode', true);
       }
     }, [neuroUX]);
 
