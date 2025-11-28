@@ -5,6 +5,7 @@ import { createSignalsRegistry } from './signals/signals-registry';
 import { createUiChannel } from './ui-channel';
 import { createRuleProcessor } from './rule-processor';
 import { createHeuristicsEngine } from './heuristics-engine';
+import { createStylingEngine } from '@adapt-ux/neuro-styles';
 
 export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
   const config = loadConfig(userConfig);
@@ -22,6 +23,7 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
   });
   const ruleProcessor = createRuleProcessor(config);
   const heuristics = createHeuristicsEngine(signals, eventBus);
+  const styling = createStylingEngine(ui, { eventBus });
 
   // Sync signal updates to state
   signals.onUpdate((name, value) => {
@@ -102,8 +104,10 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
 
     signals,
     ui,
+    styling,
 
     destroy() {
+      styling.destroy();
       heuristics.destroy();
       eventBus.emit('destroy');
     },
