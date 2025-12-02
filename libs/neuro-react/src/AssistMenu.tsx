@@ -154,8 +154,11 @@ export const AssistMenu = forwardRef<AssistMenuRef, AssistMenuProps>(
       };
     }, [isOpen, handleClose]);
 
-    // Sync initial state from Core Engine
+    // Sync initial state from Core Engine (only on mount)
+    const hasInitialized = useRef(false);
     useEffect(() => {
+      if (!neuroUX || hasInitialized.current) return;
+
       const uiState = neuroUX.ui.getAll();
 
       const initialChecked: Record<string, boolean> = {};
@@ -175,7 +178,15 @@ export const AssistMenu = forwardRef<AssistMenuRef, AssistMenuProps>(
         initialChecked['focusMode'] = true;
       }
 
-      setCheckedOptions(initialChecked);
+      // Only update if there are actual changes to avoid infinite loops
+      setCheckedOptions((prev) => {
+        const hasChanges = Object.keys(initialChecked).some(
+          (key) => prev[key] !== initialChecked[key]
+        );
+        return hasChanges ? initialChecked : prev;
+      });
+
+      hasInitialized.current = true;
     }, [neuroUX]);
 
     const positionClass = `assist-menu--${position}`;
