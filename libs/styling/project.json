@@ -1,0 +1,20 @@
+{
+  "name": "styling",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/styling/src",
+  "projectType": "library",
+  "importPath": "@adapt-ux/neuro-styling",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project styling --web",
+  "targets": {
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "{workspaceRoot}/coverage/{projectRoot}",
+        "config": "{projectRoot}/vitest.config.ts"
+      }
+    }
+  }
+}
