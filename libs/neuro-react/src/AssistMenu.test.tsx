@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, waitFor, act } from '@testing-library/react';
+import { render, waitFor, screen, act } from '@testing-library/react';
 import { AssistMenu } from './AssistMenu';
 import { AssistProvider } from './AssistProvider';
 
@@ -9,48 +9,57 @@ describe('AssistMenu', () => {
   });
 
   describe('rendering', () => {
-    it('should render assist-menu element', () => {
+    it('should render assist-menu element', async () => {
       render(
         <AssistProvider>
           <AssistMenu />
         </AssistProvider>
       );
 
-      const menu = document.querySelector('assist-menu');
-      expect(menu).toBeTruthy();
+      await waitFor(() => {
+        const menu = screen.getByRole('menu', { hidden: true });
+        expect(menu).toBeTruthy();
+      });
     });
 
-    it('should render with default position', () => {
+    it('should render with default position', async () => {
       render(
         <AssistProvider>
           <AssistMenu />
         </AssistProvider>
       );
 
-      const menu = document.querySelector('assist-menu');
-      expect(menu?.getAttribute('position')).toBe('bottom-right');
+      await waitFor(() => {
+        const menu = screen.getByRole('menu', { hidden: true });
+        expect(menu.className).toContain('assist-menu--bottom-right');
+      });
     });
 
-    it('should render with custom position', () => {
+    it('should render with custom position', async () => {
       render(
         <AssistProvider>
-          <AssistMenu {...({ position: 'top-left' } as any)} />
+          <AssistMenu position="top-left" />
         </AssistProvider>
       );
 
-      const menu = document.querySelector('assist-menu');
-      expect(menu?.getAttribute('position')).toBe('top-left');
+      await waitFor(() => {
+        const menu = screen.getByRole('menu', { hidden: true });
+        expect(menu.className).toContain('assist-menu--top-left');
+      });
     });
 
-    it('should be closed by default', () => {
+    it('should be closed by default', async () => {
       render(
         <AssistProvider>
           <AssistMenu />
         </AssistProvider>
       );
 
-      const menu = document.querySelector('assist-menu');
-      expect(menu?.hasAttribute('open')).toBe(false);
+      await waitFor(() => {
+        const menu = screen.getByRole('menu', { hidden: true });
+        expect(menu.getAttribute('aria-hidden')).toBe('true');
+        expect(menu.className).toContain('assist-menu--closed');
+      });
     });
   });
 
@@ -62,20 +71,11 @@ describe('AssistMenu', () => {
         </AssistProvider>
       );
 
-      // Wait for Web Component to be fully loaded
-      await waitFor(
-        () => {
-          const menu = document.querySelector('assist-menu');
-          expect(menu).toBeTruthy();
-        },
-        { timeout: 2000 }
-      );
-
-      // Wait a bit more for the useEffect to run
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-      const menu = document.querySelector('assist-menu');
-      expect(menu?.hasAttribute('open')).toBe(true);
+      await waitFor(() => {
+        const menu = screen.getByRole('menu');
+        expect(menu.getAttribute('aria-hidden')).toBe('false');
+        expect(menu.className).toContain('assist-menu--open');
+      });
     });
 
     it('should close when open prop is false', async () => {
@@ -85,19 +85,10 @@ describe('AssistMenu', () => {
         </AssistProvider>
       );
 
-      // Wait for Web Component to be fully loaded
-      await waitFor(
-        () => {
-          const menu = document.querySelector('assist-menu');
-          expect(menu).toBeTruthy();
-        },
-        { timeout: 2000 }
-      );
-
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-      let menu = document.querySelector('assist-menu');
-      expect(menu?.hasAttribute('open')).toBe(true);
+      await waitFor(() => {
+        const menu = screen.getByRole('menu', { hidden: true });
+        expect(menu.getAttribute('aria-hidden')).toBe('false');
+      });
 
       rerender(
         <AssistProvider>
@@ -105,38 +96,34 @@ describe('AssistMenu', () => {
         </AssistProvider>
       );
 
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-      menu = document.querySelector('assist-menu');
-      expect(menu?.hasAttribute('open')).toBe(false);
+      await waitFor(() => {
+        const menu = screen.getByRole('menu', { hidden: true });
+        expect(menu.getAttribute('aria-hidden')).toBe('true');
+        expect(menu.className).toContain('assist-menu--closed');
+      });
     });
 
     it('should call onOpenChange when state changes', async () => {
       const onOpenChange = vi.fn();
+      const ref = { current: null } as any;
 
       render(
         <AssistProvider>
-          <AssistMenu onOpenChange={onOpenChange} />
+          <AssistMenu ref={ref} onOpenChange={onOpenChange} />
         </AssistProvider>
       );
 
-      // Wait for component to mount
       await waitFor(() => {
-        const menu = document.querySelector('assist-menu');
-        expect(menu).toBeTruthy();
+        expect(ref.current).toBeTruthy();
       });
 
-      const menu = document.querySelector('assist-menu') as any;
-      if (menu && typeof menu.open === 'function') {
-        menu.open();
-      }
+      act(() => {
+        ref.current.open();
+      });
 
-      await waitFor(
-        () => {
-          expect(onOpenChange).toHaveBeenCalledWith(true);
-        },
-        { timeout: 2000 }
-      );
+      await waitFor(() => {
+        expect(onOpenChange).toHaveBeenCalledWith(true);
+      });
     });
   });
 
@@ -150,14 +137,15 @@ describe('AssistMenu', () => {
         </AssistProvider>
       );
 
-      const menu = document.querySelector('assist-menu');
-      const shadowRoot = menu?.shadowRoot;
-      const calmMode = shadowRoot?.querySelector(
-        '#assist-calmMode'
-      ) as HTMLInputElement;
+      await waitFor(() => {
+        const calmModeCheckbox = screen.getByLabelText('Calm Mode');
+        expect(calmModeCheckbox).toBeTruthy();
+      });
 
-      calmMode.checked = true;
-      calmMode.dispatchEvent(new Event('change', { bubbles: true }));
+      const calmModeCheckbox = screen.getByLabelText('Calm Mode') as HTMLInputElement;
+      act(() => {
+        calmModeCheckbox.click();
+      });
 
       await waitFor(() => {
         expect(onOptionChange).toHaveBeenCalledWith('calmMode', true);
@@ -171,21 +159,19 @@ describe('AssistMenu', () => {
         </AssistProvider>
       );
 
-      const menu = document.querySelector('assist-menu');
-      const shadowRoot = menu?.shadowRoot;
-      const calmMode = shadowRoot?.querySelector(
-        '#assist-calmMode'
-      ) as HTMLInputElement;
+      await waitFor(() => {
+        const calmModeCheckbox = screen.getByLabelText('Calm Mode');
+        expect(calmModeCheckbox).toBeTruthy();
+      });
 
-      if (calmMode) {
-        calmMode.checked = true;
-        calmMode.dispatchEvent(new Event('change', { bubbles: true }));
+      const calmModeCheckbox = screen.getByLabelText('Calm Mode') as HTMLInputElement;
+      act(() => {
+        calmModeCheckbox.click();
+      });
 
-        // Verify the checkbox was toggled
-        await waitFor(() => {
-          expect(calmMode.checked).toBe(true);
-        });
-      }
+      await waitFor(() => {
+        expect(calmModeCheckbox.checked).toBe(true);
+      });
     });
 
     it('should apply contrast to Core Engine when toggled', async () => {
@@ -195,21 +181,19 @@ describe('AssistMenu', () => {
         </AssistProvider>
       );
 
-      const menu = document.querySelector('assist-menu');
-      const shadowRoot = menu?.shadowRoot;
-      const contrast = shadowRoot?.querySelector(
-        '#assist-contrast'
-      ) as HTMLInputElement;
+      await waitFor(() => {
+        const contrastCheckbox = screen.getByLabelText('Increase Contrast');
+        expect(contrastCheckbox).toBeTruthy();
+      });
 
-      if (contrast) {
-        contrast.checked = true;
-        contrast.dispatchEvent(new Event('change', { bubbles: true }));
+      const contrastCheckbox = screen.getByLabelText('Increase Contrast') as HTMLInputElement;
+      act(() => {
+        contrastCheckbox.click();
+      });
 
-        // Verify the checkbox was toggled
-        await waitFor(() => {
-          expect(contrast.checked).toBe(true);
-        });
-      }
+      await waitFor(() => {
+        expect(contrastCheckbox.checked).toBe(true);
+      });
     });
 
     it('should apply focusMode to Core Engine when toggled', async () => {
@@ -219,21 +203,19 @@ describe('AssistMenu', () => {
         </AssistProvider>
       );
 
-      const menu = document.querySelector('assist-menu');
-      const shadowRoot = menu?.shadowRoot;
-      const focusMode = shadowRoot?.querySelector(
-        '#assist-focusMode'
-      ) as HTMLInputElement;
+      await waitFor(() => {
+        const focusModeCheckbox = screen.getByLabelText('Focus Mode');
+        expect(focusModeCheckbox).toBeTruthy();
+      });
 
-      if (focusMode) {
-        focusMode.checked = true;
-        focusMode.dispatchEvent(new Event('change', { bubbles: true }));
+      const focusModeCheckbox = screen.getByLabelText('Focus Mode') as HTMLInputElement;
+      act(() => {
+        focusModeCheckbox.click();
+      });
 
-        // Verify the checkbox was toggled
-        await waitFor(() => {
-          expect(focusMode.checked).toBe(true);
-        });
-      }
+      await waitFor(() => {
+        expect(focusModeCheckbox.checked).toBe(true);
+      });
     });
   });
 
@@ -270,15 +252,15 @@ describe('AssistMenu', () => {
         expect(ref.current).toBeTruthy();
       });
 
-      const menu = document.querySelector('assist-menu');
-      expect(menu?.hasAttribute('open')).toBe(false);
+      const menu = screen.getByRole('menu', { hidden: true });
+      expect(menu.getAttribute('aria-hidden')).toBe('true');
 
       act(() => {
         ref.current.open();
       });
 
       await waitFor(() => {
-        expect(menu?.hasAttribute('open')).toBe(true);
+        expect(menu.getAttribute('aria-hidden')).toBe('false');
       });
 
       act(() => {
@@ -286,7 +268,7 @@ describe('AssistMenu', () => {
       });
 
       await waitFor(() => {
-        expect(menu?.hasAttribute('open')).toBe(false);
+        expect(menu.getAttribute('aria-hidden')).toBe('true');
       });
     });
 
@@ -325,13 +307,13 @@ describe('AssistMenu', () => {
 
       // Wait for component to mount and sync state
       await waitFor(() => {
-        const menu = document.querySelector('assist-menu');
+        const menu = screen.getByRole('menu', { hidden: true });
         expect(menu).toBeTruthy();
       });
 
       // The component should render successfully
       // State synchronization is tested through integration tests
-      const menu = document.querySelector('assist-menu') as any;
+      const menu = screen.getByRole('menu', { hidden: true });
       expect(menu).toBeTruthy();
     });
   });
