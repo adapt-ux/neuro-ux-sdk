@@ -37,7 +37,7 @@ export interface Preset {
 export type Scope = ':root' | `[data-neuroux-scope="${string}"]`;
 
 /**
- * Styling engine options
+ * Styling engine options for Core State subscription
  */
 export interface StylingEngineOptions {
   /**

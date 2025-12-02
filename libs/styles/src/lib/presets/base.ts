@@ -1,4 +1,4 @@
-import type { Preset, StyleMapping } from '../types';
+import type { Preset, StyleMapping } from '../styling-types';
 
 /**
  * Base preset definitions

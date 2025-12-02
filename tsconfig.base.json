@@ -9,7 +9,6 @@
       "@adapt-ux/neuro-core": ["libs/core/src/index.ts"],
       "@adapt-ux/neuro-assist": ["libs/assist/src/index.ts"],
       "@adapt-ux/neuro-styles": ["libs/styles/src/index.ts"],
-      "@adapt-ux/neuro-styling": ["libs/styling/src/index.ts"],
       "@adapt-ux/neuro-signals": ["libs/signals/src/index.ts"],
       "@adapt-ux/neuro-utils": ["libs/utils/src/index.ts"],
       "@adapt-ux/neuro-react": ["libs/neuro-react/src/index.ts"],

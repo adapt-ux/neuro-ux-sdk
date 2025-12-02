@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { createStylingEngine } from './styling-engine';
-import type { CoreStateSubscriber } from './types';
+import { createCoreStylingEngine } from './core-styling-engine';
+import type { CoreStateSubscriber } from './styling-types';
 
 // Mock document for browser environment
 const mockDocument = {
@@ -43,7 +43,7 @@ function createMockCoreState(): CoreStateSubscriber & {
   };
 }
 
-describe('StylingEngine', () => {
+describe('CoreStylingEngine', () => {
   beforeEach(() => {
     // Setup browser environment
     global.document = mockDocument as any;
@@ -61,9 +61,9 @@ describe('StylingEngine', () => {
     global.window = originalWindow;
   });
 
-  describe('createStylingEngine', () => {
+  describe('createCoreStylingEngine', () => {
     it('should create a styling engine instance', () => {
-      const engine = createStylingEngine();
+      const engine = createCoreStylingEngine();
       expect(engine).toBeDefined();
       expect(engine.apply).toBeDefined();
       expect(engine.reset).toBeDefined();
@@ -72,7 +72,7 @@ describe('StylingEngine', () => {
     });
 
     it('should create engine with custom options', () => {
-      const engine = createStylingEngine({
+      const engine = createCoreStylingEngine({
         namespace: 'custom',
         scope: ':root',
       });
@@ -83,7 +83,7 @@ describe('StylingEngine', () => {
 
   describe('apply', () => {
     it('should apply style state to CSS variables', () => {
-      const engine = createStylingEngine();
+      const engine = createCoreStylingEngine();
       engine.apply({
         calmMode: true,
         contrast: 'high',
@@ -93,7 +93,7 @@ describe('StylingEngine', () => {
     });
 
     it('should map calmMode to CSS variables', () => {
-      const engine = createStylingEngine();
+      const engine = createCoreStylingEngine();
       engine.apply({ calmMode: true });
 
       const calls = mockDocument.documentElement.style.setProperty.mock.calls;
@@ -102,7 +102,7 @@ describe('StylingEngine', () => {
     });
 
     it('should map contrast to CSS variables', () => {
-      const engine = createStylingEngine();
+      const engine = createCoreStylingEngine();
       engine.apply({ contrast: 'high' });
 
       const calls = mockDocument.documentElement.style.setProperty.mock.calls;
@@ -113,7 +113,7 @@ describe('StylingEngine', () => {
     });
 
     it('should map focusMode to CSS variables', () => {
-      const engine = createStylingEngine();
+      const engine = createCoreStylingEngine();
       engine.apply({ focusMode: true });
 
       const calls = mockDocument.documentElement.style.setProperty.mock.calls;
@@ -124,7 +124,7 @@ describe('StylingEngine', () => {
     });
 
     it('should not apply styles when destroyed', () => {
-      const engine = createStylingEngine();
+      const engine = createCoreStylingEngine();
       engine.destroy();
       engine.apply({ calmMode: true });
 
@@ -136,7 +136,7 @@ describe('StylingEngine', () => {
 
   describe('reset', () => {
     it('should clear all CSS variables', () => {
-      const engine = createStylingEngine();
+      const engine = createCoreStylingEngine();
       engine.apply({ calmMode: true });
       engine.reset();
 
@@ -146,7 +146,7 @@ describe('StylingEngine', () => {
     });
 
     it('should not reset when destroyed', () => {
-      const engine = createStylingEngine();
+      const engine = createCoreStylingEngine();
       engine.destroy();
       engine.reset();
 
@@ -158,7 +158,7 @@ describe('StylingEngine', () => {
 
   describe('subscribeToCore', () => {
     it('should subscribe to Core state changes', () => {
-      const engine = createStylingEngine();
+      const engine = createCoreStylingEngine();
       const core = createMockCoreState();
 
       const unsubscribe = engine.subscribeToCore(core);
@@ -169,7 +169,7 @@ describe('StylingEngine', () => {
     });
 
     it('should apply styles when Core state changes', () => {
-      const engine = createStylingEngine();
+      const engine = createCoreStylingEngine();
       const core = createMockCoreState();
 
       engine.subscribeToCore(core);
@@ -190,20 +190,20 @@ describe('StylingEngine', () => {
 
   describe('scope management', () => {
     it('should set and get scope', () => {
-      const engine = createStylingEngine();
+      const engine = createCoreStylingEngine();
       engine.setScope('[data-neuroux-scope="test"]');
       expect(engine.getScope()).toBe('[data-neuroux-scope="test"]');
     });
 
     it('should default to :root scope', () => {
-      const engine = createStylingEngine();
+      const engine = createCoreStylingEngine();
       expect(engine.getScope()).toBe(':root');
     });
   });
 
   describe('getCurrentStyleState', () => {
     it('should return current style state', () => {
-      const engine = createStylingEngine();
+      const engine = createCoreStylingEngine();
       engine.apply({ calmMode: true, contrast: 'high' });
 
       const state = engine.getCurrentStyleState();
@@ -214,7 +214,7 @@ describe('StylingEngine', () => {
 
   describe('destroy', () => {
     it('should clean up resources', () => {
-      const engine = createStylingEngine();
+      const engine = createCoreStylingEngine();
       const core = createMockCoreState();
 
       engine.subscribeToCore(core);

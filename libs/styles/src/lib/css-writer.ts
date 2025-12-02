@@ -1,4 +1,4 @@
-import type { Scope, CSSVariables } from './types';
+import type { Scope, CSSVariables } from './styling-types';
 
 /**
  * Check if we're in a browser environment

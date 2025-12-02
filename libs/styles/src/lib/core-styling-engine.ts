@@ -7,13 +7,14 @@ import type {
   StylingEngineOptions,
   CoreStateSubscriber,
   Scope,
-} from './types';
+} from './styling-types';
 
 /**
- * Styling Engine
+ * Core Styling Engine
  * Transforms logical style states into CSS variables and applies them to the DOM
+ * This version subscribes directly to Core state changes
  */
-export class StylingEngine {
+export class CoreStylingEngine {
   private cssWriter: CSSWriter;
   private mappings: StyleMapping;
   private unsubscribeCore: (() => void) | null = null;
@@ -119,7 +120,6 @@ export class StylingEngine {
       }
 
       // Extract style state from Core state
-      // Assuming Core state has a structure that includes style information
       const styleState = this.extractStyleStateFromCore(state);
       if (styleState) {
         this.apply(styleState);
@@ -242,10 +242,11 @@ export class StylingEngine {
 }
 
 /**
- * Create a styling engine instance
+ * Create a Core styling engine instance
+ * This version subscribes directly to Core state changes
  */
-export function createStylingEngine(
+export function createCoreStylingEngine(
   options: StylingEngineOptions = {}
-): StylingEngine {
-  return new StylingEngine(options);
+): CoreStylingEngine {
+  return new CoreStylingEngine(options);
 }
