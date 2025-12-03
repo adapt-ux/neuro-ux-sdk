@@ -26,6 +26,8 @@ describe('createNeuroUX', () => {
         profile: 'default',
         signals: [],
         rules: [],
+        styling: {},
+        features: {},
       });
     });
 
@@ -38,7 +40,9 @@ describe('createNeuroUX', () => {
 
       const instance = createNeuroUX(userConfig);
 
-      expect(instance.config).toEqual(userConfig);
+      expect(instance.config.profile).toBe(userConfig.profile);
+      expect(instance.config.signals).toEqual(userConfig.signals);
+      expect(instance.config.rules).toEqual(userConfig.rules);
     });
 
     it('should initialize state with the provided configuration', () => {
@@ -769,6 +773,84 @@ describe('createNeuroUX', () => {
       instance.signals.update('focus', 0.3);
 
       expect(handler).toHaveBeenCalledWith({ highlight: true });
+    });
+  });
+
+  describe('Configuration Loader integration', () => {
+    it('should provide getConfig() method', () => {
+      const instance = createNeuroUX();
+      expect(instance.getConfig).toBeDefined();
+      expect(typeof instance.getConfig).toBe('function');
+    });
+
+    it('should return normalized config via getConfig()', () => {
+      const userConfig: NeuroUXConfig = {
+        profile: 'test-profile',
+        rules: [
+          {
+            when: { idle: true },
+            apply: { calmMode: true },
+          },
+        ],
+        signals: ['idle', 'scroll'],
+        styling: { theme: 'dark' },
+        features: { animations: true },
+      };
+
+      const instance = createNeuroUX(userConfig);
+      const config = instance.getConfig();
+
+      expect(config.profile).toBe('test-profile');
+      expect(config.rules).toHaveLength(1);
+      expect(config.signals).toEqual(['idle', 'scroll']);
+      expect(config.styling).toEqual({ theme: 'dark' });
+      expect(config.features).toEqual({ animations: true });
+    });
+
+    it('should return a copy of config (immutable)', () => {
+      const instance = createNeuroUX();
+      const config1 = instance.getConfig();
+      const config2 = instance.getConfig();
+
+      expect(config1).toEqual(config2);
+      expect(config1).not.toBe(config2); // Different objects
+    });
+
+    it('should return default config when no config provided', () => {
+      const instance = createNeuroUX();
+      const config = instance.getConfig();
+
+      expect(config).toEqual({
+        profile: 'default',
+        rules: [],
+        signals: [],
+        styling: {},
+        features: {},
+      });
+    });
+
+    it('should handle invalid config gracefully', () => {
+      const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+      const instance = createNeuroUX({
+        rules: 'invalid' as any,
+        signals: 'invalid' as any,
+        styling: 'invalid' as any,
+        features: 'invalid' as any,
+      });
+
+      const config = instance.getConfig();
+
+      // Should use defaults for invalid values
+      expect(config.rules).toEqual([]);
+      expect(config.signals).toEqual([]);
+      expect(config.styling).toEqual({});
+      expect(config.features).toEqual({});
+
+      // Should have warned
+      expect(consoleWarnSpy).toHaveBeenCalled();
+
+      consoleWarnSpy.mockRestore();
     });
   });
 });

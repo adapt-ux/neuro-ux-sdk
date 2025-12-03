@@ -1,4 +1,4 @@
-import { loadConfig, NeuroUXConfig } from './config';
+import { normalizeConfig, NeuroUXConfig, NormalizedConfig } from './config';
 import { createStateContainer } from './state';
 import { createEventBus } from './event-bus';
 import { createSignalsRegistry } from './signals/signals-registry';
@@ -9,7 +9,7 @@ import { createHeuristicsEngine } from './heuristics-engine';
 import { createStylingEngine } from '@adapt-ux/neuro-styles';
 
 export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
-  const config = loadConfig(userConfig);
+  const config = normalizeConfig(userConfig);
 
   const eventBus = createEventBus();
   const state = createStateContainer({
@@ -115,6 +115,13 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
 
   return {
     config,
+
+    /**
+     * Get the normalized configuration
+     */
+    getConfig(): NormalizedConfig {
+      return { ...config };
+    },
 
     // state
     getState: state.getState,
