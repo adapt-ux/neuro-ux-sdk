@@ -5,7 +5,6 @@
   "projectType": "library",
   "importPath": "@adapt-ux/neuro-styles",
   "tags": [],
-  "// targets": "to see all targets run: nx show project styles --web",
   "targets": {
     "test": {
       "executor": "@nx/vitest:test",

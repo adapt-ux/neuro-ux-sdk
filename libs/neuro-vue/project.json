@@ -5,7 +5,6 @@
   "projectType": "library",
   "importPath": "@adapt-ux/neuro-vue",
   "tags": [],
-  "// targets": "to see all targets run: nx show project neuro-vue --web",
   "targets": {
     "test": {
       "executor": "@nx/vite:test",
