@@ -1,32 +1,5 @@
-export interface NeuroUXConfig {
-  profile?: string;
-  signals?: string[];
-  rules?: any[];
-}
-
-export interface NormalizedConfig {
-  profile: string;
-  signals: string[];
-  rules: any[];
-}
-
 /**
- * Default config
+ * @deprecated Use './config' instead. This file is kept for backward compatibility.
+ * Re-exports from the new config module structure.
  */
-const defaultConfig: NormalizedConfig = {
-  profile: 'default',
-  signals: [],
-  rules: [],
-};
-
-/**
- * Loads + normalizes user config
- */
-export function loadConfig(user: NeuroUXConfig = {}): NormalizedConfig {
-  return {
-    ...defaultConfig,
-    ...user,
-    signals: user.signals ?? defaultConfig.signals,
-    rules: user.rules ?? defaultConfig.rules,
-  };
-}
+export * from './config/index';

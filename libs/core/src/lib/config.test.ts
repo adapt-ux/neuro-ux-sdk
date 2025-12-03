@@ -9,6 +9,8 @@ describe('loadConfig', () => {
       profile: 'default',
       signals: [],
       rules: [],
+      styling: {},
+      features: {},
     });
   });
 
@@ -19,6 +21,8 @@ describe('loadConfig', () => {
       profile: 'default',
       signals: [],
       rules: [],
+      styling: {},
+      features: {},
     });
   });
 
@@ -31,11 +35,11 @@ describe('loadConfig', () => {
 
     const config = loadConfig(userConfig);
 
-    expect(config).toEqual({
-      profile: 'custom-profile',
-      signals: ['signal1', 'signal2'],
-      rules: [{ id: 'rule1' }],
-    });
+    expect(config.profile).toBe('custom-profile');
+    expect(config.signals).toEqual(['signal1', 'signal2']);
+    expect(config.rules).toEqual([{ id: 'rule1' }]);
+    expect(config.styling).toEqual({});
+    expect(config.features).toEqual({});
   });
 
   it('should use default values for signals when not provided', () => {
@@ -81,8 +85,12 @@ describe('loadConfig', () => {
     expect(config).toHaveProperty('profile');
     expect(config).toHaveProperty('signals');
     expect(config).toHaveProperty('rules');
+    expect(config).toHaveProperty('styling');
+    expect(config).toHaveProperty('features');
     expect(typeof config.profile).toBe('string');
     expect(Array.isArray(config.signals)).toBe(true);
     expect(Array.isArray(config.rules)).toBe(true);
+    expect(typeof config.styling).toBe('object');
+    expect(typeof config.features).toBe('object');
   });
 });
