@@ -5,7 +5,6 @@
   "projectType": "library",
   "importPath": "@adapt-ux/neuro-assist",
   "tags": [],
-  "// targets": "to see all targets run: nx show project assist --web",
   "targets": {
     "test": {
       "executor": "@nx/vitest:test",
