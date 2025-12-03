@@ -4,6 +4,7 @@ import { createEventBus } from './event-bus';
 import { createSignalsRegistry } from './signals/signals-registry';
 import { createUiChannel } from './ui-channel';
 import { createRuleProcessor } from './rule-processor';
+import { RuleProcessor } from './rules/rule-processor';
 import { createHeuristicsEngine } from './heuristics-engine';
 import { createStylingEngine } from '@adapt-ux/neuro-styles';
 
@@ -22,6 +23,15 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
     eventBus.emit(event, payload);
   });
   const ruleProcessor = createRuleProcessor(config);
+  
+  // Create MVP Rule Processor for simple declarative rules
+  const mvpRuleProcessor = new RuleProcessor(config.rules || []);
+  mvpRuleProcessor.bindEngine({
+    emit: (event: string, payload: any) => {
+      eventBus.emit(event, payload);
+    },
+  });
+  
   const heuristics = createHeuristicsEngine(signals, eventBus);
   const styling = createStylingEngine(ui, { eventBus });
 
@@ -81,13 +91,27 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
     });
   }
 
+  // Evaluate MVP rules when state or signals change
+  function evaluateMvpRules() {
+    const currentState = state.getState();
+    mvpRuleProcessor.evaluate({
+      signals: currentState.signals || {},
+      state: currentState,
+      context: {
+        profile: currentState.profile,
+      },
+    });
+  }
+
   // Subscribe to state changes to re-evaluate rules
   state.subscribe(() => {
     evaluateRules();
+    evaluateMvpRules();
   });
 
   // Initial rule evaluation
   evaluateRules();
+  evaluateMvpRules();
 
   return {
     config,

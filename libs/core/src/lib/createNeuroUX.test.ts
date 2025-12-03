@@ -635,4 +635,140 @@ describe('createNeuroUX', () => {
       expect(instance.ui.get('highlight')).toBe(true);
     });
   });
+
+  describe('MVP Rule Processor integration', () => {
+    it('should emit adaptation event when MVP rule matches', () => {
+      const handler = vi.fn();
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { idle: true },
+            apply: { calmMode: true },
+          },
+        ],
+      });
+
+      instance.on('adaptation', handler);
+
+      instance.signals.register('idle', false);
+      instance.signals.update('idle', true);
+
+      expect(handler).toHaveBeenCalledWith({ calmMode: true });
+    });
+
+    it('should emit adaptation event with multiple adaptations', () => {
+      const handler = vi.fn();
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { idle: true },
+            apply: { calmMode: true },
+          },
+          {
+            when: { scroll: 0 },
+            apply: { staticMode: true },
+          },
+        ],
+      });
+
+      instance.on('adaptation', handler);
+
+      instance.signals.register('idle', false);
+      instance.signals.register('scroll', 1);
+      instance.signals.update('idle', true);
+      instance.signals.update('scroll', 0);
+
+      expect(handler).toHaveBeenCalledWith({
+        calmMode: true,
+        staticMode: true,
+      });
+    });
+
+    it('should not emit adaptation event when rules do not match', () => {
+      const handler = vi.fn();
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { idle: true },
+            apply: { calmMode: true },
+          },
+        ],
+      });
+
+      instance.on('adaptation', handler);
+
+      instance.signals.register('idle', false);
+      instance.signals.update('idle', false);
+
+      // Should not emit because rule does not match
+      expect(handler).not.toHaveBeenCalled();
+    });
+
+    it('should re-evaluate MVP rules when state changes', () => {
+      const handler = vi.fn();
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { idle: true },
+            apply: { calmMode: true },
+          },
+        ],
+      });
+
+      instance.on('adaptation', handler);
+
+      instance.signals.register('idle', false);
+      
+      // First update - matches
+      instance.signals.update('idle', true);
+      expect(handler).toHaveBeenCalledWith({ calmMode: true });
+      handler.mockClear();
+
+      // Second update - still matches, should not emit again
+      instance.signals.update('idle', true);
+      expect(handler).not.toHaveBeenCalled();
+
+      // Third update - does not match, should emit empty result
+      instance.signals.update('idle', false);
+      expect(handler).toHaveBeenCalledWith({});
+    });
+
+    it('should support greater than operator in MVP rules', () => {
+      const handler = vi.fn();
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { focus: { $gt: 0.5 } },
+            apply: { highlight: true },
+          },
+        ],
+      });
+
+      instance.on('adaptation', handler);
+
+      instance.signals.register('focus', 0);
+      instance.signals.update('focus', 0.7);
+
+      expect(handler).toHaveBeenCalledWith({ highlight: true });
+    });
+
+    it('should support less than operator in MVP rules', () => {
+      const handler = vi.fn();
+      const instance = createNeuroUX({
+        rules: [
+          {
+            when: { focus: { $lt: 0.5 } },
+            apply: { highlight: true },
+          },
+        ],
+      });
+
+      instance.on('adaptation', handler);
+
+      instance.signals.register('focus', 0);
+      instance.signals.update('focus', 0.3);
+
+      expect(handler).toHaveBeenCalledWith({ highlight: true });
+    });
+  });
 });
