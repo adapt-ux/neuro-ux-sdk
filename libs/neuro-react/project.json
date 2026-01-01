@@ -5,7 +5,6 @@
   "projectType": "library",
   "importPath": "@adapt-ux/neuro-react",
   "tags": [],
-  "// targets": "to see all targets run: nx show project neuro-react --web",
   "targets": {
     "test": {
       "executor": "@nx/vitest:test",

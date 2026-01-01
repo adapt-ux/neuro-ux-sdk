@@ -5,10 +5,9 @@
   "projectType": "library",
   "importPath": "@adapt-ux/neuro-vue",
   "tags": [],
-  "// targets": "to see all targets run: nx show project neuro-vue --web",
   "targets": {
     "test": {
-      "executor": "@nx/vite:test",
+      "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "passWithNoTests": true,

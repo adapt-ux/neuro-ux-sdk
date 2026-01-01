@@ -4,10 +4,9 @@
   "sourceRoot": "apps/demo/src",
   "projectType": "application",
   "tags": [],
-  "// targets": "to see all targets run: nx show project demo --web",
   "targets": {
     "test": {
-      "executor": "@nx/vite:test",
+      "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "passWithNoTests": true,

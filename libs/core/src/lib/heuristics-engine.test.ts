@@ -312,6 +312,9 @@ describe('createHeuristicsEngine', () => {
 
   describe('error handling', () => {
     it('should not crash when heuristic throws error', () => {
+      // Mock console.warn to suppress error logs during test
+      const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
       const faultyHeuristic = {
         name: 'faulty',
         evaluate: () => {
@@ -325,6 +328,14 @@ describe('createHeuristicsEngine', () => {
 
       // Should not throw
       expect(() => heuristics.evaluate(state)).not.toThrow();
+
+      // Verify that the error was logged
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('Heuristic "faulty" evaluation failed:'),
+        expect.any(Error)
+      );
+
+      consoleWarnSpy.mockRestore();
     });
 
     it('should handle invalid signal values gracefully', () => {
