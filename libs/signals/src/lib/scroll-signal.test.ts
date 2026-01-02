@@ -10,6 +10,7 @@ describe('ScrollSignal', () => {
 
   beforeEach(() => {
     vi.useFakeTimers();
+    
     snapshot = createSignalSnapshot();
     emitCallback = vi.fn();
     const context = new SignalContextImpl(snapshot, emitCallback);
@@ -21,6 +22,11 @@ describe('ScrollSignal', () => {
       configurable: true,
       value: 0,
     });
+
+    // Mock performance.now() if it doesn't exist
+    if (typeof (global as any).performance === 'undefined') {
+      (global as any).performance = { now: () => Date.now() };
+    }
 
     // Mock requestAnimationFrame to execute callbacks immediately (synchronously for tests)
     vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
