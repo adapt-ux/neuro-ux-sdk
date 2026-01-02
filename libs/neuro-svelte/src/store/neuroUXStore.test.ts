@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { get } from 'svelte/store';
-import { initNeuroUX, getNeuroUXInstance, signalsStore, uiStateStore, neuroUXState } from './neuroUXStore';
+import { initNeuroUX, getNeuroUXInstance, signalsStore, uiStateStore, neuroUXState, _resetStore } from './neuroUXStore';
 
 // Mock the createNeuroUX function
 vi.mock('@adapt-ux/neuro-core', async () => {
@@ -16,12 +16,10 @@ describe('neuroUXStore', () => {
   let mockCreateNeuroUX: any;
 
   beforeEach(async () => {
-    vi.clearAllMocks();
+    // Reset store state FIRST (including instance and initialized flag)
+    _resetStore();
     
-    // Reset stores
-    signalsStore.set({});
-    uiStateStore.set({});
-    neuroUXState.set({ profile: 'default', signals: {}, ui: {} });
+    vi.clearAllMocks();
 
     if (!actualCreateNeuroUX) {
       const mod = await vi.importActual('@adapt-ux/neuro-core');

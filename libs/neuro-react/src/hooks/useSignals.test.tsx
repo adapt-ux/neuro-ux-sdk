@@ -51,9 +51,13 @@ describe('useSignals', () => {
       <NeuroUXProvider>{children}</NeuroUXProvider>
     );
 
+    const updateSpy = vi.fn();
     mockInstance.getState = vi.fn(() => ({ signals: {}, profile: 'default', ui: {} }));
     mockInstance.subscribe = vi.fn(() => () => {});
     mockInstance.on = vi.fn(() => () => {});
+    mockInstance.signals = {
+      update: updateSpy,
+    };
 
     const { result } = renderHook(() => useSignals(), { wrapper });
 
@@ -65,7 +69,7 @@ describe('useSignals', () => {
       result.current[1]('test-signal', 42);
     });
 
-    expect(mockInstance.signals.update).toHaveBeenCalledWith('test-signal', 42);
+    expect(updateSpy).toHaveBeenCalledWith('test-signal', 42);
   });
 
   it('should update signals when state changes', async () => {

@@ -10,6 +10,18 @@ let instance: NeuroUXInstance | null = null;
 let initialized = false;
 
 /**
+ * Reset the store state (for testing purposes)
+ * @internal
+ */
+export function _resetStore() {
+  instance = null;
+  initialized = false;
+  neuroUXState.set({ profile: 'default', signals: {}, ui: {} });
+  signalsStore.set({});
+  uiStateStore.set({});
+}
+
+/**
  * Creates and initializes the NeuroUX instance
  * Should be called once at app startup
  */
