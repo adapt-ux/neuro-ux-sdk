@@ -1,5 +1,6 @@
 import 'zone.js';
 import 'zone.js/testing';
+import { getTestBed } from '@angular/core/testing';
 import { describe, it, expect, vi, beforeEach, beforeAll, afterEach } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
@@ -17,7 +18,7 @@ vi.mock('@adapt-ux/neuro-core', async () => {
 
 // Initialize TestBed environment
 beforeAll(() => {
-  TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
+  getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
 });
 
 describe('NeuroUXService', () => {
@@ -37,14 +38,11 @@ describe('NeuroUXService', () => {
     mockCreateNeuroUX = vi.mocked(mod.createNeuroUX);
     mockCreateNeuroUX.mockImplementation(actualCreateNeuroUX);
 
-    TestBed.resetTestingModule();
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(NeuroUXService);
-    ngZone = TestBed.inject(NgZone);
-  });
-
-  afterEach(() => {
-    TestBed.resetTestingModule();
+    const testBed = getTestBed();
+    testBed.resetTestingModule();
+    testBed.configureTestingModule({});
+    service = testBed.inject(NeuroUXService);
+    ngZone = testBed.inject(NgZone);
   });
 
   describe('initialization', () => {
