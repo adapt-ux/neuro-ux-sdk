@@ -21,6 +21,7 @@ export interface NeuroUXConfig {
   signals?: SignalConstructor[];
   styling?: Partial<StylingPreset>;
   features?: Record<string, boolean>;
+  debug?: boolean;
 }
 
 /**
@@ -32,4 +33,5 @@ export interface NormalizedConfig {
   signals: SignalConstructor[];
   styling: Partial<StylingPreset>;
   features: Record<string, boolean>;
+  debug: boolean;
 }

@@ -28,6 +28,7 @@ describe('createNeuroUX', () => {
         rules: [],
         styling: {},
         features: {},
+        debug: false,
       });
     });
 
@@ -826,6 +827,7 @@ describe('createNeuroUX', () => {
         signals: [],
         styling: {},
         features: {},
+        debug: false,
       });
     });
 
@@ -851,6 +853,163 @@ describe('createNeuroUX', () => {
       expect(consoleWarnSpy).toHaveBeenCalled();
 
       consoleWarnSpy.mockRestore();
+    });
+
+    it('should include debug in default config', () => {
+      const instance = createNeuroUX();
+      const config = instance.getConfig();
+
+      expect(config.debug).toBe(false);
+    });
+
+    it('should accept debug option in config', () => {
+      const instance = createNeuroUX({ debug: true });
+      const config = instance.getConfig();
+
+      expect(config.debug).toBe(true);
+    });
+  });
+
+  describe('debug API', () => {
+    it('should expose debug API when debug is enabled', () => {
+      const instance = createNeuroUX({ debug: true });
+
+      expect(instance.debug).toBeDefined();
+      expect(instance.debug.getSignals).toBeDefined();
+      expect(instance.debug.getHeuristics).toBeDefined();
+      expect(instance.debug.getRules).toBeDefined();
+      expect(instance.debug.getUIState).toBeDefined();
+      expect(instance.debug.getConfig).toBeDefined();
+      expect(instance.debug.explainLastDecision).toBeDefined();
+      expect(instance.debug.clear).toBeDefined();
+    });
+
+    it('should track signal updates when debug is enabled', () => {
+      const instance = createNeuroUX({ debug: true });
+
+      instance.signals.register('test-signal', 0);
+      instance.signals.update('test-signal', 1);
+
+      const signals = instance.debug.getSignals();
+      expect(signals.length).toBeGreaterThan(0);
+      expect(signals[signals.length - 1].name).toBe('test-signal');
+      expect(signals[signals.length - 1].value).toBe(1);
+    });
+
+    it('should track UI updates when debug is enabled', () => {
+      const instance = createNeuroUX({ debug: true });
+
+      instance.ui.set('fontSize', 16);
+
+      const uiUpdates = instance.debug.getUIState();
+      expect(uiUpdates.length).toBeGreaterThan(0);
+      expect(uiUpdates[uiUpdates.length - 1].key).toBe('fontSize');
+      expect(uiUpdates[uiUpdates.length - 1].value).toBe(16);
+    });
+
+    it('should track rule evaluations when debug is enabled', () => {
+      const instance = createNeuroUX({
+        debug: true,
+        rules: [
+          {
+            when: { idle: true },
+            apply: { fontSize: 16 },
+          },
+        ],
+      });
+
+      instance.signals.register('idle', false);
+      instance.signals.update('idle', true);
+
+      const rules = instance.debug.getRules();
+      expect(rules.length).toBeGreaterThan(0);
+    });
+
+    it('should provide explainLastDecision when debug is enabled', () => {
+      const instance = createNeuroUX({
+        debug: true,
+        rules: [
+          {
+            when: { idle: true },
+            apply: { fontSize: 16 },
+          },
+        ],
+      });
+
+      instance.signals.register('idle', false);
+      instance.signals.update('idle', true);
+
+      const explanation = instance.debug.explainLastDecision();
+      expect(explanation).not.toBeNull();
+    });
+
+    it('should emit debug events when debug is enabled', () => {
+      const instance = createNeuroUX({ debug: true });
+      const signalHandler = vi.fn();
+      const uiHandler = vi.fn();
+      const ruleHandler = vi.fn();
+      const heuristicHandler = vi.fn();
+
+      instance.on('debug:signal', signalHandler);
+      instance.on('debug:ui', uiHandler);
+      instance.on('debug:rule', ruleHandler);
+      instance.on('debug:heuristic', heuristicHandler);
+
+      instance.signals.register('test-signal', 0);
+      instance.signals.update('test-signal', 1);
+      instance.ui.set('fontSize', 16);
+
+      expect(signalHandler).toHaveBeenCalled();
+      expect(uiHandler).toHaveBeenCalled();
+    });
+
+    it('should not track anything when debug is disabled', () => {
+      const instance = createNeuroUX({ debug: false });
+
+      instance.signals.register('test-signal', 0);
+      instance.signals.update('test-signal', 1);
+      instance.ui.set('fontSize', 16);
+
+      expect(instance.debug.getSignals()).toEqual([]);
+      expect(instance.debug.getUIState()).toEqual([]);
+      expect(instance.debug.getRules()).toEqual([]);
+    });
+
+    it('should clear debug data when clear is called', () => {
+      const instance = createNeuroUX({ debug: true });
+
+      instance.signals.register('test-signal', 0);
+      instance.signals.update('test-signal', 1);
+      instance.ui.set('fontSize', 16);
+
+      expect(instance.debug.getSignals().length).toBeGreaterThan(0);
+
+      instance.debug.clear();
+
+      expect(instance.debug.getSignals()).toEqual([]);
+      expect(instance.debug.getUIState()).toEqual([]);
+    });
+
+    it('should clear debug store on destroy when debug is enabled', () => {
+      const instance = createNeuroUX({ debug: true });
+
+      instance.signals.register('test-signal', 0);
+      instance.signals.update('test-signal', 1);
+
+      expect(instance.debug.getSignals().length).toBeGreaterThan(0);
+
+      instance.destroy();
+
+      // Store should be cleared, but debug API still works (returns empty)
+      expect(instance.debug.getSignals()).toEqual([]);
+    });
+
+    it('should return config from debug.getConfig', () => {
+      const instance = createNeuroUX({ debug: true, profile: 'test-profile' });
+
+      const config = instance.debug.getConfig();
+      expect(config.profile).toBe('test-profile');
+      expect(config.debug).toBe(true);
     });
   });
 });

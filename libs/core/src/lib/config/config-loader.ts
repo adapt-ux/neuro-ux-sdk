@@ -50,6 +50,15 @@ function validateConfig(config: NeuroUXConfig): void {
       );
     }
   }
+
+  // Validate debug
+  if (config.debug !== undefined) {
+    if (typeof config.debug !== 'boolean') {
+      console.warn(
+        '[NeuroUX] Invalid config: "debug" must be a boolean. Using default.'
+      );
+    }
+  }
 }
 
 /**
@@ -89,6 +98,10 @@ export function normalizeConfig(
       !Array.isArray(userConfig.features)
       ? userConfig.features
       : defaultConfig.features,
+    
+    debug: typeof userConfig.debug === 'boolean'
+      ? userConfig.debug
+      : defaultConfig.debug,
   };
 }
 
