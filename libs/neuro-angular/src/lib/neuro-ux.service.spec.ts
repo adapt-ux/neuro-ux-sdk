@@ -1,5 +1,5 @@
+import 'zone.js';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { TestBed } from '@angular/core/testing';
 import { NgZone } from '@angular/core';
 import { NeuroUXService } from './neuro-ux.service';
 
@@ -20,7 +20,7 @@ describe('NeuroUXService', () => {
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    
+
     if (!actualCreateNeuroUX) {
       const mod = await vi.importActual('@adapt-ux/neuro-core');
       actualCreateNeuroUX = (mod as any).createNeuroUX;
@@ -29,9 +29,9 @@ describe('NeuroUXService', () => {
     mockCreateNeuroUX = vi.mocked(mod.createNeuroUX);
     mockCreateNeuroUX.mockImplementation(actualCreateNeuroUX);
 
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(NeuroUXService);
-    ngZone = TestBed.inject(NgZone);
+    // Create NgZone and service manually to avoid TestBed/Zone.js issues with Vitest
+    ngZone = new NgZone({ enableLongStackTrace: false });
+    service = new NeuroUXService(ngZone);
   });
 
   describe('initialization', () => {
@@ -55,7 +55,9 @@ describe('NeuroUXService', () => {
 
   describe('getInstance', () => {
     it('should throw error if not initialized', () => {
-      expect(() => service.getInstance()).toThrow('NeuroUXService not initialized');
+      expect(() => service.getInstance()).toThrow(
+        'NeuroUXService not initialized'
+      );
     });
 
     it('should return instance after initialization', async () => {
@@ -87,7 +89,9 @@ describe('NeuroUXService', () => {
 
   describe('subscribe', () => {
     it('should return no-op unsubscribe if not initialized', () => {
-      const unsubscribe = service.subscribe(() => {});
+      const unsubscribe = service.subscribe(() => {
+        // No-op callback for testing
+      });
 
       expect(typeof unsubscribe).toBe('function');
       expect(() => unsubscribe()).not.toThrow();
@@ -107,7 +111,7 @@ describe('NeuroUXService', () => {
       await service.init();
       const zoneRunSpy = vi.spyOn(ngZone, 'run');
       const callback = vi.fn();
-      
+
       service.subscribe(callback);
 
       // Trigger state change
@@ -138,13 +142,15 @@ describe('NeuroUXService', () => {
   describe('ngOnDestroy', () => {
     it('should cleanup subscriptions', async () => {
       await service.init();
-      const unsubscribe = vi.fn();
-      service.subscribe(() => {});
-      
+      service.subscribe(() => {
+        // No-op callback for testing
+      });
+
       // Manually call ngOnDestroy
       service.ngOnDestroy();
 
-      expect(unsubscribe).not.toThrow();
+      // Should not throw
+      expect(true).toBe(true);
     });
 
     it('should destroy instance', async () => {
