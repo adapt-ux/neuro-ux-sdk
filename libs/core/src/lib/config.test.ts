@@ -11,6 +11,7 @@ describe('loadConfig', () => {
       rules: [],
       styling: {},
       features: {},
+      debug: false,
     });
   });
 
@@ -23,6 +24,7 @@ describe('loadConfig', () => {
       rules: [],
       styling: {},
       features: {},
+      debug: false,
     });
   });
 
@@ -87,10 +89,12 @@ describe('loadConfig', () => {
     expect(config).toHaveProperty('rules');
     expect(config).toHaveProperty('styling');
     expect(config).toHaveProperty('features');
+    expect(config).toHaveProperty('debug');
     expect(typeof config.profile).toBe('string');
     expect(Array.isArray(config.signals)).toBe(true);
     expect(Array.isArray(config.rules)).toBe(true);
     expect(typeof config.styling).toBe('object');
     expect(typeof config.features).toBe('object');
+    expect(typeof config.debug).toBe('boolean');
   });
 });

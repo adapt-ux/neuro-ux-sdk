@@ -1,3 +1,4 @@
+export * from './client/NeuroUXProvider';
 export * from './client/useNeuroUX';
 export * from './client/NeuroUXToggle';
 export * from './client/AssistButton';

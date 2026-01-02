@@ -1,15 +1,35 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { AssistProvider } from './AssistProvider';
 
+// Mock the createNeuroUX function
+vi.mock('@adapt-ux/neuro-core', async () => {
+  const actual = await vi.importActual('@adapt-ux/neuro-core');
+  return {
+    ...actual,
+    createNeuroUX: vi.fn(),
+  };
+});
+
 describe('AssistProvider (Next.js Client)', () => {
-  beforeEach(() => {
+  let actualCreateNeuroUX: any;
+  let mockCreateNeuroUX: any;
+
+  beforeEach(async () => {
     vi.clearAllMocks();
     // Clear window config before each test
     if (typeof window !== 'undefined') {
       delete (window as any).__NEURO_UX_CONFIG__;
     }
+
+    if (!actualCreateNeuroUX) {
+      const mod = await vi.importActual('@adapt-ux/neuro-core');
+      actualCreateNeuroUX = (mod as any).createNeuroUX;
+    }
+    const mod = await import('@adapt-ux/neuro-core');
+    mockCreateNeuroUX = vi.mocked(mod.createNeuroUX);
+    mockCreateNeuroUX.mockImplementation(actualCreateNeuroUX);
   });
 
   afterEach(() => {
@@ -20,17 +40,19 @@ describe('AssistProvider (Next.js Client)', () => {
   });
 
   describe('rendering', () => {
-    it('should render children', () => {
+    it('should render children', async () => {
       render(
         <AssistProvider>
           <div>Test Content</div>
         </AssistProvider>
       );
 
-      expect(screen.getByText('Test Content')).toBeTruthy();
+      await waitFor(() => {
+        expect(screen.getByText('Test Content')).toBeTruthy();
+      });
     });
 
-    it('should use prop config when provided', () => {
+    it('should use prop config when provided', async () => {
       const config = { profile: 'test-profile' };
 
       render(
@@ -40,10 +62,12 @@ describe('AssistProvider (Next.js Client)', () => {
       );
 
       // Component should render successfully with prop config
-      expect(screen.getByText('Test')).toBeTruthy();
+      await waitFor(() => {
+        expect(screen.getByText('Test')).toBeTruthy();
+      });
     });
 
-    it('should use window config when prop config is not provided', () => {
+    it('should use window config when prop config is not provided', async () => {
       const windowConfig = { profile: 'window-profile' };
       if (typeof window !== 'undefined') {
         (window as any).__NEURO_UX_CONFIG__ = windowConfig;
@@ -56,20 +80,24 @@ describe('AssistProvider (Next.js Client)', () => {
       );
 
       // Component should render successfully using window config
-      expect(screen.getByText('Test')).toBeTruthy();
+      await waitFor(() => {
+        expect(screen.getByText('Test')).toBeTruthy();
+      });
     });
 
-    it('should use empty config when neither prop nor window config is provided', () => {
+    it('should use empty config when neither prop nor window config is provided', async () => {
       render(
         <AssistProvider>
           <div>Test</div>
         </AssistProvider>
       );
 
-      expect(screen.getByText('Test')).toBeTruthy();
+      await waitFor(() => {
+        expect(screen.getByText('Test')).toBeTruthy();
+      });
     });
 
-    it('should prioritize prop config over window config', () => {
+    it('should prioritize prop config over window config', async () => {
       const propConfig = { profile: 'prop-profile' };
       const windowConfig = { profile: 'window-profile' };
       
@@ -83,12 +111,14 @@ describe('AssistProvider (Next.js Client)', () => {
         </AssistProvider>
       );
 
-      expect(screen.getByText('Test')).toBeTruthy();
+      await waitFor(() => {
+        expect(screen.getByText('Test')).toBeTruthy();
+      });
     });
   });
 
   describe('config handling', () => {
-    it('should handle missing window config gracefully', () => {
+    it('should handle missing window config gracefully', async () => {
       // Ensure window config is not set
       if (typeof window !== 'undefined') {
         delete (window as any).__NEURO_UX_CONFIG__;
@@ -102,10 +132,12 @@ describe('AssistProvider (Next.js Client)', () => {
         );
       }).not.toThrow();
 
-      expect(screen.getByText('Test')).toBeTruthy();
+      await waitFor(() => {
+        expect(screen.getByText('Test')).toBeTruthy();
+      });
     });
 
-    it('should use empty config when window is undefined (SSR)', () => {
+    it('should use empty config when window is undefined (SSR)', async () => {
       // The component already handles typeof window !== 'undefined' check
       // In jsdom environment, window is always defined, so we test the logic path
       // by ensuring it works when window.__NEURO_UX_CONFIG__ is not set
@@ -120,7 +152,9 @@ describe('AssistProvider (Next.js Client)', () => {
       );
 
       // Component should render with empty config
-      expect(screen.getByText('Test')).toBeTruthy();
+      await waitFor(() => {
+        expect(screen.getByText('Test')).toBeTruthy();
+      });
     });
   });
 });
