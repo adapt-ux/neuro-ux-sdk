@@ -10,4 +10,5 @@ export const defaultConfig: NormalizedConfig = {
   signals: [],
   styling: {},
   features: {},
+  debug: false,
 };

@@ -7,6 +7,8 @@ import { createRuleProcessor } from './rule-processor';
 import { RuleProcessor } from './rules/rule-processor';
 import { createHeuristicsEngine } from './heuristics-engine';
 import { createStylingEngine } from '@adapt-ux/neuro-styles';
+import { createDebugStore, createDebugAPI, DebugAPI } from './debug';
+import { evaluateRule } from './rules/rule-evaluator';
 
 export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
   const config = normalizeConfig(userConfig);
@@ -17,6 +19,10 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
     signals: {},
     ui: {},
   });
+
+  // Create debug store only if debug is enabled
+  const debugStore = config.debug ? createDebugStore() : null;
+  const debug = createDebugAPI(debugStore, config);
 
   const signals = createSignalsRegistry();
   const ui = createUiChannel((event, payload) => {
@@ -47,6 +53,12 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
       signals: updatedSignals,
     });
 
+    // Debug: track signal updates
+    if (debugStore) {
+      debugStore.addSignal(name, value);
+      eventBus.emit('debug:signal', { name, value, timestamp: Date.now() });
+    }
+
     // Evaluate heuristics when signals update
     heuristics.evaluate({
       signals: updatedSignals,
@@ -69,6 +81,20 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
     eventBus.emit('signal:error', error);
   });
 
+  // Debug: track heuristic updates
+  if (debugStore) {
+    eventBus.on('heuristic:update', ({ heuristics: changedHeuristics }) => {
+      Object.entries(changedHeuristics).forEach(([name, value]) => {
+        debugStore.addHeuristic(name, value);
+        eventBus.emit('debug:heuristic', {
+          name,
+          value,
+          timestamp: Date.now(),
+        });
+      });
+    });
+  }
+
   // Sync UI channel updates to state
   ui.onUpdate((updates) => {
     const currentUi = state.getState().ui || {};
@@ -78,6 +104,14 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
         ...updates,
       },
     });
+
+    // Debug: track UI updates
+    if (debugStore) {
+      Object.entries(updates).forEach(([key, value]) => {
+        debugStore.addUIUpdate(key, value);
+        eventBus.emit('debug:ui', { key, value, timestamp: Date.now() });
+      });
+    }
   });
 
   // Evaluate rules and update UI channel when state changes
@@ -94,13 +128,39 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
   // Evaluate MVP rules when state or signals change
   function evaluateMvpRules() {
     const currentState = state.getState();
-    mvpRuleProcessor.evaluate({
+    const evaluationState = {
       signals: currentState.signals || {},
       state: currentState,
       context: {
         profile: currentState.profile,
       },
-    });
+    };
+
+    // Debug: track rule evaluations
+    if (debugStore && config.rules) {
+      config.rules.forEach((rule, index) => {
+        const ruleId = `rule-${index}`;
+        const ruleOutput = evaluateRule(rule, evaluationState);
+        const matched = ruleOutput !== null;
+
+        // Extract reason from rule condition
+        const reason = matched && rule.when ? {
+          signal: Object.keys(rule.when)[0],
+          value: Object.values(rule.when)[0],
+          ...rule.when,
+        } : undefined;
+
+        debugStore.addRuleEvaluation(ruleId, matched, reason);
+        eventBus.emit('debug:rule', {
+          ruleId,
+          matched,
+          reason,
+          timestamp: Date.now(),
+        });
+      });
+    }
+
+    mvpRuleProcessor.evaluate(evaluationState);
   }
 
   // Subscribe to state changes to re-evaluate rules
@@ -137,9 +197,15 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
     ui,
     styling,
 
+    // debug API
+    debug,
+
     destroy() {
       styling.destroy();
       heuristics.destroy();
+      if (debugStore) {
+        debugStore.clear();
+      }
       eventBus.emit('destroy');
     },
   };
