@@ -1,4 +1,5 @@
-import { SignalsRegistry, SignalValue } from './signals/signals-registry';
+import { SignalsRegistry } from './signals/signals-registry';
+import type { SignalValue } from './signals/types';
 import { createEventBus } from './event-bus';
 
 /**
@@ -21,6 +22,8 @@ export interface HeuristicsState {
 
 /**
  * Previous heuristic values for comparison
+ *
+ * @internal This interface is internal and not part of the public API.
  */
 export interface HeuristicPrevious {
   [heuristicName: string]: SignalValue;
@@ -76,8 +79,8 @@ function focusVariabilityHeuristic(
   state: HeuristicsState,
   previous: HeuristicPrevious
 ): SignalValue {
-  const focusValue = state.signals.focus;
-  const prevFocus = previous.focusStability;
+  const focusValue = state.signals['focus'];
+  const prevFocus = previous['focusStability'];
 
   // If no focus signal exists, return neutral value
   if (focusValue === undefined) {
@@ -85,23 +88,30 @@ function focusVariabilityHeuristic(
   }
 
   // Convert focus to number if boolean
-  const currentFocus = typeof focusValue === 'boolean' ? (focusValue ? 1 : 0) : Number(focusValue);
-  const prevFocusNum = prevFocus !== undefined
-    ? (typeof prevFocus === 'boolean' ? (prevFocus ? 1 : 0) : Number(prevFocus))
-    : currentFocus;
+  const currentFocus =
+    typeof focusValue === 'boolean' ? (focusValue ? 1 : 0) : Number(focusValue);
+  const prevFocusNum =
+    prevFocus !== undefined
+      ? typeof prevFocus === 'boolean'
+        ? prevFocus
+          ? 1
+          : 0
+        : Number(prevFocus)
+      : currentFocus;
 
   // Calculate variability: difference between current and previous
   // Normalize to 0-1 range (assuming focus values are 0-1)
   const variability = Math.abs(currentFocus - prevFocusNum);
-  
+
   // Use exponential smoothing for stability
-  const prevVariability = previous.focusStability !== undefined
-    ? Number(previous.focusStability)
-    : 0.5;
-  
+  const prevVariability =
+    previous['focusStability'] !== undefined
+      ? Number(previous['focusStability'])
+      : 0.5;
+
   // Smooth the variability over time (alpha = 0.3 for responsiveness)
   const smoothed = prevVariability * 0.7 + variability * 0.3;
-  
+
   return Math.min(1, Math.max(0, smoothed));
 }
 
@@ -114,8 +124,8 @@ function idleBurstinessHeuristic(
   state: HeuristicsState,
   previous: HeuristicPrevious
 ): SignalValue {
-  const idleValue = state.signals.idle;
-  const prevIdle = previous.idlePattern;
+  const idleValue = state.signals['idle'];
+  const prevIdle = previous['idlePattern'];
 
   // If no idle signal exists, return neutral value
   if (idleValue === undefined) {
@@ -123,22 +133,29 @@ function idleBurstinessHeuristic(
   }
 
   // Convert idle to number if boolean
-  const currentIdle = typeof idleValue === 'boolean' ? (idleValue ? 1 : 0) : Number(idleValue);
-  const prevIdleNum = prevIdle !== undefined
-    ? (typeof prevIdle === 'boolean' ? (prevIdle ? 1 : 0) : Number(prevIdle))
-    : currentIdle;
+  const currentIdle =
+    typeof idleValue === 'boolean' ? (idleValue ? 1 : 0) : Number(idleValue);
+  const prevIdleNum =
+    prevIdle !== undefined
+      ? typeof prevIdle === 'boolean'
+        ? prevIdle
+          ? 1
+          : 0
+        : Number(prevIdle)
+      : currentIdle;
 
   // Burstiness: measure transitions (idle -> active or active -> idle)
   // If state changed, that's a burst indicator
   const stateChanged = currentIdle !== prevIdleNum ? 1 : 0;
-  
+
   // Use exponential smoothing
-  const prevBurstiness = previous.idlePattern !== undefined
-    ? Number(previous.idlePattern)
-    : 0.5;
-  
+  const prevBurstiness =
+    previous['idlePattern'] !== undefined
+      ? Number(previous['idlePattern'])
+      : 0.5;
+
   const smoothed = prevBurstiness * 0.8 + stateChanged * 0.2;
-  
+
   return Math.min(1, Math.max(0, smoothed));
 }
 
@@ -151,8 +168,8 @@ function scrollBehaviorIntensityHeuristic(
   state: HeuristicsState,
   previous: HeuristicPrevious
 ): SignalValue {
-  const scrollValue = state.signals.scroll;
-  const prevScroll = previous.scrollAggression;
+  const scrollValue = state.signals['scroll'];
+  const prevScroll = previous['scrollAggression'];
 
   // If no scroll signal exists, return neutral value
   if (scrollValue === undefined) {
@@ -161,22 +178,24 @@ function scrollBehaviorIntensityHeuristic(
 
   // Convert scroll to number
   const currentScroll = Number(scrollValue);
-  const prevScrollNum = prevScroll !== undefined ? Number(prevScroll) : currentScroll;
+  const prevScrollNum =
+    prevScroll !== undefined ? Number(prevScroll) : currentScroll;
 
   // Intensity: rate of change (speed) + magnitude
   const scrollDelta = Math.abs(currentScroll - prevScrollNum);
-  
+
   // Normalize: assume scroll values are typically 0-1000px, normalize to 0-1
   // For simplicity, we'll use a threshold-based approach
   const normalizedDelta = Math.min(1, scrollDelta / 100);
-  
+
   // Use exponential smoothing
-  const prevIntensity = previous.scrollAggression !== undefined
-    ? Number(previous.scrollAggression)
-    : 0.5;
-  
+  const prevIntensity =
+    previous['scrollAggression'] !== undefined
+      ? Number(previous['scrollAggression'])
+      : 0.5;
+
   const smoothed = prevIntensity * 0.7 + normalizedDelta * 0.3;
-  
+
   return Math.min(1, Math.max(0, smoothed));
 }
 
@@ -190,19 +209,19 @@ function interactionDensityHeuristic(
   previous: HeuristicPrevious
 ): SignalValue {
   const signals = state.signals;
-  
+
   // Count active signals (non-zero, non-false, non-empty)
   let activeCount = 0;
   let totalCount = 0;
-  
+
   for (const [key, value] of Object.entries(signals)) {
     // Skip internal heuristics storage
     if (key === '_internalHeuristics') {
       continue;
     }
-    
+
     totalCount++;
-    
+
     // Consider signal active if it has a meaningful value
     if (typeof value === 'number' && value !== 0) {
       activeCount++;
@@ -212,17 +231,18 @@ function interactionDensityHeuristic(
       activeCount++;
     }
   }
-  
+
   // Density: ratio of active signals to total signals
   const density = totalCount > 0 ? activeCount / totalCount : 0.5;
-  
+
   // Use exponential smoothing for stability
-  const prevDensity = previous.interactionDensity !== undefined
-    ? Number(previous.interactionDensity)
-    : 0.5;
-  
+  const prevDensity =
+    previous['interactionDensity'] !== undefined
+      ? Number(previous['interactionDensity'])
+      : 0.5;
+
   const smoothed = prevDensity * 0.6 + density * 0.4;
-  
+
   return Math.min(1, Math.max(0, smoothed));
 }
 
@@ -236,7 +256,6 @@ export function createHeuristicsEngine(
 ): HeuristicsEngine {
   const heuristics: Heuristic[] = [];
   const previousValues: HeuristicPrevious = {};
-  const eventBusInternal = createEventBus();
 
   // Register base heuristics
   heuristics.push(
@@ -274,7 +293,10 @@ export function createHeuristicsEngine(
         let hasChanged = false;
         if (prevValue === undefined) {
           hasChanged = true;
-        } else if (typeof newValue === 'number' && typeof prevValue === 'number') {
+        } else if (
+          typeof newValue === 'number' &&
+          typeof prevValue === 'number'
+        ) {
           hasChanged = Math.abs(newValue - prevValue) > 0.01;
         } else {
           hasChanged = newValue !== prevValue;
@@ -300,16 +322,6 @@ export function createHeuristicsEngine(
       }
     }
 
-    // Store previous values in internal state (hidden from user)
-    const currentSignals = state.signals || {};
-    const internalHeuristics = {
-      ...currentSignals._internalHeuristics,
-      ...previousValues,
-    };
-
-    // Update internal storage via signals (if needed, we can access it later)
-    // Note: We don't expose _internalHeuristics as a regular signal
-
     // Emit heuristic:update event if any heuristics changed
     if (Object.keys(changedHeuristics).length > 0) {
       eventBus.emit('heuristic:update', {
@@ -331,8 +343,14 @@ export function createHeuristicsEngine(
    */
   function register(heuristic: Heuristic): void {
     // Validate heuristic
-    if (!heuristic || !heuristic.name || typeof heuristic.evaluate !== 'function') {
-      throw new Error('Invalid heuristic: must have name and evaluate function');
+    if (
+      !heuristic ||
+      !heuristic.name ||
+      typeof heuristic.evaluate !== 'function'
+    ) {
+      throw new Error(
+        'Invalid heuristic: must have name and evaluate function'
+      );
     }
 
     // Check for duplicates

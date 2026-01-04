@@ -13,6 +13,8 @@ import type {
  * Core Styling Engine
  * Transforms logical style states into CSS variables and applies them to the DOM
  * This version subscribes directly to Core state changes
+ * 
+ * @experimental This API is experimental and may change in future versions.
  */
 export class CoreStylingEngine {
   private cssWriter: CSSWriter;
@@ -244,6 +246,8 @@ export class CoreStylingEngine {
 /**
  * Create a Core styling engine instance
  * This version subscribes directly to Core state changes
+ * 
+ * @experimental This API is experimental and may change in future versions.
  */
 export function createCoreStylingEngine(
   options: StylingEngineOptions = {}

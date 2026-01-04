@@ -108,10 +108,7 @@ function evaluateCondition(
 /**
  * Evaluates a simple rule (condition + apply)
  */
-function evaluateRule(
-  rule: SimpleRule,
-  state: RuleProcessorState
-): boolean {
+function evaluateRule(rule: SimpleRule, state: RuleProcessorState): boolean {
   return evaluateCondition(rule.when, state);
 }
 
@@ -138,10 +135,7 @@ function resolveOrGroup(
 /**
  * Resolves any rule type (simple, AND, OR) recursively
  */
-function resolveRule(
-  rule: Rule,
-  state: RuleProcessorState
-): boolean {
+function resolveRule(rule: Rule, state: RuleProcessorState): boolean {
   // Invalid rule shape - safe fallback
   if (!rule || typeof rule !== 'object') {
     return false;
@@ -223,7 +217,7 @@ function collectRuleOutputs(
  * and generates UI output based on the current state
  */
 export function createRuleProcessor(config: NormalizedConfig): RuleProcessor {
-  const rules: Rule[] = (config.rules || []).filter(
+  const rules: Rule[] = ((config.rules as Rule[]) || []).filter(
     (rule): rule is Rule => rule != null && typeof rule === 'object'
   );
 

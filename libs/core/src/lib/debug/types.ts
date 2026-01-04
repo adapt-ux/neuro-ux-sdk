@@ -4,6 +4,8 @@
 
 /**
  * Signal debug entry
+ * 
+ * @internal This interface is internal and not part of the public API.
  */
 export interface DebugSignalEntry {
   name: string;
@@ -13,6 +15,8 @@ export interface DebugSignalEntry {
 
 /**
  * Heuristic debug entry
+ * 
+ * @internal This interface is internal and not part of the public API.
  */
 export interface DebugHeuristicEntry {
   name: string;
@@ -22,6 +26,8 @@ export interface DebugHeuristicEntry {
 
 /**
  * Rule evaluation debug entry
+ * 
+ * @internal This interface is internal and not part of the public API.
  */
 export interface DebugRuleEntry {
   ruleId: string;
@@ -36,6 +42,8 @@ export interface DebugRuleEntry {
 
 /**
  * UI update debug entry
+ * 
+ * @internal This interface is internal and not part of the public API.
  */
 export interface DebugUIEntry {
   key: string;
@@ -45,6 +53,8 @@ export interface DebugUIEntry {
 
 /**
  * Debug store data structure
+ * 
+ * @internal This interface is internal and not part of the public API.
  */
 export interface DebugStoreData {
   lastSignals: DebugSignalEntry[];
@@ -55,6 +65,8 @@ export interface DebugStoreData {
 
 /**
  * Last decision explanation
+ * 
+ * @internal This interface is internal and not part of the public API.
  */
 export interface DecisionExplanation {
   ruleId?: string;

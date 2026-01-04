@@ -3,6 +3,8 @@ import { DebugStoreData, DebugSignalEntry, DebugHeuristicEntry, DebugRuleEntry, 
 /**
  * DebugStore maintains a lightweight in-memory store of debug information.
  * Only active when debug mode is enabled.
+ * 
+ * @internal This class is internal and not part of the public API.
  */
 export class DebugStore {
   private data: DebugStoreData = {
@@ -143,6 +145,8 @@ export class DebugStore {
 
 /**
  * Creates a new DebugStore instance
+ * 
+ * @internal This function is internal and not part of the public API.
  */
 export function createDebugStore(): DebugStore {
   return new DebugStore();

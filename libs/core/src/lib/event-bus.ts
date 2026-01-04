@@ -1,5 +1,13 @@
+/**
+ * @internal This type is internal and not part of the public API.
+ */
 export type EventCallback = (...args: any[]) => void;
 
+/**
+ * Creates an event bus for internal use.
+ * 
+ * @internal This function is internal and not part of the public API.
+ */
 export function createEventBus() {
   const listeners = new Map<string, Set<EventCallback>>();
 

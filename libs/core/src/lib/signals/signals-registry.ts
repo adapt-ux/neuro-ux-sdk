@@ -1,6 +1,5 @@
 import { createEventBus } from '../event-bus';
-
-export type SignalValue = number | boolean | string;
+import type { SignalValue } from './types';
 
 export interface SignalsRegistry {
   register: (name: string, initialValue: SignalValue) => void;
@@ -8,8 +7,16 @@ export interface SignalsRegistry {
   get: (name: string) => SignalValue | undefined;
   getAll: () => Record<string, SignalValue>;
   onUpdate: (cb: (name: string, value: SignalValue) => void) => () => void;
-  onRegister: (cb: (data: { name: string; value: SignalValue }) => void) => () => void;
-  onError: (cb: (error: { type: string; name: string; attemptedValue?: unknown }) => void) => () => void;
+  onRegister: (
+    cb: (data: { name: string; value: SignalValue }) => void
+  ) => () => void;
+  onError: (
+    cb: (error: {
+      type: string;
+      name: string;
+      attemptedValue?: unknown;
+    }) => void
+  ) => () => void;
 }
 
 /**
@@ -125,11 +132,19 @@ export function createSignalsRegistry(): SignalsRegistry {
     return events.on('signal:update', ({ name, value }) => cb(name, value));
   }
 
-  function onRegister(cb: (data: { name: string; value: SignalValue }) => void) {
+  function onRegister(
+    cb: (data: { name: string; value: SignalValue }) => void
+  ) {
     return events.on('signal:register', cb);
   }
 
-  function onError(cb: (error: { type: string; name: string; attemptedValue?: unknown }) => void) {
+  function onError(
+    cb: (error: {
+      type: string;
+      name: string;
+      attemptedValue?: unknown;
+    }) => void
+  ) {
     return events.on('signal:error', cb);
   }
 
@@ -145,8 +160,7 @@ export function createSignalsRegistry(): SignalsRegistry {
 }
 
 /**
- * Alias for createSignalsRegistry to match the issue specification.
- * @deprecated Use createSignalsRegistry instead. This alias will be removed in a future version.
+ * Alias for createSignalsRegistry
  */
 export function createSignalsEngine(): SignalsRegistry {
   return createSignalsRegistry();

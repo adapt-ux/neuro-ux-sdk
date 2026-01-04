@@ -4,6 +4,8 @@ import { SignalSnapshot } from './signal-snapshot';
 /**
  * SignalContextImpl provides the context for signals to emit values.
  * It updates the snapshot and forwards events to the Core Engine.
+ * 
+ * @internal This class is internal and not part of the public API.
  */
 export class SignalContextImpl implements SignalContext {
   constructor(

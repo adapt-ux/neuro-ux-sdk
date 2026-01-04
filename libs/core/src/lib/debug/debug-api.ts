@@ -1,9 +1,17 @@
 import { DebugStore } from './debug-store';
-import { DebugSignalEntry, DebugHeuristicEntry, DebugRuleEntry, DebugUIEntry, DecisionExplanation } from './types';
+import {
+  DebugSignalEntry,
+  DebugHeuristicEntry,
+  DebugRuleEntry,
+  DebugUIEntry,
+  DecisionExplanation,
+} from './types';
 import { NormalizedConfig } from '../config';
 
 /**
  * Debug API interface
+ *
+ * @experimental This API is experimental and may change in future versions.
  */
 export interface DebugAPI {
   /**
@@ -44,6 +52,8 @@ export interface DebugAPI {
 
 /**
  * Creates a Debug API instance
+ *
+ * @internal This function is internal and not part of the public API.
  */
 export function createDebugAPI(
   store: DebugStore | null,
@@ -58,7 +68,9 @@ export function createDebugAPI(
       getUIState: () => [],
       getConfig: () => config,
       explainLastDecision: () => null,
-      clear: () => {},
+      clear: () => {
+        // No-op
+      },
     };
   }
 
