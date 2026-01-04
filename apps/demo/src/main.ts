@@ -12,8 +12,8 @@ interface EventLogItem {
 }
 
 class DemoApp {
-  private engine: ReturnType<typeof createNeuroUX>;
-  private signalManager: SignalManager;
+  private engine: ReturnType<typeof createNeuroUX> | undefined;
+  private signalManager: SignalManager | undefined;
   private eventLog: EventLogItem[] = [];
   private maxEvents = 20;
 
@@ -46,16 +46,16 @@ class DemoApp {
       // Initialize Signal Manager
       this.signalManager = new SignalManager(
         [IdleSignal, ScrollSignal],
-        (value) => {
+        (value: any) => {
           // Forward to Core Engine signals registry
           if (value && typeof value === 'object' && 'type' in value) {
-            const signalName = value.type;
+            const signalName = value.type as string;
             if (signalName === 'idle' && 'value' in value) {
               // Idle signal: update with boolean value
-              this.engine.signals.update('idle', value.value);
+              this.engine?.signals.update('idle', value.value);
             } else if (signalName === 'scroll') {
               // Scroll signal: update with position (number)
-              this.engine.signals.update('scroll', value.position || 0);
+              this.engine?.signals.update('scroll', value.position || 0);
             }
           }
           this.addEvent('signal', value);
