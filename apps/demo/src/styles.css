@@ -220,3 +220,53 @@ main {
 .event-data {
   color: #555;
 }
+
+.toggle-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.toggle-btn {
+  padding: 0.75rem 1.5rem;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.toggle-btn:hover {
+  background: #2980b9;
+  transform: translateY(-1px);
+}
+
+.toggle-btn:active {
+  transform: translateY(0);
+}
+
+.css-var-placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.css-var-item {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  background: rgba(52, 152, 219, 0.1);
+  border-radius: 3px;
+}
+
+.css-var-name {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-right: 0.5rem;
+}
+
+.css-var-value {
+  color: #27ae60;
+}

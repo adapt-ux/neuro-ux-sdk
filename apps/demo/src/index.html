@@ -1,93 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>NeuroUX SDK Demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div id="app">
-      <header>
-        <h1>NeuroUX SDK Demo</h1>
-        <p>Interactive testing environment for NeuroUX Core, Signals, and UI Toggle</p>
-      </header>
 
-      <main>
-        <section id="content">
-          <div class="content-card">
-            <h2>Interactive Area</h2>
-            <p>Try these actions to see signals in action:</p>
-            <ul>
-              <li>🖱️ Move your mouse or click</li>
-              <li>📜 Scroll the page</li>
-              <li>⌨️ Press any key</li>
-              <li>⏱️ Wait 3 seconds (idle detection)</li>
-            </ul>
+<head>
+  <meta charset="utf-8" />
+  <title>NeuroUX SDK Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <h1>NeuroUX SDK Demo</h1>
+      <p>Interactive testing environment for NeuroUX Core, Signals, and UI Toggle</p>
+    </header>
+
+    <main>
+      <section id="content">
+        <div class="content-card">
+          <h2>Interactive Area</h2>
+          <p>Try these actions to see signals in action:</p>
+          <ul>
+            <li>🖱️ Move your mouse or click</li>
+            <li>📜 Scroll the page</li>
+            <li>⌨️ Press any key</li>
+            <li>⏱️ Wait 3 seconds (idle detection)</li>
+          </ul>
+        </div>
+
+        <div class="content-card">
+          <h2>Manual Toggles</h2>
+          <p>Test UI channel updates manually:</p>
+          <div class="toggle-buttons">
+            <button id="toggle-color-calm" class="toggle-btn">Calm Mode</button>
+            <button id="toggle-color-vibrant" class="toggle-btn">Vibrant Mode</button>
+            <button id="toggle-color-neutral" class="toggle-btn">Neutral Mode</button>
+            <button id="toggle-highlight" class="toggle-btn">Toggle Highlight</button>
           </div>
+        </div>
 
-          <div id="scrollable-content" class="scrollable-area">
-            <h3>Scrollable Content</h3>
-            <p>Scroll this section to see scroll velocity and direction detection.</p>
-            <div class="spacer"></div>
-            <div class="spacer"></div>
-            <div class="spacer"></div>
-            <div class="spacer"></div>
-            <div class="spacer"></div>
+        <div id="scrollable-content" class="scrollable-area">
+          <h3>Scrollable Content</h3>
+          <p>Scroll this section to see scroll velocity and direction detection.</p>
+          <div class="spacer"></div>
+          <div class="spacer"></div>
+          <div class="spacer"></div>
+          <div class="spacer"></div>
+          <div class="spacer"></div>
+        </div>
+      </section>
+
+      <aside id="debug-panel">
+        <h2>Debug Panel</h2>
+
+        <div class="panel-section">
+          <h3>Engine State</h3>
+          <div id="engine-state" class="state-display">
+            <p><strong>Profile:</strong> <span id="profile">-</span></p>
+            <p><strong>Status:</strong> <span id="engine-status">Initializing...</span></p>
           </div>
-        </section>
+        </div>
 
-        <aside id="debug-panel">
-          <h2>Debug Panel</h2>
-
-          <div class="panel-section">
-            <h3>Engine State</h3>
-            <div id="engine-state" class="state-display">
-              <p><strong>Profile:</strong> <span id="profile">-</span></p>
-              <p><strong>Status:</strong> <span id="engine-status">Initializing...</span></p>
+        <div class="panel-section">
+          <h3>Signal Snapshot</h3>
+          <div id="signal-snapshot" class="state-display">
+            <div>
+              <strong>Idle:</strong>
+              <span id="idle-state">-</span>
+            </div>
+            <div>
+              <strong>Scroll Position:</strong>
+              <span id="scroll-position">-</span>
+            </div>
+            <div>
+              <strong>Scroll Velocity:</strong>
+              <span id="scroll-velocity">-</span>
+            </div>
+            <div>
+              <strong>Scroll Direction:</strong>
+              <span id="scroll-direction">-</span>
             </div>
           </div>
+        </div>
 
-          <div class="panel-section">
-            <h3>Signal Snapshot</h3>
-            <div id="signal-snapshot" class="state-display">
-              <div>
-                <strong>Idle:</strong>
-                <span id="idle-state">-</span>
-              </div>
-              <div>
-                <strong>Scroll Position:</strong>
-                <span id="scroll-position">-</span>
-              </div>
-              <div>
-                <strong>Scroll Velocity:</strong>
-                <span id="scroll-velocity">-</span>
-              </div>
-              <div>
-                <strong>Scroll Direction:</strong>
-                <span id="scroll-direction">-</span>
-              </div>
-            </div>
+        <div class="panel-section">
+          <h3>UI Channel</h3>
+          <div id="ui-channel" class="state-display">
+            <p><strong>State:</strong> <span id="ui-state">-</span></p>
           </div>
+        </div>
 
-          <div class="panel-section">
-            <h3>UI Channel</h3>
-            <div id="ui-channel" class="state-display">
-              <p><strong>State:</strong> <span id="ui-state">-</span></p>
-            </div>
+        <div class="panel-section">
+          <h3>CSS Variables</h3>
+          <div id="css-variables" class="state-display">
+            <p class="css-var-placeholder">No CSS variables applied yet...</p>
           </div>
+        </div>
 
-          <div class="panel-section">
-            <h3>Recent Events</h3>
-            <div id="event-log" class="event-log">
-              <p class="event-placeholder">No events yet...</p>
-            </div>
+        <div class="panel-section">
+          <h3>Recent Events</h3>
+          <div id="event-log" class="event-log">
+            <p class="event-placeholder">No events yet...</p>
           </div>
-        </aside>
-      </main>
-    </div>
+        </div>
+      </aside>
+    </main>
+  </div>
 
-    <script src="main.js"></script>
-  </body>
+  <script src="main.js"></script>
+</body>
+
 </html>

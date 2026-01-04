@@ -1,5 +1,9 @@
 import { createNeuroUX } from '@adapt-ux/neuro-core';
-import { SignalManager, IdleSignal, ScrollSignal } from '@adapt-ux/neuro-signals';
+import {
+  SignalManager,
+  IdleSignal,
+  ScrollSignal,
+} from '@adapt-ux/neuro-signals';
 
 interface EventLogItem {
   timestamp: string;
@@ -19,10 +23,20 @@ class DemoApp {
 
   private async init() {
     try {
-      // Initialize Core Engine
+      // Initialize Core Engine with rules
       this.engine = createNeuroUX({
         profile: 'adhd',
         debug: true,
+        rules: [
+          {
+            when: { idle: true },
+            apply: { colorMode: 'calm' },
+          },
+          {
+            when: { idle: false },
+            apply: { colorMode: 'neutral' },
+          },
+        ],
       });
 
       // Register signals in Core Engine first
@@ -55,11 +69,27 @@ class DemoApp {
         this.updateDebugPanel();
       });
 
+      // Subscribe to UI channel updates to track CSS variables
+      this.engine.ui.onUpdate((updates) => {
+        this.addEvent('ui-update', updates);
+        this.updateDebugPanel();
+        this.updateCSSVariables();
+      });
+
+      // Subscribe to styling engine updates
+      this.engine.styling.onUpdate((cssVars) => {
+        this.updateCSSVariables();
+      });
+
+      // Setup toggle buttons
+      this.setupToggleButtons();
+
       // Start signals
       this.signalManager.startAll();
 
       // Initial update
       this.updateDebugPanel();
+      this.updateCSSVariables();
       this.updateStatus('Running');
 
       this.addEvent('init', { message: 'Demo initialized successfully' });
@@ -102,6 +132,85 @@ class DemoApp {
     }
   }
 
+  private updateCSSVariables() {
+    try {
+      const cssVarsEl = document.getElementById('css-variables');
+      if (!cssVarsEl) return;
+
+      const root = document.documentElement;
+      const computedStyle = getComputedStyle(root);
+      const neurouxVars: Array<{ name: string; value: string }> = [];
+
+      // Get all CSS variables that start with --neuroux-
+      for (let i = 0; i < computedStyle.length; i++) {
+        const prop = computedStyle[i];
+        if (prop.startsWith('--neuroux-')) {
+          const value = computedStyle.getPropertyValue(prop).trim();
+          if (value) {
+            neurouxVars.push({ name: prop, value });
+          }
+        }
+      }
+
+      if (neurouxVars.length === 0) {
+        cssVarsEl.innerHTML =
+          '<p class="css-var-placeholder">No CSS variables applied yet...</p>';
+        return;
+      }
+
+      cssVarsEl.innerHTML = neurouxVars
+        .map(
+          (v) => `
+        <div class="css-var-item">
+          <span class="css-var-name">${v.name}:</span>
+          <span class="css-var-value">${v.value}</span>
+        </div>
+      `
+        )
+        .join('');
+    } catch (error) {
+      console.error('Error updating CSS variables display:', error);
+    }
+  }
+
+  private setupToggleButtons() {
+    // Color mode toggles
+    const calmBtn = document.getElementById('toggle-color-calm');
+    const vibrantBtn = document.getElementById('toggle-color-vibrant');
+    const neutralBtn = document.getElementById('toggle-color-neutral');
+    const highlightBtn = document.getElementById('toggle-highlight');
+
+    if (calmBtn) {
+      calmBtn.addEventListener('click', () => {
+        this.engine.ui.set('colorMode', 'calm');
+        this.addEvent('toggle', { action: 'colorMode', value: 'calm' });
+      });
+    }
+
+    if (vibrantBtn) {
+      vibrantBtn.addEventListener('click', () => {
+        this.engine.ui.set('colorMode', 'vibrant');
+        this.addEvent('toggle', { action: 'colorMode', value: 'vibrant' });
+      });
+    }
+
+    if (neutralBtn) {
+      neutralBtn.addEventListener('click', () => {
+        this.engine.ui.set('colorMode', 'neutral');
+        this.addEvent('toggle', { action: 'colorMode', value: 'neutral' });
+      });
+    }
+
+    if (highlightBtn) {
+      highlightBtn.addEventListener('click', () => {
+        const current = this.engine.ui.get('highlight');
+        const newValue = !current;
+        this.engine.ui.set('highlight', newValue);
+        this.addEvent('toggle', { action: 'highlight', value: newValue });
+      });
+    }
+  }
+
   private updateSignalDisplay(snapshot: any) {
     // Idle state
     const idleEl = document.getElementById('idle-state');
@@ -124,7 +233,8 @@ class DemoApp {
     const scrollDirEl = document.getElementById('scroll-direction');
     if (scrollDirEl && snapshot.scroll) {
       scrollDirEl.textContent = snapshot.scroll.direction;
-      scrollDirEl.style.color = snapshot.scroll.direction === 'up' ? '#3498db' : '#9b59b6';
+      scrollDirEl.style.color =
+        snapshot.scroll.direction === 'up' ? '#3498db' : '#9b59b6';
     }
   }
 
@@ -158,8 +268,8 @@ class DemoApp {
           event.type === 'error'
             ? 'error'
             : event.type === 'init'
-              ? 'success'
-              : '';
+            ? 'success'
+            : '';
         const dataStr = JSON.stringify(event.data, null, 2);
         return `
           <div class="event-item ${className}">
