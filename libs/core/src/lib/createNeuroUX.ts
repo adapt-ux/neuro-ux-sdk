@@ -7,9 +7,30 @@ import { createRuleProcessor } from './rule-processor';
 import { RuleProcessor } from './rules/rule-processor';
 import { createHeuristicsEngine } from './heuristics-engine';
 import { createStylingEngine } from '@adapt-ux/neuro-styles';
-import { createDebugStore, createDebugAPI, DebugAPI } from './debug';
+import { createDebugStore, createDebugAPI } from './debug';
 import { evaluateRule } from './rules/rule-evaluator';
 
+/**
+ * Creates a new NeuroUX instance.
+ *
+ * This is the main entry point for the NeuroUX SDK.
+ *
+ * @param userConfig - Optional configuration object
+ * @returns A NeuroUX instance with signals, UI channel, styling, and event APIs
+ *
+ * @example
+ * ```typescript
+ * import { createNeuroUX } from '@adapt-ux/neuro-core';
+ *
+ * const neuroUX = createNeuroUX({
+ *   profile: 'adhd',
+ *   debug: true
+ * });
+ *
+ * neuroUX.signals.register('mySignal', () => 0.5);
+ * neuroUX.on('signal:update', (data) => console.log(data));
+ * ```
+ */
 export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
   const config = normalizeConfig(userConfig);
 
@@ -29,7 +50,7 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
     eventBus.emit(event, payload);
   });
   const ruleProcessor = createRuleProcessor(config);
-  
+
   // Create MVP Rule Processor for simple declarative rules
   const mvpRuleProcessor = new RuleProcessor(config.rules || []);
   mvpRuleProcessor.bindEngine({
@@ -37,7 +58,7 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
       eventBus.emit(event, payload);
     },
   });
-  
+
   const heuristics = createHeuristicsEngine(signals, eventBus);
   const styling = createStylingEngine(ui, { eventBus });
 
@@ -48,7 +69,7 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
       ...currentState.signals,
       [name]: value,
     };
-    
+
     state.setState({
       signals: updatedSignals,
     });
@@ -118,7 +139,7 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
   function evaluateRules() {
     const currentState = state.getState();
     const uiOutput = ruleProcessor.evaluate(currentState);
-    
+
     // Write rule processor output to UI channel
     Object.entries(uiOutput).forEach(([key, value]) => {
       ui.set(key, value);
@@ -144,11 +165,14 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
         const matched = ruleOutput !== null;
 
         // Extract reason from rule condition
-        const reason = matched && rule.when ? {
-          signal: Object.keys(rule.when)[0],
-          value: Object.values(rule.when)[0],
-          ...rule.when,
-        } : undefined;
+        const reason =
+          matched && rule.when
+            ? {
+                signal: Object.keys(rule.when)[0],
+                value: Object.values(rule.when)[0],
+                ...rule.when,
+              }
+            : undefined;
 
         debugStore.addRuleEvaluation(ruleId, matched, reason);
         eventBus.emit('debug:rule', {

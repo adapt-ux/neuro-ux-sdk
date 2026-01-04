@@ -1,5 +1,13 @@
+/**
+ * @internal This type is internal and not part of the public API.
+ */
 export type Subscriber<T> = (state: T) => void;
 
+/**
+ * Creates a state container for internal use.
+ * 
+ * @internal This function is internal and not part of the public API.
+ */
 export function createStateContainer<T extends object>(initial: T) {
   let state: T = { ...initial };
   const subscribers = new Set<Subscriber<T>>();

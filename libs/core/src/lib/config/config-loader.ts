@@ -64,6 +64,8 @@ function validateConfig(config: NeuroUXConfig): void {
 /**
  * Normalizes user configuration by merging with defaults
  * and validating values
+ * 
+ * @internal This function is internal and not part of the public API.
  */
 export function normalizeConfig(
   userConfig: NeuroUXConfig = {}
@@ -108,6 +110,8 @@ export function normalizeConfig(
 /**
  * Loads and normalizes configuration
  * Alias for normalizeConfig for backward compatibility
+ * 
+ * @internal This function is internal and not part of the public API.
  */
 export function loadConfig(userConfig: NeuroUXConfig = {}): NormalizedConfig {
   return normalizeConfig(userConfig);

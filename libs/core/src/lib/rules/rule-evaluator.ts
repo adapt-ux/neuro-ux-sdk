@@ -74,6 +74,8 @@ function evaluateConditionEntry(
 
 /**
  * Evaluates a rule condition against the current state
+ * 
+ * @internal This function is internal and not part of the public API.
  */
 export function evaluateRuleCondition(
   condition: RuleCondition,
@@ -88,6 +90,8 @@ export function evaluateRuleCondition(
 /**
  * Evaluates a complete rule (condition + apply)
  * Returns the apply object if condition matches, null otherwise
+ * 
+ * @internal This function is internal and not part of the public API.
  */
 export function evaluateRule(
   rule: Rule,

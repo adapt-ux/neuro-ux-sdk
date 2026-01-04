@@ -154,15 +154,20 @@ The heart of the SDK.
 * Rule evaluator
 * Orchestrates signals + UI responses
 * Exposes a consistent API to all frameworks
-* Emits events (e.g. `adapt:modeChanged`)
+* Emits events (e.g. `signal:update`, `ui:update`)
 * Loads configuration (JSON or JS)
+* Heuristics engine for derived signals
+* UI channel for adaptation outputs
 
 ### Core internal modules:
 
-* **State Manager**
-* **Signal Combiner**
-* **Rule Processor**
-* **Adaptation Dispatcher**
+* **State Manager** (internal)
+* **Signals Registry** (public API)
+* **Rule Processor** (public API)
+* **UI Channel** (public API)
+* **Event Bus** (internal, but instance events are public)
+* **Heuristics Engine** (public API)
+* **Debug API** (experimental)
 
 ---
 
@@ -235,27 +240,38 @@ Features:
 
 These packages adapt the core engine to each framework’s idioms.
 
-### React
+### React (`@adapt-ux/neuro-react`)
 
-* Context provider
-* Hooks like `useNeuroUX()`
+* `NeuroUXProvider` context provider
+* `useNeuroUX()` hook for instance access
+* `useSignals()` hook for signal subscriptions
+* `useUIState()` hook for UI state subscriptions
+* `AssistButton` and `AssistMenu` components
 
-### Vue
+### Vue (`@adapt-ux/neuro-vue`)
 
-* Plugin installer
-* Composition API access
+* Composables: `useNeuroUX()`, `useSignals()`, `useUIState()`
+* Works with Composition API
 
-### Angular
+### Angular (`@adapt-ux/neuro-angular`)
 
-* Standalone provider
-* Structural directives
+* `NeuroUXModule` for module-based apps
+* `NeuroUXService` for dependency injection
 
-### Svelte
+### Svelte (`@adapt-ux/neuro-svelte`)
 
-* Stores integration
+* `neuroUXStore` Svelte store
+* `useNeuroUX()` convenience function
 
-### JS
+### Next.js (`@adapt-ux/neuro-next`)
 
+* Server and client components
+* `NeuroUXProvider` for both server and client
+* `NeuroUXToggle`, `AssistButton`, `AssistMenu` components
+
+### JS (`@adapt-ux/neuro-js`)
+
+* Pre-initialized instance
 * Simple loader
 * No build tools required
 

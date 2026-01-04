@@ -1,5 +1,5 @@
 export * from './signals-registry';
 export * from './types';
 
-// Export createSignalsEngine alias for compatibility with issue specification
+// Export createSignalsEngine alias
 export { createSignalsEngine } from './signals-registry';
