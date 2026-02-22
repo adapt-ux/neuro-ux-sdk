@@ -8,7 +8,7 @@ import {
   useState,
   useCallback,
 } from 'react';
-import { useNeuroUX } from './useNeuroUX';
+import { useNeuroUX } from './hooks/useNeuroUX';
 
 export interface AssistOption {
   id: string;

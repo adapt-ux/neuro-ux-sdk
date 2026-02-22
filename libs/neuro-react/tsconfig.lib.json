@@ -1,10 +1,24 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "baseUrl": "../../",
+    "paths": {
+      "@adapt-ux/neuro-core": ["libs/core/src/index.ts"],
+      "@adapt-ux/neuro-assist": ["libs/assist/src/index.ts"]
+    },
     "outDir": "../../dist/out-tsc",
     "declaration": true,
     "types": ["node"],
-    "rootDir": "../../"
+    "rootDir": "../../",
+    "module": "commonjs",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "importHelpers": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.spec.ts", "src/**/*.spec.tsx"]
 }

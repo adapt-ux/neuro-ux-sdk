@@ -9,6 +9,7 @@
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
+      "dependsOn": ["^build"],
       "options": {
         "outputPath": "dist/libs/neuro-react",
         "main": "libs/neuro-react/src/index.ts",
