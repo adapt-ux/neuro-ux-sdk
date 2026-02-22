@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-angular",
-  "version": "0.0.1",
+  "version": "0.1.0-rc.1",
   "description": "Angular wrapper for NeuroUX Web Components, enabling smooth integration of the adaptive UI in Angular applications.",
   "keywords": [
     "angular",
@@ -55,7 +55,7 @@
     "@angular/common": ">=16.0.0"
   },
   "dependencies": {
-    "@adapt-ux/neuro-assist": "^0.0.1"
+    "@adapt-ux/neuro-assist": "workspace:*"
   },
   "devDependencies": {
     "@angular/core": "^18.0.0",

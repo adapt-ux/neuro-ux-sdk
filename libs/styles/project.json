@@ -6,6 +6,16 @@
   "importPath": "@adapt-ux/neuro-styles",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/styles",
+        "main": "libs/styles/src/index.ts",
+        "tsConfig": "libs/styles/tsconfig.lib.json",
+        "assets": ["libs/styles/src/**/*.scss"]
+      }
+    },
     "test": {
       "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

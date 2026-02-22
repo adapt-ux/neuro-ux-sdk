@@ -1,11 +1,19 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, waitFor, screen } from '@testing-library/react';
+import { render, waitFor, screen, act } from '@testing-library/react';
 import { AssistButton } from './AssistButton';
 import { AssistProvider } from './AssistProvider';
 
+// Mock @adapt-ux/neuro-core so AssistProvider's dynamic import resolves immediately
+vi.mock('@adapt-ux/neuro-core', async () => {
+  const actual = await vi.importActual<typeof import('@adapt-ux/neuro-core')>(
+    '@adapt-ux/neuro-core'
+  );
+  return { ...actual };
+});
+
 describe('AssistButton', () => {
   beforeEach(() => {
-    document.body.innerHTML = '';
+    vi.clearAllMocks();
   });
 
   describe('rendering', () => {
@@ -91,7 +99,9 @@ describe('AssistButton', () => {
       });
 
       const button = screen.getByRole('button');
-      button.click();
+      act(() => {
+        button.click();
+      });
 
       await waitFor(() => {
         expect(onClick).toHaveBeenCalledTimes(1);
@@ -131,7 +141,9 @@ describe('AssistButton', () => {
       const button = screen.getByRole('button');
       expect(button.getAttribute('aria-expanded')).toBe('false');
 
-      ref.current.setExpanded(true);
+      act(() => {
+        ref.current.setExpanded(true);
+      });
 
       await waitFor(() => {
         expect(button.getAttribute('aria-expanded')).toBe('true');

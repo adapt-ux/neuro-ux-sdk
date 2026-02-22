@@ -9,7 +9,18 @@ import {
   useCallback,
 } from 'react';
 import { useNeuroUX } from './useNeuroUX';
-import type { AssistMenuOptions, AssistOption } from '@adapt-ux/neuro-assist';
+
+export interface AssistOption {
+  id: string;
+  label: string;
+  description?: string;
+  checked?: boolean;
+}
+
+export interface AssistMenuOptions {
+  options?: AssistOption[];
+  position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
+}
 
 export interface AssistMenuProps extends AssistMenuOptions {
   open?: boolean;
@@ -315,7 +326,7 @@ export const AssistMenu = forwardRef<AssistMenuRef, AssistMenuProps>(
         `}</style>
         <div className="assist-menu__header">Accessibility Options</div>
         <ul className="assist-menu__list">
-          {options.map((option) => (
+          {options.map((option: AssistOption) => (
             <li
               key={option.id}
               className="assist-menu__item"

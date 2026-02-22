@@ -6,6 +6,16 @@
   "importPath": "@adapt-ux/neuro-vue",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/neuro-vue",
+        "main": "libs/neuro-vue/src/index.ts",
+        "tsConfig": "libs/neuro-vue/tsconfig.lib.json",
+        "assets": []
+      }
+    },
     "test": {
       "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

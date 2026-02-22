@@ -6,6 +6,16 @@
   "importPath": "@adapt-ux/neuro-svelte",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/neuro-svelte",
+        "main": "libs/neuro-svelte/src/index.ts",
+        "tsConfig": "libs/neuro-svelte/tsconfig.lib.json",
+        "assets": []
+      }
+    },
     "test": {
       "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

@@ -3,6 +3,14 @@ import { render, waitFor, screen, act } from '@testing-library/react';
 import { AssistMenu } from './AssistMenu';
 import { AssistProvider } from './AssistProvider';
 
+// Mock @adapt-ux/neuro-core so AssistProvider's dynamic import resolves immediately
+vi.mock('@adapt-ux/neuro-core', async () => {
+  const actual = await vi.importActual<typeof import('@adapt-ux/neuro-core')>(
+    '@adapt-ux/neuro-core'
+  );
+  return { ...actual };
+});
+
 describe('AssistMenu', () => {
   beforeEach(() => {
     vi.clearAllMocks();

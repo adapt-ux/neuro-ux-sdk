@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-core",
-  "version": "0.0.1",
+  "version": "0.1.0-rc.1",
   "description": "Universal adaptive UX engine that enables cognitive-friendly interface adjustments based on user interaction patterns.",
   "keywords": [
     "adaptive-ui",

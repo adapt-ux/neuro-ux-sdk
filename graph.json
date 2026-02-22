@@ -1,0 +1,1618 @@
+{
+  "graph": {
+    "nodes": {
+      "neuro-angular": {
+        "name": "neuro-angular",
+        "type": "lib",
+        "data": {
+          "root": "libs/neuro-angular",
+          "targets": {
+            "lint": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint"
+              },
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                },
+                "scriptContent": "nx lint angular",
+                "runCommand": "npm run lint"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "nx build angular",
+                "runCommand": "npm run build"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "prepare": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "prepare"
+              },
+              "metadata": {
+                "scriptContent": "nx build angular",
+                "runCommand": "npm run prepare"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "test": {
+              "executor": "@nx/vitest:test",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "passWithNoTests": true,
+                "reportsDirectory": "coverage/libs/neuro-angular"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "neuro-angular",
+          "tags": [
+            "npm:public",
+            "npm:angular",
+            "npm:angular-components",
+            "npm:adaptive-ui",
+            "npm:ui-components",
+            "npm:accessibility",
+            "npm:a11y",
+            "npm:web-components",
+            "npm:neurodiversity",
+            "npm:typescript"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint",
+                "prepare"
+              ]
+            },
+            "description": "Angular wrapper for NeuroUX Web Components, enabling smooth integration of the adaptive UI in Angular applications.",
+            "js": {
+              "packageName": "@adapt-ux/neuro-angular",
+              "packageVersion": "0.1.0-rc.1",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js",
+                  "require": "./dist/index.cjs"
+                }
+              },
+              "packageMain": "./dist/index.cjs",
+              "isInPackageManagerWorkspaces": false
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/neuro-angular/src",
+          "projectType": "library",
+          "importPath": "@adapt-ux/neuro-angular",
+          "implicitDependencies": []
+        }
+      },
+      "neuro-svelte": {
+        "name": "neuro-svelte",
+        "type": "lib",
+        "data": {
+          "root": "libs/neuro-svelte",
+          "targets": {
+            "lint": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint"
+              },
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                },
+                "scriptContent": "nx lint svelte",
+                "runCommand": "npm run lint"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "nx build svelte",
+                "runCommand": "npm run build"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "prepare": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "prepare"
+              },
+              "metadata": {
+                "scriptContent": "nx build svelte",
+                "runCommand": "npm run prepare"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "test": {
+              "executor": "@nx/vitest:test",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "passWithNoTests": true,
+                "reportsDirectory": "coverage/libs/neuro-svelte"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "neuro-svelte",
+          "tags": [
+            "npm:public",
+            "npm:svelte",
+            "npm:svelte-components",
+            "npm:ui-components",
+            "npm:web-components",
+            "npm:adaptive-ui",
+            "npm:a11y",
+            "npm:accessibility",
+            "npm:neurodiversity"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint",
+                "prepare"
+              ]
+            },
+            "description": "Svelte wrapper for NeuroUX Web Components, providing seamless use of adaptive UI elements inside Svelte and SvelteKit applications.",
+            "js": {
+              "packageName": "@adapt-ux/neuro-svelte",
+              "packageVersion": "0.1.0-rc.1",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js",
+                  "require": "./dist/index.cjs"
+                }
+              },
+              "packageMain": "./dist/index.cjs",
+              "isInPackageManagerWorkspaces": false
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/neuro-svelte/src",
+          "projectType": "library",
+          "importPath": "@adapt-ux/neuro-svelte",
+          "implicitDependencies": []
+        }
+      },
+      "neuro-react": {
+        "name": "neuro-react",
+        "type": "lib",
+        "data": {
+          "root": "libs/neuro-react",
+          "targets": {
+            "lint": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint"
+              },
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                },
+                "scriptContent": "nx lint neuro-react",
+                "runCommand": "npm run lint"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "nx build neuro-react",
+                "runCommand": "npm run build"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "prepare": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "prepare"
+              },
+              "metadata": {
+                "scriptContent": "nx build neuro-react",
+                "runCommand": "npm run prepare"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "test": {
+              "executor": "@nx/vitest:test",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "passWithNoTests": true,
+                "reportsDirectory": "coverage/libs/neuro-react",
+                "config": "libs/neuro-react/vitest.config.ts"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "neuro-react",
+          "tags": [
+            "npm:public",
+            "npm:react",
+            "npm:react-components",
+            "npm:adaptive-ui",
+            "npm:ui-components",
+            "npm:accessibility",
+            "npm:web-components",
+            "npm:neurodiversity"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint",
+                "prepare"
+              ]
+            },
+            "description": "React wrapper for NeuroUX Web Components, providing seamless integration with the adaptive UI engine.",
+            "js": {
+              "packageName": "@adapt-ux/neuro-react",
+              "packageVersion": "0.1.0-rc.1",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js",
+                  "require": "./dist/index.cjs"
+                }
+              },
+              "packageMain": "./dist/index.cjs",
+              "isInPackageManagerWorkspaces": false
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/neuro-react/src",
+          "projectType": "library",
+          "importPath": "@adapt-ux/neuro-react",
+          "implicitDependencies": []
+        }
+      },
+      "neuro-next": {
+        "name": "neuro-next",
+        "type": "lib",
+        "data": {
+          "root": "libs/neuro-next",
+          "targets": {
+            "lint": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint"
+              },
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                },
+                "scriptContent": "nx lint neuro-next",
+                "runCommand": "npm run lint"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "nx build neuro-next",
+                "runCommand": "npm run build"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "test": {
+              "executor": "@nx/vitest:test",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "passWithNoTests": true,
+                "reportsDirectory": "coverage/libs/neuro-next",
+                "config": "libs/neuro-next/vitest.config.ts"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "neuro-next",
+          "tags": [
+            "npm:public",
+            "npm:nextjs",
+            "npm:next",
+            "npm:react",
+            "npm:next-components",
+            "npm:adaptive-ui",
+            "npm:ui-components",
+            "npm:accessibility",
+            "npm:web-components",
+            "npm:neurodiversity"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint"
+              ]
+            },
+            "description": "Next.js wrapper for NeuroUX Web Components, providing seamless integration with the adaptive UI engine for Next.js applications.",
+            "js": {
+              "packageName": "@adapt-ux/neuro-next",
+              "packageVersion": "0.1.0-rc.1",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js",
+                  "require": "./dist/index.cjs"
+                }
+              },
+              "packageMain": "./dist/index.cjs",
+              "isInPackageManagerWorkspaces": false
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/neuro-next/src",
+          "projectType": "library",
+          "importPath": "@adapt-ux/neuro-next",
+          "implicitDependencies": []
+        }
+      },
+      "neuro-vue": {
+        "name": "neuro-vue",
+        "type": "lib",
+        "data": {
+          "root": "libs/neuro-vue",
+          "targets": {
+            "lint": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint"
+              },
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                },
+                "scriptContent": "nx lint neuro-vue",
+                "runCommand": "npm run lint"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "nx build neuro-vue",
+                "runCommand": "npm run build"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "test": {
+              "executor": "@nx/vitest:test",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "passWithNoTests": true,
+                "reportsDirectory": "coverage/libs/neuro-vue"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "neuro-vue",
+          "tags": [
+            "npm:public",
+            "npm:vue",
+            "npm:vue-components",
+            "npm:adaptive-ui",
+            "npm:ui-components",
+            "npm:accessibility",
+            "npm:web-components",
+            "npm:neurodiversity"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint"
+              ]
+            },
+            "description": "Vue wrapper for NeuroUX Web Components, enabling easy use of the adaptive UI across Vue applications.",
+            "js": {
+              "packageName": "@adapt-ux/neuro-vue",
+              "packageVersion": "0.1.0-rc.1",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js",
+                  "require": "./dist/index.cjs"
+                }
+              },
+              "packageMain": "./dist/index.cjs",
+              "isInPackageManagerWorkspaces": false
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/neuro-vue/src",
+          "projectType": "library",
+          "importPath": "@adapt-ux/neuro-vue",
+          "implicitDependencies": []
+        }
+      },
+      "neuro-js": {
+        "name": "neuro-js",
+        "type": "lib",
+        "data": {
+          "root": "libs/neuro-js",
+          "targets": {
+            "lint": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint"
+              },
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                },
+                "scriptContent": "nx lint neuro-js",
+                "runCommand": "npm run lint"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "nx build neuro-js",
+                "runCommand": "npm run build"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "prepare": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "prepare"
+              },
+              "metadata": {
+                "scriptContent": "nx build neuro-js",
+                "runCommand": "npm run prepare"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "test": {
+              "executor": "@nx/vitest:test",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "passWithNoTests": true,
+                "reportsDirectory": "coverage/libs/neuro-js"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "neuro-js",
+          "tags": [
+            "npm:public",
+            "npm:javascript",
+            "npm:vanilla-js",
+            "npm:web-components",
+            "npm:custom-elements",
+            "npm:adaptive-ui",
+            "npm:a11y",
+            "npm:accessibility",
+            "npm:framework-agnostic",
+            "npm:ui-components",
+            "npm:neurodiversity"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint",
+                "prepare"
+              ]
+            },
+            "description": "Universal JavaScript loader and helpers for NeuroUX Web Components, enabling adaptive UI in any environment without frameworks.",
+            "js": {
+              "packageName": "@adapt-ux/neuro-js",
+              "packageVersion": "0.1.0-rc.1",
+              "packageExports": {
+                ".": {
+                  "import": "./dist/index.js",
+                  "require": "./dist/index.cjs",
+                  "types": "./dist/index.d.ts"
+                }
+              },
+              "packageMain": "./dist/index.cjs",
+              "isInPackageManagerWorkspaces": false
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/neuro-js/src",
+          "projectType": "library",
+          "importPath": "@adapt-ux/neuro-js",
+          "implicitDependencies": []
+        }
+      },
+      "signals": {
+        "name": "signals",
+        "type": "lib",
+        "data": {
+          "root": "libs/signals",
+          "targets": {
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "libs/signals",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "^default",
+                "{workspaceRoot}/eslint.config.mjs",
+                "{workspaceRoot}/libs/signals/eslint.config.mjs",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": [
+                    "eslint"
+                  ]
+                }
+              ],
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "nx build signals",
+                "runCommand": "npm run build"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "test": {
+              "executor": "@nx/vitest:test",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "passWithNoTests": true,
+                "reportsDirectory": "coverage/libs/signals",
+                "config": "libs/signals/vitest.config.ts"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "signals",
+          "tags": [
+            "npm:public",
+            "npm:behavioral-signals",
+            "npm:interaction-signals",
+            "npm:focus-detection",
+            "npm:cognitive-load",
+            "npm:ux",
+            "npm:adaptive-ui",
+            "npm:typescript"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build"
+              ]
+            },
+            "description": "Lightweight behavioral signal detectors that identify focus, overload, motion sensitivity, and interaction patterns for adaptive UI.",
+            "js": {
+              "packageName": "@adapt-ux/neuro-signals",
+              "packageVersion": "0.1.0-rc.1",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js",
+                  "require": "./dist/index.cjs"
+                }
+              },
+              "packageMain": "./dist/index.cjs",
+              "isInPackageManagerWorkspaces": false
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/signals/src",
+          "projectType": "library",
+          "importPath": "@adapt-ux/neuro-signals",
+          "implicitDependencies": []
+        }
+      },
+      "assist": {
+        "name": "assist",
+        "type": "lib",
+        "data": {
+          "root": "libs/assist",
+          "targets": {
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "libs/assist",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "^default",
+                "{workspaceRoot}/eslint.config.mjs",
+                "{workspaceRoot}/libs/assist/eslint.config.mjs",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": [
+                    "eslint"
+                  ]
+                }
+              ],
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "nx build assist",
+                "runCommand": "npm run build"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "test": {
+              "executor": "@nx/vitest:test",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "passWithNoTests": true,
+                "reportsDirectory": "coverage/libs/assist",
+                "config": "libs/assist/vitest.config.ts"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "assist",
+          "tags": [
+            "npm:public",
+            "npm:web-components",
+            "npm:custom-elements",
+            "npm:ui-components",
+            "npm:adaptive-ui",
+            "npm:inclusive-design",
+            "npm:ux",
+            "npm:a11y",
+            "npm:neurodiversity",
+            "npm:lit",
+            "npm:scss"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build"
+              ]
+            },
+            "description": "Framework-agnostic Web Components UI providing customizable accessibility and comfort tools for adaptive user experiences.",
+            "js": {
+              "packageName": "@adapt-ux/neuro-assist",
+              "packageVersion": "0.1.0-rc.1",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js",
+                  "require": "./dist/index.cjs"
+                }
+              },
+              "packageMain": "./dist/index.cjs",
+              "isInPackageManagerWorkspaces": false
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/assist/src",
+          "projectType": "library",
+          "importPath": "@adapt-ux/neuro-assist",
+          "implicitDependencies": []
+        }
+      },
+      "styles": {
+        "name": "styles",
+        "type": "lib",
+        "data": {
+          "root": "libs/styles",
+          "targets": {
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "libs/styles",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "^default",
+                "{workspaceRoot}/eslint.config.mjs",
+                "{workspaceRoot}/libs/styles/eslint.config.mjs",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": [
+                    "eslint"
+                  ]
+                }
+              ],
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "nx build styles",
+                "runCommand": "npm run build"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "test": {
+              "executor": "@nx/vitest:test",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "passWithNoTests": true,
+                "reportsDirectory": "coverage/libs/styles",
+                "config": "libs/styles/vitest.config.ts"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "styles",
+          "tags": [
+            "npm:public",
+            "npm:design-tokens",
+            "npm:scss",
+            "npm:styles",
+            "npm:themes",
+            "npm:css-utilities",
+            "npm:adaptive-ui",
+            "npm:inclusive-design"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build"
+              ]
+            },
+            "description": "SCSS design tokens, themes, and utilities for building adaptive, neuro-friendly interfaces using the NeuroUX system.",
+            "js": {
+              "packageName": "@adapt-ux/neuro-styles",
+              "packageVersion": "0.1.0-rc.1",
+              "packageExports": {
+                ".": {
+                  "import": "./dist/index.js",
+                  "require": "./dist/index.cjs",
+                  "types": "./dist/index.d.ts"
+                }
+              },
+              "packageMain": "./dist/index.cjs",
+              "isInPackageManagerWorkspaces": false
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/styles/src",
+          "projectType": "library",
+          "importPath": "@adapt-ux/neuro-styles",
+          "implicitDependencies": []
+        }
+      },
+      "utils": {
+        "name": "utils",
+        "type": "lib",
+        "data": {
+          "root": "libs/utils",
+          "targets": {
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "libs/utils",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "^default",
+                "{workspaceRoot}/eslint.config.mjs",
+                "{workspaceRoot}/libs/utils/eslint.config.mjs",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": [
+                    "eslint"
+                  ]
+                }
+              ],
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "nx build utils",
+                "runCommand": "npm run build"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "test": {
+              "executor": "@nx/vitest:test",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "passWithNoTests": true,
+                "reportsDirectory": "coverage/libs/utils"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "utils",
+          "tags": [
+            "npm:public",
+            "npm:utils",
+            "npm:helpers",
+            "npm:typescript",
+            "npm:adaptive-ui",
+            "npm:a11y"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build"
+              ]
+            },
+            "description": "Shared utility functions supporting the NeuroUX adaptive engine and UI components.",
+            "js": {
+              "packageName": "@adapt-ux/neuro-utils",
+              "packageVersion": "0.1.0-rc.1",
+              "packageExports": {
+                ".": {
+                  "import": "./dist/index.js",
+                  "require": "./dist/index.cjs",
+                  "types": "./dist/index.d.ts"
+                }
+              },
+              "packageMain": "./dist/index.cjs",
+              "isInPackageManagerWorkspaces": false
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/utils/src",
+          "projectType": "library",
+          "importPath": "@adapt-ux/neuro-utils",
+          "implicitDependencies": []
+        }
+      },
+      "core": {
+        "name": "core",
+        "type": "lib",
+        "data": {
+          "root": "libs/core",
+          "targets": {
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "libs/core",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "^default",
+                "{workspaceRoot}/eslint.config.mjs",
+                "{workspaceRoot}/libs/core/eslint.config.mjs",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": [
+                    "eslint"
+                  ]
+                }
+              ],
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "nx build core",
+                "runCommand": "npm run build"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "test": {
+              "executor": "@nx/vitest:test",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "passWithNoTests": true,
+                "reportsDirectory": "coverage/libs/core",
+                "config": "libs/core/vitest.config.ts"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "core",
+          "tags": [
+            "npm:public",
+            "npm:adaptive-ui",
+            "npm:ux",
+            "npm:a11y",
+            "npm:accessibility",
+            "npm:cognitive-accessibility",
+            "npm:neurodiversity",
+            "npm:interaction-signals",
+            "npm:behavioral-signals",
+            "npm:framework-agnostic",
+            "npm:typescript"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build"
+              ]
+            },
+            "description": "Universal adaptive UX engine that enables cognitive-friendly interface adjustments based on user interaction patterns.",
+            "js": {
+              "packageName": "@adapt-ux/neuro-core",
+              "packageVersion": "0.1.0-rc.1",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js",
+                  "require": "./dist/index.cjs"
+                }
+              },
+              "packageMain": "./dist/index.cjs",
+              "isInPackageManagerWorkspaces": false
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/core/src",
+          "projectType": "library",
+          "importPath": "@adapt-ux/neuro-core",
+          "implicitDependencies": []
+        }
+      },
+      "demo": {
+        "name": "demo",
+        "type": "app",
+        "data": {
+          "root": "apps/demo",
+          "targets": {
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "apps/demo",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "^default",
+                "{workspaceRoot}/eslint.config.mjs",
+                "{workspaceRoot}/apps/demo/eslint.config.mjs",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": [
+                    "eslint"
+                  ]
+                }
+              ],
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "metadata": {
+                "technologies": [
+                  "eslint"
+                ],
+                "description": "Runs ESLint on project",
+                "help": {
+                  "command": "npx eslint --help",
+                  "example": {
+                    "options": {
+                      "max-warnings": 0
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "options": {
+                "cwd": "apps/demo",
+                "args": [
+                  "--node-env=production"
+                ],
+                "command": "webpack-cli build"
+              },
+              "cache": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                {
+                  "externalDependencies": [
+                    "webpack-cli"
+                  ]
+                }
+              ],
+              "outputs": [
+                "{workspaceRoot}/dist\\demo"
+              ],
+              "metadata": {
+                "technologies": [
+                  "webpack"
+                ],
+                "description": "Runs Webpack build",
+                "help": {
+                  "command": "npx webpack-cli build --help",
+                  "example": {
+                    "options": {
+                      "json": "stats.json"
+                    },
+                    "args": [
+                      "--profile"
+                    ]
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "serve": {
+              "continuous": true,
+              "options": {
+                "cwd": "apps/demo",
+                "args": [
+                  "--node-env=development"
+                ],
+                "command": "webpack-cli serve"
+              },
+              "metadata": {
+                "technologies": [
+                  "webpack"
+                ],
+                "description": "Starts Webpack dev server",
+                "help": {
+                  "command": "npx webpack-cli serve --help",
+                  "example": {
+                    "options": {
+                      "args": [
+                        "--client-progress",
+                        "--history-api-fallback "
+                      ]
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "preview": {
+              "continuous": true,
+              "options": {
+                "cwd": "apps/demo",
+                "args": [
+                  "--node-env=production"
+                ],
+                "command": "webpack-cli serve"
+              },
+              "metadata": {
+                "technologies": [
+                  "webpack"
+                ],
+                "description": "Starts Webpack dev server in production mode",
+                "help": {
+                  "command": "npx webpack-cli serve --help",
+                  "example": {
+                    "options": {
+                      "args": [
+                        "--client-progress",
+                        "--history-api-fallback "
+                      ]
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "serve-static": {
+              "continuous": true,
+              "dependsOn": [
+                "build"
+              ],
+              "executor": "@nx/web:file-server",
+              "options": {
+                "buildTarget": "build",
+                "spa": true
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "build-deps": {
+              "dependsOn": [
+                "^build"
+              ],
+              "configurations": {},
+              "options": {},
+              "parallelism": true,
+              "executor": "nx:noop"
+            },
+            "watch-deps": {
+              "continuous": true,
+              "dependsOn": [
+                "build-deps"
+              ],
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "npx nx watch --projects demo --includeDependentProjects -- npx nx build-deps demo"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "test": {
+              "executor": "@nx/vitest:test",
+              "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+              ],
+              "options": {
+                "passWithNoTests": true,
+                "reportsDirectory": "coverage/apps/demo"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "projectType": "application",
+          "metadata": {},
+          "name": "demo",
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "apps/demo/src",
+          "tags": [],
+          "implicitDependencies": []
+        }
+      }
+    },
+    "dependencies": {
+      "neuro-angular": [
+        {
+          "source": "neuro-angular",
+          "target": "assist",
+          "type": "static"
+        },
+        {
+          "source": "neuro-angular",
+          "target": "core",
+          "type": "dynamic"
+        },
+        {
+          "source": "neuro-angular",
+          "target": "core",
+          "type": "static"
+        }
+      ],
+      "neuro-svelte": [
+        {
+          "source": "neuro-svelte",
+          "target": "assist",
+          "type": "static"
+        },
+        {
+          "source": "neuro-svelte",
+          "target": "core",
+          "type": "dynamic"
+        },
+        {
+          "source": "neuro-svelte",
+          "target": "core",
+          "type": "static"
+        }
+      ],
+      "neuro-react": [
+        {
+          "source": "neuro-react",
+          "target": "assist",
+          "type": "static"
+        },
+        {
+          "source": "neuro-react",
+          "target": "core",
+          "type": "static"
+        },
+        {
+          "source": "neuro-react",
+          "target": "core",
+          "type": "dynamic"
+        }
+      ],
+      "neuro-next": [
+        {
+          "source": "neuro-next",
+          "target": "core",
+          "type": "static"
+        },
+        {
+          "source": "neuro-next",
+          "target": "core",
+          "type": "dynamic"
+        },
+        {
+          "source": "neuro-next",
+          "target": "neuro-react",
+          "type": "static"
+        }
+      ],
+      "neuro-vue": [
+        {
+          "source": "neuro-vue",
+          "target": "assist",
+          "type": "static"
+        },
+        {
+          "source": "neuro-vue",
+          "target": "core",
+          "type": "dynamic"
+        },
+        {
+          "source": "neuro-vue",
+          "target": "core",
+          "type": "static"
+        }
+      ],
+      "neuro-js": [
+        {
+          "source": "neuro-js",
+          "target": "assist",
+          "type": "static"
+        },
+        {
+          "source": "neuro-js",
+          "target": "core",
+          "type": "static"
+        }
+      ],
+      "signals": [],
+      "assist": [],
+      "styles": [],
+      "utils": [],
+      "core": [
+        {
+          "source": "core",
+          "target": "styles",
+          "type": "static"
+        }
+      ],
+      "demo": [
+        {
+          "source": "demo",
+          "target": "core",
+          "type": "static"
+        },
+        {
+          "source": "demo",
+          "target": "signals",
+          "type": "static"
+        }
+      ]
+    }
+  }
+}

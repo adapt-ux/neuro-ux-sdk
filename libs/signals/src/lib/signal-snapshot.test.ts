@@ -13,10 +13,10 @@ describe('SignalSnapshot', () => {
       snapshot.update({ type: 'idle', value: true });
 
       const data = snapshot.get();
-      expect(data.idle).toBeDefined();
-      expect(data.idle.value).toBe(true);
-      expect(data.idle.type).toBe('idle');
-      expect(data.idle.ts).toBeTypeOf('number');
+      expect(data['idle']).toBeDefined();
+      expect(data['idle'].value).toBe(true);
+      expect(data['idle'].type).toBe('idle');
+      expect(data['idle'].ts).toBeTypeOf('number');
     });
 
     it('should add timestamp to signal value', () => {
@@ -25,8 +25,8 @@ describe('SignalSnapshot', () => {
       const after = Date.now();
 
       const data = snapshot.get();
-      expect(data.scroll.ts).toBeGreaterThanOrEqual(before);
-      expect(data.scroll.ts).toBeLessThanOrEqual(after);
+      expect(data['scroll'].ts).toBeGreaterThanOrEqual(before);
+      expect(data['scroll'].ts).toBeLessThanOrEqual(after);
     });
 
     it('should overwrite previous value for same signal type', () => {
@@ -34,7 +34,7 @@ describe('SignalSnapshot', () => {
       snapshot.update({ type: 'idle', value: true });
 
       const data = snapshot.get();
-      expect(data.idle.value).toBe(true);
+      expect(data['idle'].value).toBe(true);
       expect(Object.keys(data)).toHaveLength(1);
     });
 
@@ -44,9 +44,9 @@ describe('SignalSnapshot', () => {
       snapshot.update({ type: 'focus', active: true });
 
       const data = snapshot.get();
-      expect(data.idle).toBeDefined();
-      expect(data.scroll).toBeDefined();
-      expect(data.focus).toBeDefined();
+      expect(data['idle']).toBeDefined();
+      expect(data['scroll']).toBeDefined();
+      expect(data['focus']).toBeDefined();
       expect(Object.keys(data)).toHaveLength(3);
     });
 
@@ -59,10 +59,10 @@ describe('SignalSnapshot', () => {
       });
 
       const data = snapshot.get();
-      expect(data.scroll.position).toBe(440);
-      expect(data.scroll.direction).toBe('down');
-      expect(data.scroll.velocity).toBe(10);
-      expect(data.scroll.ts).toBeTypeOf('number');
+      expect(data['scroll'].position).toBe(440);
+      expect(data['scroll'].direction).toBe('down');
+      expect(data['scroll'].velocity).toBe(10);
+      expect(data['scroll'].ts).toBeTypeOf('number');
     });
 
     it('should not update if value is null', () => {
@@ -108,8 +108,8 @@ describe('SignalSnapshot', () => {
       snapshot.update({ type: 'idle', value: true });
 
       const data = snapshot.get();
-      expect(data.idle.value).toBe(true);
-      expect(data.scroll.position).toBe(100);
+      expect(data['idle'].value).toBe(true);
+      expect(data['scroll'].position).toBe(100);
     });
   });
 
@@ -129,8 +129,8 @@ describe('SignalSnapshot', () => {
       snapshot.update({ type: 'scroll', position: 200 });
 
       const data = snapshot.get();
-      expect(data.idle).toBeUndefined();
-      expect(data.scroll.position).toBe(200);
+      expect(data['idle']).toBeUndefined();
+      expect(data['scroll'].position).toBe(200);
     });
   });
 

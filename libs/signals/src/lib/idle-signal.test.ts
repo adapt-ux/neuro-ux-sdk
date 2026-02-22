@@ -12,7 +12,7 @@ describe('IdleSignal', () => {
     vi.useFakeTimers();
     snapshot = createSignalSnapshot();
     emitCallback = vi.fn();
-    const context = new SignalContextImpl(snapshot, emitCallback);
+    const context = new SignalContextImpl(snapshot, emitCallback as (value: unknown) => void);
     signal = new IdleSignal(context);
   });
 
@@ -136,14 +136,14 @@ describe('IdleSignal', () => {
     vi.advanceTimersByTime(3000);
 
     const snapshotData = snapshot.get();
-    expect(snapshotData.idle).toBeDefined();
-    expect(snapshotData.idle.value).toBe(true);
-    expect(snapshotData.idle.type).toBe('idle');
+    expect(snapshotData['idle']).toBeDefined();
+    expect(snapshotData['idle'].value).toBe(true);
+    expect(snapshotData['idle'].type).toBe('idle');
 
     // Trigger activity
     window.dispatchEvent(new Event('mousemove'));
 
     const updatedData = snapshot.get();
-    expect(updatedData.idle.value).toBe(false);
+    expect(updatedData['idle'].value).toBe(false);
   });
 });

@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-vue",
-  "version": "0.0.1",
+  "version": "0.1.0-rc.1",
   "description": "Vue wrapper for NeuroUX Web Components, enabling easy use of the adaptive UI across Vue applications.",
   "keywords": [
     "vue",
@@ -51,7 +51,7 @@
     "vue": ">=3.3.0"
   },
   "dependencies": {
-    "@adapt-ux/neuro-assist": "^0.0.1"
+    "@adapt-ux/neuro-assist": "workspace:*"
   },
   "devDependencies": {
     "vue": "^3.4.0",

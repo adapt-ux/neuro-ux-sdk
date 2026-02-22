@@ -1,4 +1,4 @@
-import { ref, watch, onUnmounted } from 'vue';
+import { ref, watch, onUnmounted, type Ref } from 'vue';
 import { useNeuroUX } from './useNeuroUX';
 
 /**
@@ -18,7 +18,7 @@ import { useNeuroUX } from './useNeuroUX';
  * </template>
  * ```
  */
-export function useUIState(): globalThis.Ref<Record<string, any>> {
+export function useUIState(): Ref<Record<string, any>> {
   const neuroRef = useNeuroUX();
   const uiState = ref<Record<string, any>>({});
 

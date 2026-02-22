@@ -3,12 +3,10 @@ import { createStateContainer } from './state';
 import { createEventBus } from './event-bus';
 import { createSignalsRegistry } from './signals/signals-registry';
 import { createUiChannel } from './ui-channel';
-import { createRuleProcessor } from './rule-processor';
-import { RuleProcessor } from './rules/rule-processor';
+import { createRuleProcessor, Rule } from './rule-processor';
 import { createHeuristicsEngine } from './heuristics-engine';
-import { createStylingEngine } from '@adapt-ux/neuro-styles';
+// import { createStylingEngine } from '@adapt-ux/neuro-styles';
 import { createDebugStore, createDebugAPI } from './debug';
-import { evaluateRule } from './rules/rule-evaluator';
 
 /**
  * Creates a new NeuroUX instance.
@@ -51,16 +49,11 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
   });
   const ruleProcessor = createRuleProcessor(config);
 
-  // Create MVP Rule Processor for simple declarative rules
-  const mvpRuleProcessor = new RuleProcessor(config.rules || []);
-  mvpRuleProcessor.bindEngine({
-    emit: (event: string, payload: any) => {
-      eventBus.emit(event, payload);
-    },
-  });
-
   const heuristics = createHeuristicsEngine(signals, eventBus);
-  const styling = createStylingEngine(ui, { eventBus });
+  // const styling = createStylingEngine(ui, { eventBus });
+  const styling = {
+    destroy: () => {}, // Placeholder for now
+  };
 
   // Sync signal updates to state
   signals.onUpdate((name, value) => {
@@ -135,44 +128,88 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
     }
   });
 
+  // Track last adaptation output to emit 'adaptation' only when it changes
+  let lastAdaptationOutput: Record<string, any> = {};
+
   // Evaluate rules and update UI channel when state changes
   function evaluateRules() {
     const currentState = state.getState();
-    const uiOutput = ruleProcessor.evaluate(currentState);
+    const evaluationState = {
+      signals: currentState.signals || {},
+      profile: currentState.profile,
+    };
+    const uiOutput = ruleProcessor.evaluate(evaluationState);
+
+    // Emit 'adaptation' event when output changes (MVP Rule Processor integration)
+    const outputChanged =
+      JSON.stringify(uiOutput) !== JSON.stringify(lastAdaptationOutput);
+    if (outputChanged) {
+      lastAdaptationOutput = { ...uiOutput };
+      eventBus.emit('adaptation', lastAdaptationOutput);
+    }
 
     // Write rule processor output to UI channel
     Object.entries(uiOutput).forEach(([key, value]) => {
       ui.set(key, value);
     });
-  }
-
-  // Evaluate MVP rules when state or signals change
-  function evaluateMvpRules() {
-    const currentState = state.getState();
-    const evaluationState = {
-      signals: currentState.signals || {},
-      state: currentState,
-      context: {
-        profile: currentState.profile,
-      },
-    };
 
     // Debug: track rule evaluations
     if (debugStore && config.rules) {
-      config.rules.forEach((rule, index) => {
+      config.rules.forEach((rule: Rule, index: number) => {
         const ruleId = `rule-${index}`;
-        const ruleOutput = evaluateRule(rule, evaluationState);
-        const matched = ruleOutput !== null;
+        // Check if rule matches by evaluating it separately
+        // For simple rules, check the condition
+        let matched = false;
+        let reason: { signal: string; value: any; op?: string } | undefined =
+          undefined;
 
-        // Extract reason from rule condition
-        const reason =
-          matched && rule.when
-            ? {
-                signal: Object.keys(rule.when)[0],
-                value: Object.values(rule.when)[0],
-                ...rule.when,
-              }
-            : undefined;
+        if ('when' in rule && 'apply' in rule) {
+          // Simple rule - check if the condition matches
+          const { signal, op, value: expectedValue } = rule.when;
+          const signals = (evaluationState.signals || {}) as Record<
+            string,
+            number | string | boolean
+          >;
+          const signalValue = signals[signal];
+
+          // Evaluate the condition
+          switch (op) {
+            case '>':
+              matched =
+                signalValue !== undefined &&
+                Number(signalValue) > Number(expectedValue);
+              break;
+            case '<':
+              matched =
+                signalValue !== undefined &&
+                Number(signalValue) < Number(expectedValue);
+              break;
+            case '>=':
+              matched =
+                signalValue !== undefined &&
+                Number(signalValue) >= Number(expectedValue);
+              break;
+            case '<=':
+              matched =
+                signalValue !== undefined &&
+                Number(signalValue) <= Number(expectedValue);
+              break;
+            case '===':
+              matched = signalValue === expectedValue;
+              break;
+            case '!==':
+              matched = signalValue !== expectedValue;
+              break;
+          }
+
+          if (matched) {
+            reason = { signal, value: signalValue, op };
+          }
+        } else if ('and' in rule || 'or' in rule) {
+          // Rule group - for debug purposes, we'll check if any output was generated
+          // The actual matching is complex and handled by ruleProcessor
+          matched = Object.keys(uiOutput).length > 0;
+        }
 
         debugStore.addRuleEvaluation(ruleId, matched, reason);
         eventBus.emit('debug:rule', {
@@ -183,19 +220,15 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
         });
       });
     }
-
-    mvpRuleProcessor.evaluate(evaluationState);
   }
 
   // Subscribe to state changes to re-evaluate rules
   state.subscribe(() => {
     evaluateRules();
-    evaluateMvpRules();
   });
 
   // Initial rule evaluation
   evaluateRules();
-  evaluateMvpRules();
 
   return {
     config,

@@ -96,7 +96,9 @@ describe('NeuroUXProvider', () => {
       mockCreateNeuroUX.mockImplementation((config: any) => {
         instance = actualCreateNeuroUX(config);
         const destroySpy = vi.fn();
-        instance.destroy = destroySpy;
+        if (instance) {
+          instance.destroy = destroySpy;
+        }
         return instance;
       });
 

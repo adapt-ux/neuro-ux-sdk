@@ -36,7 +36,7 @@ describe('createNeuroUX', () => {
       const userConfig: NeuroUXConfig = {
         profile: 'custom-profile',
         signals: ['signal1', 'signal2'],
-        rules: [{ id: 'rule1' }],
+        rules: [{ when: { signal: 'idle', op: '===', value: true }, apply: { ui: { focus: 'high' } } }],
       };
 
       const instance = createNeuroUX(userConfig);
@@ -647,8 +647,8 @@ describe('createNeuroUX', () => {
       const instance = createNeuroUX({
         rules: [
           {
-            when: { idle: true },
-            apply: { calmMode: true },
+            when: { signal: 'idle', op: '===', value: true },
+            apply: { ui: { calmMode: true } },
           },
         ],
       });
@@ -666,12 +666,12 @@ describe('createNeuroUX', () => {
       const instance = createNeuroUX({
         rules: [
           {
-            when: { idle: true },
-            apply: { calmMode: true },
+            when: { signal: 'idle', op: '===', value: true },
+            apply: { ui: { calmMode: true } },
           },
           {
-            when: { scroll: 0 },
-            apply: { staticMode: true },
+            when: { signal: 'scroll', op: '===', value: 0 },
+            apply: { ui: { staticMode: true } },
           },
         ],
       });
@@ -694,8 +694,8 @@ describe('createNeuroUX', () => {
       const instance = createNeuroUX({
         rules: [
           {
-            when: { idle: true },
-            apply: { calmMode: true },
+            when: { signal: 'idle', op: '===', value: true },
+            apply: { ui: { calmMode: true } },
           },
         ],
       });
@@ -714,8 +714,8 @@ describe('createNeuroUX', () => {
       const instance = createNeuroUX({
         rules: [
           {
-            when: { idle: true },
-            apply: { calmMode: true },
+            when: { signal: 'idle', op: '===', value: true },
+            apply: { ui: { calmMode: true } },
           },
         ],
       });
@@ -743,8 +743,8 @@ describe('createNeuroUX', () => {
       const instance = createNeuroUX({
         rules: [
           {
-            when: { focus: { $gt: 0.5 } },
-            apply: { highlight: true },
+            when: { signal: 'focus', op: '>', value: 0.5 },
+            apply: { ui: { highlight: true } },
           },
         ],
       });
@@ -762,8 +762,8 @@ describe('createNeuroUX', () => {
       const instance = createNeuroUX({
         rules: [
           {
-            when: { focus: { $lt: 0.5 } },
-            apply: { highlight: true },
+            when: { signal: 'focus', op: '<', value: 0.5 },
+            apply: { ui: { highlight: true } },
           },
         ],
       });
@@ -789,8 +789,8 @@ describe('createNeuroUX', () => {
         profile: 'test-profile',
         rules: [
           {
-            when: { idle: true },
-            apply: { calmMode: true },
+            when: { signal: 'idle', op: '===', value: true },
+            apply: { ui: { calmMode: true } },
           },
         ],
         signals: ['idle', 'scroll'],
@@ -912,8 +912,8 @@ describe('createNeuroUX', () => {
         debug: true,
         rules: [
           {
-            when: { idle: true },
-            apply: { fontSize: 16 },
+            when: { signal: 'idle', op: '===', value: true },
+            apply: { ui: { fontSize: 16 } },
           },
         ],
       });
@@ -930,8 +930,8 @@ describe('createNeuroUX', () => {
         debug: true,
         rules: [
           {
-            when: { idle: true },
-            apply: { fontSize: 16 },
+            when: { signal: 'idle', op: '===', value: true },
+            apply: { ui: { fontSize: 16 } },
           },
         ],
       });

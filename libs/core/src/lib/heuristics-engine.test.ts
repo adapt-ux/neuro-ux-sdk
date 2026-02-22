@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createHeuristicsEngine } from './heuristics-engine';
 import { createSignalsRegistry } from './signals/signals-registry';
 import { createEventBus } from './event-bus';
+import type { SignalValue } from './signals/types';
 
 describe('createHeuristicsEngine', () => {
   let signals: ReturnType<typeof createSignalsRegistry>;
@@ -245,9 +246,9 @@ describe('createHeuristicsEngine', () => {
     it('should ignore internal heuristics storage', () => {
       const state = {
         signals: {
-          focus: true,
-          _internalHeuristics: { test: 123 },
+          focus: true as SignalValue,
         },
+        profile: 'default',
       };
       heuristics.evaluate(state);
       const value = signals.get('interactionDensity');

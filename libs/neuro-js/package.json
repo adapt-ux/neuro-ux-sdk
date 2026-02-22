@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-js",
-  "version": "0.0.1",
+  "version": "0.1.0-rc.1",
   "description": "Universal JavaScript loader and helpers for NeuroUX Web Components, enabling adaptive UI in any environment without frameworks.",
   "keywords": [
     "javascript",
@@ -53,7 +53,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@adapt-ux/neuro-assist": "^0.0.1"
+    "@adapt-ux/neuro-assist": "workspace:*"
   },
   "devDependencies": {}
 }

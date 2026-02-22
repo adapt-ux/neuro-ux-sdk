@@ -10,7 +10,7 @@ describe('SignalContextImpl', () => {
   beforeEach(() => {
     snapshot = createSignalSnapshot();
     onEmit = vi.fn();
-    context = new SignalContextImpl(snapshot, onEmit);
+    context = new SignalContextImpl(snapshot, onEmit as (value: unknown) => void);
   });
 
   describe('emit', () => {
@@ -27,9 +27,9 @@ describe('SignalContextImpl', () => {
       context.emit(value);
 
       const snapshotData = snapshot.get();
-      expect(snapshotData.scroll).toBeDefined();
-      expect(snapshotData.scroll.position).toBe(440);
-      expect(snapshotData.scroll.type).toBe('scroll');
+      expect(snapshotData['scroll']).toBeDefined();
+      expect(snapshotData['scroll'].position).toBe(440);
+      expect(snapshotData['scroll'].type).toBe('scroll');
     });
 
     it('should call onEmit even if value does not have type property', () => {
@@ -72,20 +72,20 @@ describe('SignalContextImpl', () => {
       expect(onEmit).toHaveBeenNthCalledWith(2, value2);
 
       const snapshotData = snapshot.get();
-      expect(snapshotData.idle.value).toBe(true);
-      expect(snapshotData.scroll.position).toBe(100);
+      expect(snapshotData['idle'].value).toBe(true);
+      expect(snapshotData['scroll'].position).toBe(100);
     });
 
     it('should work with multiple context instances sharing same snapshot', () => {
-      const context1 = new SignalContextImpl(snapshot, vi.fn());
-      const context2 = new SignalContextImpl(snapshot, vi.fn());
+      const context1 = new SignalContextImpl(snapshot, vi.fn() as unknown as (value: unknown) => void);
+      const context2 = new SignalContextImpl(snapshot, vi.fn() as unknown as (value: unknown) => void);
 
       context1.emit({ type: 'idle', value: true });
       context2.emit({ type: 'scroll', position: 200 });
 
       const snapshotData = snapshot.get();
-      expect(snapshotData.idle).toBeDefined();
-      expect(snapshotData.scroll).toBeDefined();
+      expect(snapshotData['idle']).toBeDefined();
+      expect(snapshotData['scroll']).toBeDefined();
     });
 
     it('should work with multiple context instances with different callbacks', () => {

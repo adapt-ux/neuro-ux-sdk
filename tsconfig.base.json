@@ -4,6 +4,7 @@
     "module": "ESNext",
     "jsx": "react-jsx",
     "moduleResolution": "node",
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@adapt-ux/neuro-core": ["libs/core/src/index.ts"],

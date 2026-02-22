@@ -6,6 +6,16 @@
   "importPath": "@adapt-ux/neuro-assist",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/assist",
+        "main": "libs/assist/src/index.ts",
+        "tsConfig": "libs/assist/tsconfig.lib.json",
+        "assets": ["libs/assist/src/**/*.scss", "libs/assist/src/**/*.css"]
+      }
+    },
     "test": {
       "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

@@ -6,6 +6,16 @@
   "importPath": "@adapt-ux/neuro-signals",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/signals",
+        "main": "libs/signals/src/index.ts",
+        "tsConfig": "libs/signals/tsconfig.lib.json",
+        "assets": []
+      }
+    },
     "test": {
       "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-svelte",
-  "version": "0.0.1",
+  "version": "0.1.0-rc.1",
   "description": "Svelte wrapper for NeuroUX Web Components, providing seamless use of adaptive UI elements inside Svelte and SvelteKit applications.",
   "keywords": [
     "svelte",
@@ -54,7 +54,7 @@
     "svelte": "^4.0.0 || ^5.0.0"
   },
   "dependencies": {
-    "@adapt-ux/neuro-assist": "^0.0.1"
+    "@adapt-ux/neuro-assist": "workspace:*"
   },
   "devDependencies": {
     "svelte": "^5.0.0"

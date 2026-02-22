@@ -77,12 +77,12 @@ describe('SignalManager', () => {
 
   describe('constructor', () => {
     it('should create manager with empty signal constructors', () => {
-      manager = new SignalManager([], onEmit);
+      manager = new SignalManager([], onEmit as (value: unknown) => void);
       expect(manager.getSnapshot()).toEqual({});
     });
 
     it('should instantiate signals from constructors', () => {
-      manager = new SignalManager([TestSignal1, TestSignal2], onEmit);
+      manager = new SignalManager([TestSignal1, TestSignal2], onEmit as (value: unknown) => void);
       const snapshot = manager.getSnapshot();
       expect(snapshot).toEqual({});
     });
@@ -90,7 +90,7 @@ describe('SignalManager', () => {
 
   describe('startAll', () => {
     it('should start all signal instances', async () => {
-      manager = new SignalManager([TestSignal1, TestSignal2], onEmit);
+      manager = new SignalManager([TestSignal1, TestSignal2], onEmit as (value: unknown) => void);
       manager.startAll();
 
       // Wait for async emissions
@@ -101,7 +101,7 @@ describe('SignalManager', () => {
 
     it('should not start signals in SSR environment', () => {
       delete (global as any).window;
-      manager = new SignalManager([TestSignal1], onEmit);
+      manager = new SignalManager([TestSignal1], onEmit as (value: unknown) => void);
 
       expect(() => manager.startAll()).not.toThrow();
       // Signals should not emit in SSR
@@ -110,7 +110,7 @@ describe('SignalManager', () => {
 
     it('should handle errors when starting signals gracefully', () => {
       const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-      manager = new SignalManager([ErrorSignal], onEmit);
+      manager = new SignalManager([ErrorSignal], onEmit as (value: unknown) => void);
 
       expect(() => manager.startAll()).not.toThrow();
       expect(consoleErrorSpy).toHaveBeenCalled();
@@ -120,7 +120,7 @@ describe('SignalManager', () => {
 
     it('should start signals that do not throw errors even if one fails', async () => {
       const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-      manager = new SignalManager([ErrorSignal, TestSignal1], onEmit);
+      manager = new SignalManager([ErrorSignal, TestSignal1], onEmit as (value: unknown) => void);
       manager.startAll();
 
       await new Promise((resolve) => setTimeout(resolve, 50));
@@ -134,7 +134,7 @@ describe('SignalManager', () => {
 
   describe('stopAll', () => {
     it('should stop all signal instances', () => {
-      manager = new SignalManager([TestSignal1, TestSignal2], onEmit);
+      manager = new SignalManager([TestSignal1, TestSignal2], onEmit as (value: unknown) => void);
       manager.startAll();
       manager.stopAll();
 
@@ -144,7 +144,7 @@ describe('SignalManager', () => {
 
     it('should handle errors when stopping signals gracefully', () => {
       const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-      manager = new SignalManager([ErrorSignal], onEmit);
+      manager = new SignalManager([ErrorSignal], onEmit as (value: unknown) => void);
       manager.startAll();
 
       expect(() => manager.stopAll()).not.toThrow();
@@ -154,7 +154,7 @@ describe('SignalManager', () => {
     });
 
     it('should allow calling stopAll multiple times', () => {
-      manager = new SignalManager([TestSignal1], onEmit);
+      manager = new SignalManager([TestSignal1], onEmit as (value: unknown) => void);
       manager.startAll();
 
       manager.stopAll();
@@ -167,19 +167,19 @@ describe('SignalManager', () => {
 
   describe('getSnapshot', () => {
     it('should return empty snapshot initially', () => {
-      manager = new SignalManager([], onEmit);
+      manager = new SignalManager([], onEmit as (value: unknown) => void);
       expect(manager.getSnapshot()).toEqual({});
     });
 
     it('should return snapshot with signal values after emissions', async () => {
-      manager = new SignalManager([TestSignal1, TestSignal2], onEmit);
+      manager = new SignalManager([TestSignal1, TestSignal2], onEmit as (value: unknown) => void);
       manager.startAll();
 
       await new Promise((resolve) => setTimeout(resolve, 50));
 
       const snapshot = manager.getSnapshot();
-      expect(snapshot.test1).toBeDefined();
-      expect(snapshot.test2).toBeDefined();
+      expect(snapshot['test1']).toBeDefined();
+      expect(snapshot['test2']).toBeDefined();
     });
 
     it('should return updated snapshot after multiple emissions', async () => {
@@ -194,17 +194,17 @@ describe('SignalManager', () => {
         stop() {}
       }
 
-      manager = new SignalManager([MultiEmitSignal], onEmit);
+      manager = new SignalManager([MultiEmitSignal], onEmit as (value: unknown) => void);
       manager.startAll();
 
       await new Promise((resolve) => setTimeout(resolve, 50));
 
       const snapshot = manager.getSnapshot();
-      expect(snapshot.multi.count).toBe(2);
+      expect(snapshot['multi'].count).toBe(2);
     });
 
     it('should return a copy of snapshot, not the original', () => {
-      manager = new SignalManager([], onEmit);
+      manager = new SignalManager([], onEmit as (value: unknown) => void);
       const snapshot1 = manager.getSnapshot();
       const snapshot2 = manager.getSnapshot();
 
@@ -215,7 +215,7 @@ describe('SignalManager', () => {
 
   describe('clearSnapshot', () => {
     it('should clear snapshot data', async () => {
-      manager = new SignalManager([TestSignal1], onEmit);
+      manager = new SignalManager([TestSignal1], onEmit as (value: unknown) => void);
       manager.startAll();
 
       await new Promise((resolve) => setTimeout(resolve, 50));
@@ -228,7 +228,7 @@ describe('SignalManager', () => {
 
   describe('integration', () => {
     it('should handle full lifecycle: start -> emit -> stop', async () => {
-      manager = new SignalManager([TestSignal1, TestSignal2], onEmit);
+      manager = new SignalManager([TestSignal1, TestSignal2], onEmit as (value: unknown) => void);
 
       // Start
       manager.startAll();
@@ -237,7 +237,7 @@ describe('SignalManager', () => {
       // Verify emissions
       expect(onEmit).toHaveBeenCalled();
       const snapshot = manager.getSnapshot();
-      expect(snapshot.test1 || snapshot.test2).toBeDefined();
+      expect(snapshot['test1'] || snapshot['test2']).toBeDefined();
 
       // Stop
       manager.stopAll();
@@ -261,7 +261,7 @@ describe('SignalManager', () => {
         stop() {}
       }
 
-      manager = new SignalManager([ContextTrackingSignal, ContextTrackingSignal], onEmit);
+      manager = new SignalManager([ContextTrackingSignal, ContextTrackingSignal], onEmit as (value: unknown) => void);
       manager.startAll();
 
       await new Promise((resolve) => setTimeout(resolve, 10));
@@ -271,7 +271,7 @@ describe('SignalManager', () => {
     });
 
     it('should forward all emissions to Core Engine callback', async () => {
-      manager = new SignalManager([TestSignal1, TestSignal2], onEmit);
+      manager = new SignalManager([TestSignal1, TestSignal2], onEmit as (value: unknown) => void);
       manager.startAll();
 
       await new Promise((resolve) => setTimeout(resolve, 50));

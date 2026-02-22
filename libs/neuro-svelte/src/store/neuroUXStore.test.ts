@@ -90,7 +90,7 @@ describe('neuroUXStore', () => {
       await new Promise((resolve) => setTimeout(resolve, 10));
 
       const signals = get(signalsStore);
-      expect(signals.idle).toBe(true);
+      expect(signals['idle']).toBe(true);
     });
   });
 
@@ -110,7 +110,7 @@ describe('neuroUXStore', () => {
       await new Promise((resolve) => setTimeout(resolve, 10));
 
       const ui = get(uiStateStore);
-      expect(ui.fontSize).toBe(18);
+      expect(ui['fontSize']).toBe(18);
     });
   });
 

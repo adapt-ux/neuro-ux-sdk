@@ -12,7 +12,7 @@ describe('ScrollSignal', () => {
     vi.useFakeTimers();
     snapshot = createSignalSnapshot();
     emitCallback = vi.fn();
-    const context = new SignalContextImpl(snapshot, emitCallback);
+    const context = new SignalContextImpl(snapshot, emitCallback as (value: unknown) => void);
     signal = new ScrollSignal(context);
 
     // Mock window.scrollY
@@ -111,11 +111,11 @@ describe('ScrollSignal', () => {
     window.dispatchEvent(new Event('scroll'));
 
     const snapshotData = snapshot.get();
-    expect(snapshotData.scroll).toBeDefined();
-    expect(snapshotData.scroll.position).toBe(440);
-    expect(snapshotData.scroll.type).toBe('scroll');
-    expect(typeof snapshotData.scroll.velocity).toBe('number');
-    expect(['up', 'down']).toContain(snapshotData.scroll.direction);
+    expect(snapshotData['scroll']).toBeDefined();
+    expect(snapshotData['scroll'].position).toBe(440);
+    expect(snapshotData['scroll'].type).toBe('scroll');
+    expect(typeof snapshotData['scroll'].velocity).toBe('number');
+    expect(['up', 'down']).toContain(snapshotData['scroll'].direction);
   });
 
   it('should stop and clean up event listeners', () => {

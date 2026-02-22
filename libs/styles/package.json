@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-styles",
-  "version": "0.0.1",
+  "version": "0.1.0-rc.1",
   "description": "SCSS design tokens, themes, and utilities for building adaptive, neuro-friendly interfaces using the NeuroUX system.",
   "keywords": [
     "design-tokens",

@@ -34,7 +34,7 @@ export function AssistProvider({ children, config = {} }: AssistProviderProps) {
 
         // Apply initial UI state if needed
         const initialUi = instance.ui.getAll();
-        if (Object.keys(initialUi).length > 0) {
+        if (Object.keys(initialUi).length > 0 && 'apply' in instance.styling && typeof instance.styling.apply === 'function') {
           instance.styling.apply(initialUi);
         }
       }

@@ -29,12 +29,12 @@ class DemoApp {
         debug: true,
         rules: [
           {
-            when: { idle: true },
-            apply: { colorMode: 'calm' },
+            when: { signal: 'idle', op: '===', value: true },
+            apply: { ui: { colorMode: 'calm' } },
           },
           {
-            when: { idle: false },
-            apply: { colorMode: 'neutral' },
+            when: { signal: 'idle', op: '===', value: false },
+            apply: { ui: { colorMode: 'neutral' } },
           },
         ],
       });
@@ -76,10 +76,12 @@ class DemoApp {
         this.updateCSSVariables();
       });
 
-      // Subscribe to styling engine updates
-      this.engine.styling.onUpdate((cssVars) => {
-        this.updateCSSVariables();
-      });
+      // Subscribe to styling engine updates (if available)
+      if (this.engine && 'styling' in this.engine && this.engine.styling && typeof (this.engine.styling as any).onUpdate === 'function') {
+        (this.engine.styling as any).onUpdate((cssVars: Record<string, string>) => {
+          this.updateCSSVariables();
+        });
+      }
 
       // Setup toggle buttons
       this.setupToggleButtons();
@@ -109,6 +111,8 @@ class DemoApp {
   }
 
   private updateDebugPanel() {
+    if (!this.engine) return;
+    
     try {
       // Update engine state
       const engineState = this.engine.getState();
@@ -118,8 +122,10 @@ class DemoApp {
       }
 
       // Update signal snapshot
-      const snapshot = this.signalManager.getSnapshot();
-      this.updateSignalDisplay(snapshot);
+      const snapshot = this.signalManager?.getSnapshot();
+      if (snapshot) {
+        this.updateSignalDisplay(snapshot);
+      }
 
       // Update UI channel
       const uiStateEl = document.getElementById('ui-state');
@@ -174,6 +180,8 @@ class DemoApp {
   }
 
   private setupToggleButtons() {
+    if (!this.engine) return;
+    
     // Color mode toggles
     const calmBtn = document.getElementById('toggle-color-calm');
     const vibrantBtn = document.getElementById('toggle-color-vibrant');
@@ -182,30 +190,30 @@ class DemoApp {
 
     if (calmBtn) {
       calmBtn.addEventListener('click', () => {
-        this.engine.ui.set('colorMode', 'calm');
+        this.engine!.ui.set('colorMode', 'calm');
         this.addEvent('toggle', { action: 'colorMode', value: 'calm' });
       });
     }
 
     if (vibrantBtn) {
       vibrantBtn.addEventListener('click', () => {
-        this.engine.ui.set('colorMode', 'vibrant');
+        this.engine!.ui.set('colorMode', 'vibrant');
         this.addEvent('toggle', { action: 'colorMode', value: 'vibrant' });
       });
     }
 
     if (neutralBtn) {
       neutralBtn.addEventListener('click', () => {
-        this.engine.ui.set('colorMode', 'neutral');
+        this.engine!.ui.set('colorMode', 'neutral');
         this.addEvent('toggle', { action: 'colorMode', value: 'neutral' });
       });
     }
 
     if (highlightBtn) {
       highlightBtn.addEventListener('click', () => {
-        const current = this.engine.ui.get('highlight');
+        const current = this.engine!.ui.get('highlight');
         const newValue = !current;
-        this.engine.ui.set('highlight', newValue);
+        this.engine!.ui.set('highlight', newValue);
         this.addEvent('toggle', { action: 'highlight', value: newValue });
       });
     }

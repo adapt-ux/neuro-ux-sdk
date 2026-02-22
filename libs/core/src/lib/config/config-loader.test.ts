@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { normalizeConfig, loadConfig, NeuroUXConfig, NormalizedConfig } from './config-loader';
+import { normalizeConfig, loadConfig } from './config-loader';
+import type { NeuroUXConfig, NormalizedConfig } from './config-schema';
 import { defaultConfig } from './defaults';
 
 describe('config-loader', () => {
@@ -29,8 +30,8 @@ describe('config-loader', () => {
         profile: 'custom-profile',
         rules: [
           {
-            when: { idle: true },
-            apply: { calmMode: true },
+            when: { signal: 'idle', op: '===', value: true },
+            apply: { ui: { calmMode: true } },
           },
         ],
         signals: ['idle', 'scroll'],
@@ -233,12 +234,12 @@ describe('config-loader', () => {
       const userConfig: NeuroUXConfig = {
         rules: [
           {
-            when: { idle: true },
-            apply: { calmMode: true },
+            when: { signal: 'idle', op: '===', value: true },
+            apply: { ui: { calmMode: true } },
           },
           {
-            when: { focus: { $gt: 0.5 } },
-            apply: { highlight: true },
+            when: { signal: 'focus', op: '>', value: 0.5 },
+            apply: { ui: { highlight: true } },
           },
         ],
       };
@@ -246,8 +247,8 @@ describe('config-loader', () => {
       const result = normalizeConfig(userConfig);
       expect(result.rules).toHaveLength(2);
       expect(result.rules[0]).toEqual({
-        when: { idle: true },
-        apply: { calmMode: true },
+        when: { signal: 'idle', op: '===', value: true },
+        apply: { ui: { calmMode: true } },
       });
     });
 

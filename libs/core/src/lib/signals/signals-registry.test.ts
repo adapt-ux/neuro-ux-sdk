@@ -50,7 +50,7 @@ describe('createSignalsRegistry', () => {
       const errorHandler = vi.fn();
 
       const unsubscribe = registry.onError(errorHandler);
-      registry.register('test-signal', { nested: true });
+      registry.register('test-signal', { nested: true } as any);
 
       expect(registry.get('test-signal')).toBeUndefined();
       expect(errorHandler).toHaveBeenCalledWith({
@@ -67,7 +67,7 @@ describe('createSignalsRegistry', () => {
       const errorHandler = vi.fn();
 
       const unsubscribe = registry.onError(errorHandler);
-      registry.register('test-signal', [1, 2, 3]);
+      registry.register('test-signal', [1, 2, 3] as any);
 
       expect(registry.get('test-signal')).toBeUndefined();
       expect(errorHandler).toHaveBeenCalledWith({
@@ -84,7 +84,7 @@ describe('createSignalsRegistry', () => {
       const errorHandler = vi.fn();
 
       const unsubscribe = registry.onError(errorHandler);
-      registry.register('test-signal', null);
+      registry.register('test-signal', null as any);
 
       expect(registry.get('test-signal')).toBeUndefined();
       expect(errorHandler).toHaveBeenCalledWith({
@@ -101,7 +101,7 @@ describe('createSignalsRegistry', () => {
       const errorHandler = vi.fn();
 
       const unsubscribe = registry.onError(errorHandler);
-      registry.register('test-signal', undefined);
+      registry.register('test-signal', undefined as any);
 
       expect(registry.get('test-signal')).toBeUndefined();
       expect(errorHandler).toHaveBeenCalledWith({
@@ -227,7 +227,7 @@ describe('createSignalsRegistry', () => {
       registry.register('test-signal', 0);
       const unsubscribe = registry.onError(errorHandler);
 
-      registry.update('test-signal', { object: true });
+      registry.update('test-signal', { object: true } as any);
       expect(registry.get('test-signal')).toBe(0); // Should remain unchanged
       expect(errorHandler).toHaveBeenCalledWith({
         type: 'invalid-type',
@@ -390,7 +390,7 @@ describe('createSignalsRegistry', () => {
       const handler = vi.fn();
 
       const unsubscribe = registry.onRegister(handler);
-      registry.register('test-signal', { invalid: true }); // Invalid type
+      registry.register('test-signal', { invalid: true } as any); // Invalid type
 
       expect(handler).not.toHaveBeenCalled();
 
@@ -450,7 +450,7 @@ describe('createSignalsRegistry', () => {
       const errorHandler = vi.fn();
 
       const unsubscribe = registry.onError(errorHandler);
-      registry.register('test-signal', null);
+      registry.register('test-signal', null as any);
 
       expect(errorHandler).toHaveBeenCalledWith({
         type: 'invalid-type',

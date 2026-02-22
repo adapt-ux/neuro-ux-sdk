@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-signals",
-  "version": "0.0.1",
+  "version": "0.1.0-rc.1",
   "description": "Lightweight behavioral signal detectors that identify focus, overload, motion sensitivity, and interaction patterns for adaptive UI.",
   "keywords": [
     "behavioral-signals",

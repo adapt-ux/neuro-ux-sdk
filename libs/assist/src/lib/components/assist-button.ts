@@ -1,3 +1,5 @@
+import type { AssistButtonOptions } from '../types';
+
 /**
  * AssistButton - Core trigger component that opens the assist menu
  *
@@ -9,12 +11,6 @@
  * Zero external dependencies.
  * Appropriate ARIA attributes.
  */
-
-export interface AssistButtonOptions {
-  variant?: 'floating' | 'inline';
-  label?: string;
-  ariaLabel?: string;
-}
 
 export class AssistButton extends HTMLElement {
   private _variant: 'floating' | 'inline' = 'floating';

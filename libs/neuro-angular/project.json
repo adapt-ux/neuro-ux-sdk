@@ -6,6 +6,16 @@
   "importPath": "@adapt-ux/neuro-angular",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/neuro-angular",
+        "main": "libs/neuro-angular/src/index.ts",
+        "tsConfig": "libs/neuro-angular/tsconfig.lib.json",
+        "assets": []
+      }
+    },
     "test": {
       "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

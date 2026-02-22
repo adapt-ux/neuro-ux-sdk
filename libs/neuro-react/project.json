@@ -6,6 +6,16 @@
   "importPath": "@adapt-ux/neuro-react",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/neuro-react",
+        "main": "libs/neuro-react/src/index.ts",
+        "tsConfig": "libs/neuro-react/tsconfig.lib.json",
+        "assets": []
+      }
+    },
     "test": {
       "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

@@ -8,6 +8,9 @@ describe('createRuleProcessor', () => {
       profile: 'default',
       signals: [],
       rules: [],
+      styling: {},
+      features: {},
+      debug: false,
     };
 
     const processor = createRuleProcessor(config);
@@ -22,6 +25,9 @@ describe('createRuleProcessor', () => {
       profile: 'default',
       signals: [],
       rules: [],
+      styling: {},
+      features: {},
+      debug: false,
     };
 
     const processor = createRuleProcessor(config);
@@ -35,6 +41,9 @@ describe('createRuleProcessor', () => {
       profile: 'default',
       signals: [],
       rules: [],
+      styling: {},
+      features: {},
+      debug: false,
     };
 
     const processor = createRuleProcessor(config);
@@ -54,6 +63,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -77,6 +89,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -98,6 +113,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -122,6 +140,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -146,6 +167,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -167,6 +191,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -198,6 +225,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -253,6 +283,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -290,6 +323,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -337,6 +373,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules,
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -376,6 +415,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules,
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -403,6 +445,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -421,6 +466,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -438,7 +486,10 @@ describe('createRuleProcessor', () => {
           undefined as any,
           {} as any,
           { invalid: 'rule' } as any,
-        ],
+        ] as any,
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -457,6 +508,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -476,6 +530,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -494,6 +551,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -511,6 +571,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -528,6 +591,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);
@@ -549,6 +615,9 @@ describe('createRuleProcessor', () => {
         profile: 'default',
         signals: [],
         rules: [rule],
+        styling: {},
+        features: {},
+        debug: false,
       };
 
       const processor = createRuleProcessor(config);

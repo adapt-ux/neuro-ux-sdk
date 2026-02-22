@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-utils",
-  "version": "0.0.1",
+  "version": "0.1.0-rc.1",
   "description": "Shared utility functions supporting the NeuroUX adaptive engine and UI components.",
   "keywords": [
     "utils",

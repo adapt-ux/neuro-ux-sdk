@@ -6,6 +6,16 @@
   "importPath": "@adapt-ux/neuro-utils",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/utils",
+        "main": "libs/utils/src/index.ts",
+        "tsConfig": "libs/utils/tsconfig.lib.json",
+        "assets": []
+      }
+    },
     "test": {
       "executor": "@nx/vitest:test",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

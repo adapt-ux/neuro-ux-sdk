@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-react",
-  "version": "0.0.1",
+  "version": "0.1.0-rc.1",
   "description": "React wrapper for NeuroUX Web Components, providing seamless integration with the adaptive UI engine.",
   "keywords": [
     "react",
