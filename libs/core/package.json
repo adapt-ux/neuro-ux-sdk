@@ -31,7 +31,6 @@
     "dist"
   ],
   "scripts": {
-    "build": "nx build core",
     "test": "nx test core"
   },
   "publishConfig": {

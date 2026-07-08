@@ -27,9 +27,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "nx build neuro-react",
     "test": "nx test neuro-react",
-    "lint": "nx lint neuro-react",
     "prepare": "nx build neuro-react"
   },
   "publishConfig": {

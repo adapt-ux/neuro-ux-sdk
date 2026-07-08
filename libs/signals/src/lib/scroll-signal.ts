@@ -9,8 +9,8 @@ import { BaseSignal } from './base-signal';
  * - direction: Scroll direction ('up' or 'down')
  */
 export class ScrollSignal extends BaseSignal {
-  private lastPosition: number = 0;
-  private lastTime: number = 0;
+  private lastPosition = 0;
+  private lastTime = 0;
   private rafId?: number;
 
   handler = () => {

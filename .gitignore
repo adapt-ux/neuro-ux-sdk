@@ -54,3 +54,5 @@ vitest.config.*.timestamp*
 
 # Repositório separado (neuro-ux-sdk-spec) — ver /workspace/neuro-ux-sdk-spec
 /neuro-ux-sdk-spec/
+/adapt-ux-spec/
+/neuro-ux-sdk-spec/

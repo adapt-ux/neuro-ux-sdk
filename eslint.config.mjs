@@ -39,4 +39,12 @@ export default [
     // Override or add rules here
     rules: {},
   },
+  {
+    files: ['**/*.{test,spec}.{ts,tsx,js,jsx}'],
+    rules: {
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
+      '@typescript-eslint/no-inferrable-types': 'off',
+    },
+  },
 ];

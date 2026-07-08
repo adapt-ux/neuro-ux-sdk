@@ -27,7 +27,6 @@
     "dist"
   ],
   "scripts": {
-    "build": "nx build utils",
     "test": "nx test utils"
   },
   "publishConfig": {

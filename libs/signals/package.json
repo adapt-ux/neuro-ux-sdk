@@ -28,7 +28,6 @@
     "dist"
   ],
   "scripts": {
-    "build": "nx build signals",
     "test": "nx test signals"
   },
   "publishConfig": {

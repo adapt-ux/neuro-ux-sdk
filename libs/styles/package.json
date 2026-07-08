@@ -32,7 +32,6 @@
     "src"
   ],
   "scripts": {
-    "build": "nx build styles",
     "test": "nx test styles"
   },
   "publishConfig": {
