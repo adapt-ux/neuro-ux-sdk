@@ -30,9 +30,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "nx build angular",
     "test": "nx test angular",
-    "lint": "nx lint angular",
     "prepare": "nx build angular"
   },
   "publishConfig": {

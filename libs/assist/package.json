@@ -33,7 +33,6 @@
     "dist"
   ],
   "scripts": {
-    "build": "nx build assist",
     "test": "nx test assist"
   },
   "publishConfig": {

@@ -30,9 +30,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "nx build svelte",
     "test": "nx test svelte",
-    "lint": "nx lint svelte",
     "prepare": "nx build svelte"
   },
   "publishConfig": {

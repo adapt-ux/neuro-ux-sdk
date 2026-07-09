@@ -58,7 +58,7 @@ export class NeuroUXService implements OnDestroy {
    */
   subscribe(callback: (state: any) => void): () => void {
     if (!this.instance) {
-      return () => {};
+      return () => undefined;
     }
 
     const unsubscribe = this.instance.subscribe((state) => {

@@ -11,7 +11,7 @@ import { BaseSignal } from './base-signal';
  */
 export class IdleSignal extends BaseSignal {
   private idleTimer?: NodeJS.Timeout;
-  private isIdle: boolean = false;
+  private isIdle = false;
   private readonly idleTimeout: number = 3000; // 3 seconds default
   private readonly activityEvents: string[] = [
     'mousedown',

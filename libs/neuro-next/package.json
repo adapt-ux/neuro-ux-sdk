@@ -29,9 +29,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "nx build neuro-next",
-    "test": "nx test neuro-next",
-    "lint": "nx lint neuro-next"
+    "test": "nx test neuro-next"
   },
   "publishConfig": {
     "access": "public"
