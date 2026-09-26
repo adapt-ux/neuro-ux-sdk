@@ -66,12 +66,12 @@ A universal widget that allows users to adjust:
 
 Lightweight bindings for popular frameworks:
 
-* `@adapt-ux/neuro-react` - React wrapper
-* `@adapt-ux/neuro-vue` - Vue wrapper
-* `@adapt-ux/neuro-angular` - Angular wrapper
-* `@adapt-ux/neuro-svelte` - Svelte wrapper
-* `@adapt-ux/neuro-js` - Vanilla JavaScript loader
-* `@adapt-ux/neuro-next` - Next wrapper
+* `@adapt-ux/neuro-ux-sdk-react` - React wrapper
+* `@adapt-ux/neuro-ux-sdk-vue` - Vue wrapper
+* `@adapt-ux/neuro-ux-sdk-angular` - Angular wrapper
+* `@adapt-ux/neuro-ux-sdk-svelte` - Svelte wrapper
+* `@adapt-ux/neuro-ux-sdk-js` - Vanilla JavaScript loader
+* `@adapt-ux/neuro-ux-sdk-next` - Next wrapper
 
 ### **🔸 Zero Diagnosis, Zero Tracking**
 
@@ -92,18 +92,18 @@ The monorepo contains:
 
 ```
 libs/
-  core/          # @adapt-ux/neuro-core - Adaptive engine (TS)
-  assist/        # @adapt-ux/neuro-assist - Web Components UI
-  styles/        # @adapt-ux/neuro-styles - Tokens, themes, SCSS utilities
-  signals/       # @adapt-ux/neuro-signals - Behavioral detection logic
-  utils/         # @adapt-ux/neuro-utils - Shared utilities
+  core/          # @adapt-ux/neuro-ux-sdk-core - Adaptive engine (TS)
+  assist/        # @adapt-ux/neuro-ux-sdk-assist - Web Components UI
+  styles/        # @adapt-ux/neuro-ux-sdk-styles - Tokens, themes, SCSS utilities
+  signals/       # @adapt-ux/neuro-ux-sdk-signals - Behavioral detection logic
+  utils/         # @adapt-ux/neuro-ux-sdk-utils - Shared utilities
 
-  neuro-react/   # @adapt-ux/neuro-react - React wrapper
-  neuro-vue/     # @adapt-ux/neuro-vue - Vue wrapper
-  neuro-angular/ # @adapt-ux/neuro-angular - Angular wrapper
-  neuro-svelte/  # @adapt-ux/neuro-svelte - Svelte wrapper
-  neuro-js/      # @adapt-ux/neuro-js - Vanilla JavaScript loader
-  neuro-next/    # @adapt-ux/neuro-next - Next wrapper
+  neuro-react/   # @adapt-ux/neuro-ux-sdk-react - React wrapper
+  neuro-vue/     # @adapt-ux/neuro-ux-sdk-vue - Vue wrapper
+  neuro-angular/ # @adapt-ux/neuro-ux-sdk-angular - Angular wrapper
+  neuro-svelte/  # @adapt-ux/neuro-ux-sdk-svelte - Svelte wrapper
+  neuro-js/      # @adapt-ux/neuro-ux-sdk-js - Vanilla JavaScript loader
+  neuro-next/    # @adapt-ux/neuro-ux-sdk-next - Next wrapper
 apps/
   demo/          # Example app for testing
 docs/            # Internal documentation
@@ -116,7 +116,7 @@ docs/            # Internal documentation
 ### **Install the universal SDK**
 
 ```bash
-npm install @adapt-ux/neuro-core @adapt-ux/neuro-assist
+npm install @adapt-ux/neuro-ux-sdk-core @adapt-ux/neuro-ux-sdk-assist
 ```
 
 ### **Using the NeuroAssist Web Component (HTML/Vanilla JS)**
@@ -130,11 +130,11 @@ npm install @adapt-ux/neuro-core @adapt-ux/neuro-assist
 Or install via npm:
 
 ```bash
-npm install @adapt-ux/neuro-assist @adapt-ux/neuro-core
+npm install @adapt-ux/neuro-ux-sdk-assist @adapt-ux/neuro-ux-sdk-core
 ```
 
 ```javascript
-import '@adapt-ux/neuro-assist';
+import '@adapt-ux/neuro-ux-sdk-assist';
 ```
 
 ---
@@ -144,11 +144,11 @@ import '@adapt-ux/neuro-assist';
 ### **React**
 
 ```bash
-npm install @adapt-ux/neuro-react
+npm install @adapt-ux/neuro-ux-sdk-react
 ```
 
 ```tsx
-import { NeuroAssist } from '@adapt-ux/neuro-react';
+import { NeuroAssist } from '@adapt-ux/neuro-ux-sdk-react';
 
 export default function Page() {
   return <NeuroAssist />;
@@ -160,12 +160,12 @@ export default function Page() {
 ### **Next.js**
 
 ```bash
-npm install @adapt-ux/neuro-next
+npm install @adapt-ux/neuro-ux-sdk-next
 ```
 
 **app/layout.tsx** (Root Layout):
 ```tsx
-import { NeuroUXProvider } from '@adapt-ux/neuro-next';
+import { NeuroUXProvider } from '@adapt-ux/neuro-ux-sdk-next';
 
 export default function RootLayout({
   children,
@@ -184,7 +184,7 @@ export default function RootLayout({
 ```tsx
 'use client';
 
-import { NeuroUXToggle } from '@adapt-ux/neuro-next';
+import { NeuroUXToggle } from '@adapt-ux/neuro-ux-sdk-next';
 
 export default function Page() {
   return (
@@ -201,7 +201,7 @@ export default function Page() {
 ### **Vue**
 
 ```bash
-npm install @adapt-ux/neuro-vue
+npm install @adapt-ux/neuro-ux-sdk-vue
 ```
 
 ```vue
@@ -210,7 +210,7 @@ npm install @adapt-ux/neuro-vue
 </template>
 
 <script setup>
-import '@adapt-ux/neuro-vue';
+import '@adapt-ux/neuro-ux-sdk-vue';
 </script>
 ```
 
@@ -219,13 +219,13 @@ import '@adapt-ux/neuro-vue';
 ### **Angular**
 
 ```bash
-npm install @adapt-ux/neuro-angular
+npm install @adapt-ux/neuro-ux-sdk-angular
 ```
 
 ```typescript
 // app.module.ts or standalone component
 import { Component } from '@angular/core';
-import '@adapt-ux/neuro-assist';
+import '@adapt-ux/neuro-ux-sdk-assist';
 
 @Component({
   selector: 'app-root',
@@ -239,12 +239,12 @@ export class AppComponent {}
 ### **Svelte**
 
 ```bash
-npm install @adapt-ux/neuro-svelte
+npm install @adapt-ux/neuro-ux-sdk-svelte
 ```
 
 ```svelte
 <script>
-  import '@adapt-ux/neuro-svelte';
+  import '@adapt-ux/neuro-ux-sdk-svelte';
 </script>
 
 <neuro-assist />
@@ -255,11 +255,11 @@ npm install @adapt-ux/neuro-svelte
 ### **Vanilla JavaScript**
 
 ```bash
-npm install @adapt-ux/neuro-js
+npm install @adapt-ux/neuro-ux-sdk-js
 ```
 
 ```javascript
-import '@adapt-ux/neuro-js';
+import '@adapt-ux/neuro-ux-sdk-js';
 
 // Or via CDN
 // <script type="module" src="https://cdn.adaptux.dev/neuro-js.js"></script>

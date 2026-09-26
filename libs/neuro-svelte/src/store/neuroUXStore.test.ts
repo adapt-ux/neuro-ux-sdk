@@ -3,8 +3,8 @@ import { get } from 'svelte/store';
 import { initNeuroUX, getNeuroUXInstance, signalsStore, uiStateStore, neuroUXState, _resetStore } from './neuroUXStore';
 
 // Mock the createNeuroUX function
-vi.mock('@adapt-ux/neuro-core', async () => {
-  const actual = await vi.importActual('@adapt-ux/neuro-core');
+vi.mock('@adapt-ux/neuro-ux-sdk-core', async () => {
+  const actual = await vi.importActual('@adapt-ux/neuro-ux-sdk-core');
   return {
     ...actual,
     createNeuroUX: vi.fn(),
@@ -22,10 +22,10 @@ describe('neuroUXStore', () => {
     vi.clearAllMocks();
 
     if (!actualCreateNeuroUX) {
-      const mod = await vi.importActual('@adapt-ux/neuro-core');
+      const mod = await vi.importActual('@adapt-ux/neuro-ux-sdk-core');
       actualCreateNeuroUX = (mod as any).createNeuroUX;
     }
-    const mod = await import('@adapt-ux/neuro-core');
+    const mod = await import('@adapt-ux/neuro-ux-sdk-core');
     mockCreateNeuroUX = vi.mocked(mod.createNeuroUX);
     mockCreateNeuroUX.mockImplementation(actualCreateNeuroUX);
   });

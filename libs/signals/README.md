@@ -5,7 +5,7 @@ The **NeuroUX Signals** package provides lightweight behavioral signal detectors
 This document describes the **public API** available to developers when using:
 
 ```ts
-import { SignalManager, IdleSignal, ScrollSignal } from "@adapt-ux/neuro-signals";
+import { SignalManager, IdleSignal, ScrollSignal } from "@adapt-ux/neuro-ux-sdk-signals";
 ```
 
 ---
@@ -48,7 +48,7 @@ class SignalManager {
 ### **Basic Example**
 
 ```ts
-import { SignalManager, IdleSignal, ScrollSignal } from "@adapt-ux/neuro-signals";
+import { SignalManager, IdleSignal, ScrollSignal } from "@adapt-ux/neuro-ux-sdk-signals";
 
 // Create manager with signal constructors
 const manager = new SignalManager(
@@ -157,8 +157,8 @@ class SignalContextImpl implements SignalContext {
 When creating custom signals, you receive a `SignalContext` in the constructor:
 
 ```ts
-import { BaseSignal } from "@adapt-ux/neuro-signals";
-import type { SignalContext } from "@adapt-ux/neuro-signals";
+import { BaseSignal } from "@adapt-ux/neuro-ux-sdk-signals";
+import type { SignalContext } from "@adapt-ux/neuro-ux-sdk-signals";
 
 class CustomSignal extends BaseSignal {
   start() {
@@ -197,7 +197,7 @@ function createSignalSnapshot(): SignalSnapshot;
 ### **Example**
 
 ```ts
-import { createSignalSnapshot } from "@adapt-ux/neuro-signals";
+import { createSignalSnapshot } from "@adapt-ux/neuro-ux-sdk-signals";
 
 const snapshot = createSignalSnapshot();
 
@@ -250,7 +250,7 @@ Each signal value in the snapshot has the following structure:
 Detects user idle state by emitting periodic updates.
 
 ```ts
-import { IdleSignal } from "@adapt-ux/neuro-signals";
+import { IdleSignal } from "@adapt-ux/neuro-ux-sdk-signals";
 
 // Emits every 5 seconds: { type: 'idle', ts: number }
 ```
@@ -260,7 +260,7 @@ import { IdleSignal } from "@adapt-ux/neuro-signals";
 Detects scroll position changes.
 
 ```ts
-import { ScrollSignal } from "@adapt-ux/neuro-signals";
+import { ScrollSignal } from "@adapt-ux/neuro-ux-sdk-signals";
 
 // Emits on scroll: { type: 'scroll', position: number }
 ```
@@ -272,8 +272,8 @@ import { ScrollSignal } from "@adapt-ux/neuro-signals";
 To create a custom signal, extend `BaseSignal`:
 
 ```ts
-import { BaseSignal } from "@adapt-ux/neuro-signals";
-import type { SignalContext } from "@adapt-ux/neuro-signals";
+import { BaseSignal } from "@adapt-ux/neuro-ux-sdk-signals";
+import type { SignalContext } from "@adapt-ux/neuro-ux-sdk-signals";
 
 class FocusSignal extends BaseSignal {
   private handler?: () => void;
@@ -329,8 +329,8 @@ manager.startAll(); // No-op if window is undefined
 The Signal Manager is designed to integrate with the NeuroUX Core Engine:
 
 ```ts
-import { createNeuroUX } from "@adapt-ux/core";
-import { SignalManager, IdleSignal, ScrollSignal } from "@adapt-ux/neuro-signals";
+import { createNeuroUX } from "@adapt-ux/neuro-ux-sdk-core";
+import { SignalManager, IdleSignal, ScrollSignal } from "@adapt-ux/neuro-ux-sdk-signals";
 
 const engine = createNeuroUX({
   profile: "adhd",

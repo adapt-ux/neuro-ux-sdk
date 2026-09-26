@@ -57,17 +57,17 @@ This project adheres to **[Semantic Versioning](https://semver.org/)** and the *
 * Initial repository structure using Nx monorepo
 * Core packages:
 
-  * `@adapt-ux/neuro-core` - Adaptive engine
-  * `@adapt-ux/neuro-signals` - Behavioral signal detection
-  * `@adapt-ux/neuro-styles` - SCSS design tokens and styling engine
-  * `@adapt-ux/neuro-assist` - Web Components UI
-  * `@adapt-ux/neuro-react` - React wrapper
-  * `@adapt-ux/neuro-vue` - Vue wrapper
-  * `@adapt-ux/neuro-angular` - Angular wrapper
-  * `@adapt-ux/neuro-svelte` - Svelte wrapper
-  * `@adapt-ux/neuro-js` - Vanilla JavaScript loader
-  * `@adapt-ux/neuro-next` - Next.js wrapper
-  * `@adapt-ux/neuro-utils` - Shared utilities
+  * `@adapt-ux/neuro-ux-sdk-core` - Adaptive engine
+  * `@adapt-ux/neuro-ux-sdk-signals` - Behavioral signal detection
+  * `@adapt-ux/neuro-ux-sdk-styles` - SCSS design tokens and styling engine
+  * `@adapt-ux/neuro-ux-sdk-assist` - Web Components UI
+  * `@adapt-ux/neuro-ux-sdk-react` - React wrapper
+  * `@adapt-ux/neuro-ux-sdk-vue` - Vue wrapper
+  * `@adapt-ux/neuro-ux-sdk-angular` - Angular wrapper
+  * `@adapt-ux/neuro-ux-sdk-svelte` - Svelte wrapper
+  * `@adapt-ux/neuro-ux-sdk-js` - Vanilla JavaScript loader
+  * `@adapt-ux/neuro-ux-sdk-next` - Next.js wrapper
+  * `@adapt-ux/neuro-ux-sdk-utils` - Shared utilities
 * Initial documentation folder (`docs/`) with architecture outline
 * GitHub Actions:
 

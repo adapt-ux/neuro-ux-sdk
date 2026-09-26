@@ -3,10 +3,10 @@ import { render, waitFor, screen, act } from '@testing-library/react';
 import { AssistButton } from './AssistButton';
 import { AssistProvider } from './AssistProvider';
 
-// Mock @adapt-ux/neuro-core so AssistProvider's dynamic import resolves immediately
-vi.mock('@adapt-ux/neuro-core', async () => {
-  const actual = await vi.importActual<typeof import('@adapt-ux/neuro-core')>(
-    '@adapt-ux/neuro-core'
+// Mock @adapt-ux/neuro-ux-sdk-core so AssistProvider's dynamic import resolves immediately
+vi.mock('@adapt-ux/neuro-ux-sdk-core', async () => {
+  const actual = await vi.importActual<typeof import('@adapt-ux/neuro-ux-sdk-core')>(
+    '@adapt-ux/neuro-ux-sdk-core'
   );
   return { ...actual };
 });

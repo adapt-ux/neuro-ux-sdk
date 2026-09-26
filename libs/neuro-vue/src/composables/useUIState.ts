@@ -9,7 +9,7 @@ import { useNeuroUX } from './useNeuroUX';
  * @example
  * ```vue
  * <script setup>
- * import { useUIState } from '@adapt-ux/neuro-vue';
+ * import { useUIState } from '@adapt-ux/neuro-ux-sdk-vue';
  * 
  * const ui = useUIState();
  * </script>

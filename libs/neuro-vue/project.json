@@ -3,22 +3,27 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/neuro-vue/src",
   "projectType": "library",
-  "importPath": "@adapt-ux/neuro-vue",
+  "importPath": "@adapt-ux/neuro-ux-sdk-vue",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "outputPath": "dist/libs/neuro-vue",
+        "outputPath": "{projectRoot}/dist",
         "main": "libs/neuro-vue/src/index.ts",
         "tsConfig": "libs/neuro-vue/tsconfig.lib.json",
-        "assets": []
+        "assets": [],
+        "rootDir": "libs/neuro-vue/src"
       }
     },
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "{workspaceRoot}/coverage/{projectRoot}"

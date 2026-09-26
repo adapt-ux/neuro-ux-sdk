@@ -13,17 +13,17 @@ This checklist ensures the SDK is ready for release.
 - [ ] Internal dependency versions use `workspace:*` correctly
 
 **Packages to verify:**
-- `@adapt-ux/neuro-core`
-- `@adapt-ux/neuro-signals`
-- `@adapt-ux/neuro-styles`
-- `@adapt-ux/neuro-assist`
-- `@adapt-ux/neuro-react`
-- `@adapt-ux/neuro-vue`
-- `@adapt-ux/neuro-angular`
-- `@adapt-ux/neuro-svelte`
-- `@adapt-ux/neuro-next`
-- `@adapt-ux/neuro-js`
-- `@adapt-ux/neuro-utils`
+- `@adapt-ux/neuro-ux-sdk-core`
+- `@adapt-ux/neuro-ux-sdk-signals`
+- `@adapt-ux/neuro-ux-sdk-styles`
+- `@adapt-ux/neuro-ux-sdk-assist`
+- `@adapt-ux/neuro-ux-sdk-react`
+- `@adapt-ux/neuro-ux-sdk-vue`
+- `@adapt-ux/neuro-ux-sdk-angular`
+- `@adapt-ux/neuro-ux-sdk-svelte`
+- `@adapt-ux/neuro-ux-sdk-next`
+- `@adapt-ux/neuro-ux-sdk-js`
+- `@adapt-ux/neuro-ux-sdk-utils`
 
 ---
 

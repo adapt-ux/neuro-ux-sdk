@@ -3,22 +3,30 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/assist/src",
   "projectType": "library",
-  "importPath": "@adapt-ux/neuro-assist",
+  "importPath": "@adapt-ux/neuro-ux-sdk-assist",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "outputPath": "dist/libs/assist",
+        "outputPath": "{projectRoot}/dist",
         "main": "libs/assist/src/index.ts",
         "tsConfig": "libs/assist/tsconfig.lib.json",
-        "assets": ["libs/assist/src/**/*.scss", "libs/assist/src/**/*.css"]
+        "assets": [
+          "libs/assist/src/**/*.scss",
+          "libs/assist/src/**/*.css"
+        ],
+        "rootDir": "libs/assist/src"
       }
     },
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "{workspaceRoot}/coverage/{projectRoot}",

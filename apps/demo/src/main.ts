@@ -1,9 +1,9 @@
-import { createNeuroUX } from '@adapt-ux/neuro-core';
+import { createNeuroUX } from '@adapt-ux/neuro-ux-sdk-core';
 import {
   SignalManager,
   IdleSignal,
   ScrollSignal,
-} from '@adapt-ux/neuro-signals';
+} from '@adapt-ux/neuro-ux-sdk-signals';
 
 interface EventLogItem {
   timestamp: string;

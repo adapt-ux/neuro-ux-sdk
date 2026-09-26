@@ -1,5 +1,5 @@
 {
-  "name": "@adapt-ux/neuro-core",
+  "name": "@adapt-ux/neuro-ux-sdk-core",
   "version": "0.1.0-rc.1",
   "description": "Universal adaptive UX engine that enables cognitive-friendly interface adjustments based on user interaction patterns.",
   "keywords": [
@@ -17,14 +17,12 @@
   "license": "MIT",
   "author": "AdaptUX",
   "sideEffects": false,
-  "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "files": [
@@ -46,7 +44,9 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@adapt-ux/neuro-styles": "workspace:*"
+    "@adapt-ux/neuro-ux-sdk-styles": "0.1.0-rc.1"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "types": "./dist/index.d.ts",
+  "type": "module"
 }

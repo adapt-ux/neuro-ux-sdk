@@ -3,23 +3,30 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/neuro-react/src",
   "projectType": "library",
-  "importPath": "@adapt-ux/neuro-react",
+  "importPath": "@adapt-ux/neuro-ux-sdk-react",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "dependsOn": ["^build"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "dependsOn": [
+        "^build"
+      ],
       "options": {
-        "outputPath": "dist/libs/neuro-react",
+        "outputPath": "{projectRoot}/dist",
         "main": "libs/neuro-react/src/index.ts",
         "tsConfig": "libs/neuro-react/tsconfig.lib.json",
-        "assets": []
+        "assets": [],
+        "rootDir": "libs/neuro-react/src"
       }
     },
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "{workspaceRoot}/coverage/{projectRoot}",

@@ -1,5 +1,5 @@
 {
-  "name": "@adapt-ux/neuro-signals",
+  "name": "@adapt-ux/neuro-ux-sdk-signals",
   "version": "0.1.0-rc.1",
   "description": "Lightweight behavioral signal detectors that identify focus, overload, motion sensitivity, and interaction patterns for adaptive UI.",
   "keywords": [
@@ -13,15 +13,13 @@
   ],
   "license": "MIT",
   "author": "AdaptUX",
-  "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
   "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "files": [
@@ -43,5 +41,7 @@
     "node": ">=18"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {},
+  "types": "./dist/index.d.ts",
+  "type": "module"
 }

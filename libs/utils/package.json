@@ -1,5 +1,5 @@
 {
-  "name": "@adapt-ux/neuro-utils",
+  "name": "@adapt-ux/neuro-ux-sdk-utils",
   "version": "0.1.0-rc.1",
   "description": "Shared utility functions supporting the NeuroUX adaptive engine and UI components.",
   "keywords": [
@@ -11,16 +11,14 @@
   ],
   "license": "MIT",
   "author": "AdaptUX",
-  "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "files": [
@@ -42,5 +40,6 @@
     "node": ">=18"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {},
+  "type": "module"
 }

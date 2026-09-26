@@ -4,8 +4,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { AssistProvider } from './AssistProvider';
 
 // Mock the createNeuroUX function
-vi.mock('@adapt-ux/neuro-core', async () => {
-  const actual = await vi.importActual('@adapt-ux/neuro-core');
+vi.mock('@adapt-ux/neuro-ux-sdk-core', async () => {
+  const actual = await vi.importActual('@adapt-ux/neuro-ux-sdk-core');
   return {
     ...actual,
     createNeuroUX: vi.fn(),
@@ -24,10 +24,10 @@ describe('AssistProvider (Next.js Client)', () => {
     }
 
     if (!actualCreateNeuroUX) {
-      const mod = await vi.importActual('@adapt-ux/neuro-core');
+      const mod = await vi.importActual('@adapt-ux/neuro-ux-sdk-core');
       actualCreateNeuroUX = (mod as any).createNeuroUX;
     }
-    const mod = await import('@adapt-ux/neuro-core');
+    const mod = await import('@adapt-ux/neuro-ux-sdk-core');
     mockCreateNeuroUX = vi.mocked(mod.createNeuroUX);
     mockCreateNeuroUX.mockImplementation(actualCreateNeuroUX);
   });

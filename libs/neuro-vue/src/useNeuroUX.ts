@@ -12,13 +12,13 @@ export function useNeuroUX() {
 
   (async () => {
     try {
-      const module = await import('@adapt-ux/neuro-core' as any);
+      const module = await import('@adapt-ux/neuro-ux-sdk-core' as any);
       if (module && module.createNeuroUX) {
         ux = module.createNeuroUX();
       }
     } catch (error) {
       // Handle import error at runtime
-      console.warn('Failed to load @adapt-ux/neuro-core:', error);
+      console.warn('Failed to load @adapt-ux/neuro-ux-sdk-core:', error);
     }
   })();
 

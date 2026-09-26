@@ -9,7 +9,7 @@ import { useNeuroUX } from './useNeuroUX';
  * @example
  * ```vue
  * <script setup>
- * import { useSignals } from '@adapt-ux/neuro-vue';
+ * import { useSignals } from '@adapt-ux/neuro-ux-sdk-vue';
  * 
  * const [signals, updateSignal] = useSignals();
  * </script>

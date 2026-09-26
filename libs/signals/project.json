@@ -3,22 +3,27 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/signals/src",
   "projectType": "library",
-  "importPath": "@adapt-ux/neuro-signals",
+  "importPath": "@adapt-ux/neuro-ux-sdk-signals",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "outputPath": "dist/libs/signals",
+        "outputPath": "{projectRoot}/dist",
         "main": "libs/signals/src/index.ts",
         "tsConfig": "libs/signals/tsconfig.lib.json",
-        "assets": []
+        "assets": [],
+        "rootDir": "libs/signals/src"
       }
     },
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "{workspaceRoot}/coverage/{projectRoot}",

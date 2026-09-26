@@ -1,6 +1,6 @@
 'use client';
 
-import { useNeuroUX as useReactNeuroUX } from '@adapt-ux/neuro-react';
+import { useNeuroUX as useReactNeuroUX } from '@adapt-ux/neuro-ux-sdk-react';
 
 /**
  * useNeuroUX for Next.js - Re-exports the React hook

@@ -69,7 +69,7 @@ flowchart TB
     
         %% Core Engine
         subgraph CoreEngine [Core Engine]
-            CE_LABEL["@adapt-ux/core"]
+            CE_LABEL["@adapt-ux/neuro-ux-sdk-core"]
             CE1[Component: State Manager]
             CE2[Component: Rule Processor]
             CE3[Component: Event Hub]
@@ -143,7 +143,7 @@ flowchart TB
 
 ---
 
-## **4.1 @adapt-ux/core — Adaptive Engine**
+## **4.1 @adapt-ux/neuro-ux-sdk-core — Adaptive Engine**
 
 The heart of the SDK.
 
@@ -240,7 +240,7 @@ Features:
 
 These packages adapt the core engine to each framework’s idioms.
 
-### React (`@adapt-ux/neuro-react`)
+### React (`@adapt-ux/neuro-ux-sdk-react`)
 
 * `NeuroUXProvider` context provider
 * `useNeuroUX()` hook for instance access
@@ -248,28 +248,28 @@ These packages adapt the core engine to each framework’s idioms.
 * `useUIState()` hook for UI state subscriptions
 * `AssistButton` and `AssistMenu` components
 
-### Vue (`@adapt-ux/neuro-vue`)
+### Vue (`@adapt-ux/neuro-ux-sdk-vue`)
 
 * Composables: `useNeuroUX()`, `useSignals()`, `useUIState()`
 * Works with Composition API
 
-### Angular (`@adapt-ux/neuro-angular`)
+### Angular (`@adapt-ux/neuro-ux-sdk-angular`)
 
 * `NeuroUXModule` for module-based apps
 * `NeuroUXService` for dependency injection
 
-### Svelte (`@adapt-ux/neuro-svelte`)
+### Svelte (`@adapt-ux/neuro-ux-sdk-svelte`)
 
 * `neuroUXStore` Svelte store
 * `useNeuroUX()` convenience function
 
-### Next.js (`@adapt-ux/neuro-next`)
+### Next.js (`@adapt-ux/neuro-ux-sdk-next`)
 
 * Server and client components
 * `NeuroUXProvider` for both server and client
 * `NeuroUXToggle`, `AssistButton`, `AssistMenu` components
 
-### JS (`@adapt-ux/neuro-js`)
+### JS (`@adapt-ux/neuro-ux-sdk-js`)
 
 * Pre-initialized instance
 * Simple loader

@@ -26,7 +26,7 @@ const NeuroUXInjectionKey: InjectionKey<Ref<NeuroUXInstance | null>> = Symbol('n
  * @example
  * ```vue
  * <script setup>
- * import { provideNeuroUX } from '@adapt-ux/neuro-vue';
+ * import { provideNeuroUX } from '@adapt-ux/neuro-ux-sdk-vue';
  * 
  * const neuro = provideNeuroUX({ profile: 'adhd' });
  * </script>
@@ -47,13 +47,13 @@ export function provideNeuroUX(config?: NeuroUXConfig): Ref<NeuroUXInstance | nu
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (async () => {
     try {
-      const module = await import('@adapt-ux/neuro-core' as any);
+      const module = await import('@adapt-ux/neuro-ux-sdk-core' as any);
       if (module && module.createNeuroUX) {
         instanceRef.value = module.createNeuroUX(config);
       }
     } catch (error) {
       // Handle import error at runtime
-      console.warn('Failed to load @adapt-ux/neuro-core:', error);
+      console.warn('Failed to load @adapt-ux/neuro-ux-sdk-core:', error);
     }
   })();
   
@@ -71,7 +71,7 @@ export function provideNeuroUX(config?: NeuroUXConfig): Ref<NeuroUXInstance | nu
  * @example
  * ```vue
  * <script setup>
- * import { useNeuroUX } from '@adapt-ux/neuro-vue';
+ * import { useNeuroUX } from '@adapt-ux/neuro-ux-sdk-vue';
  * 
  * const neuro = useNeuroUX();
  * const state = neuro.value.getState();

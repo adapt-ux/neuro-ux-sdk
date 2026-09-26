@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { useSignals, useUIState, useNeuroUX } from '@adapt-ux/neuro-react';
+import { useSignals, useUIState, useNeuroUX } from '@adapt-ux/neuro-ux-sdk-react';
 
 interface EventItem {
   timestamp: string;

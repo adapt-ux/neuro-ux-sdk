@@ -9,7 +9,7 @@ This document provides a comprehensive inventory of all public APIs exported by 
 
 ---
 
-## 📦 Package: `@adapt-ux/neuro-core`
+## 📦 Package: `@adapt-ux/neuro-ux-sdk-core`
 
 ### Main Entry Point: `createNeuroUX`
 
@@ -145,7 +145,7 @@ Returns the main NeuroUX instance with the following public API:
 
 ---
 
-## 📦 Package: `@adapt-ux/neuro-signals`
+## 📦 Package: `@adapt-ux/neuro-ux-sdk-signals`
 
 ### Signal Classes
 
@@ -173,7 +173,7 @@ Returns the main NeuroUX instance with the following public API:
 
 ---
 
-## 📦 Package: `@adapt-ux/neuro-styles`
+## 📦 Package: `@adapt-ux/neuro-ux-sdk-styles`
 
 ### Main Exports
 
@@ -197,7 +197,7 @@ Returns the main NeuroUX instance with the following public API:
 
 ---
 
-## 📦 Package: `@adapt-ux/neuro-assist`
+## 📦 Package: `@adapt-ux/neuro-ux-sdk-assist`
 
 ### Web Components
 
@@ -217,7 +217,7 @@ Returns the main NeuroUX instance with the following public API:
 
 ---
 
-## 📦 Package: `@adapt-ux/neuro-react`
+## 📦 Package: `@adapt-ux/neuro-ux-sdk-react`
 
 ### Providers
 
@@ -249,7 +249,7 @@ Returns the main NeuroUX instance with the following public API:
 
 ---
 
-## 📦 Package: `@adapt-ux/neuro-next`
+## 📦 Package: `@adapt-ux/neuro-ux-sdk-next`
 
 ### Client Components
 
@@ -277,7 +277,7 @@ Returns the main NeuroUX instance with the following public API:
 
 ---
 
-## 📦 Package: `@adapt-ux/neuro-vue`
+## 📦 Package: `@adapt-ux/neuro-ux-sdk-vue`
 
 ### Composables
 
@@ -289,7 +289,7 @@ Returns the main NeuroUX instance with the following public API:
 
 ---
 
-## 📦 Package: `@adapt-ux/neuro-svelte`
+## 📦 Package: `@adapt-ux/neuro-ux-sdk-svelte`
 
 ### Store
 
@@ -300,7 +300,7 @@ Returns the main NeuroUX instance with the following public API:
 
 ---
 
-## 📦 Package: `@adapt-ux/neuro-angular`
+## 📦 Package: `@adapt-ux/neuro-ux-sdk-angular`
 
 ### Module
 
@@ -316,7 +316,7 @@ Returns the main NeuroUX instance with the following public API:
 
 ---
 
-## 📦 Package: `@adapt-ux/neuro-js`
+## 📦 Package: `@adapt-ux/neuro-ux-sdk-js`
 
 ### Main Export
 
@@ -326,7 +326,7 @@ Returns the main NeuroUX instance with the following public API:
 
 ---
 
-## 📦 Package: `@adapt-ux/neuro-utils`
+## 📦 Package: `@adapt-ux/neuro-ux-sdk-utils`
 
 ### Utilities
 
@@ -356,7 +356,7 @@ All APIs follow consistent naming patterns:
 
 ## 📐 Responsibility Boundaries
 
-### Core Package (`@adapt-ux/neuro-core`)
+### Core Package (`@adapt-ux/neuro-ux-sdk-core`)
 
 **Responsibilities:**
 - Engine initialization and lifecycle
@@ -370,12 +370,12 @@ All APIs follow consistent naming patterns:
 - Debug API (experimental)
 
 **Does NOT:**
-- Implement specific signal detection logic (that's in `@adapt-ux/neuro-signals`)
+- Implement specific signal detection logic (that's in `@adapt-ux/neuro-ux-sdk-signals`)
 - Provide framework-specific APIs (that's in framework wrappers)
-- Implement UI components (that's in `@adapt-ux/neuro-assist`)
-- Provide styling implementations (that's in `@adapt-ux/neuro-styles`)
+- Implement UI components (that's in `@adapt-ux/neuro-ux-sdk-assist`)
+- Provide styling implementations (that's in `@adapt-ux/neuro-ux-sdk-styles`)
 
-### Signals Package (`@adapt-ux/neuro-signals`)
+### Signals Package (`@adapt-ux/neuro-ux-sdk-signals`)
 
 **Responsibilities:**
 - Signal detection implementations (IdleSignal, ScrollSignal, etc.)
@@ -400,7 +400,7 @@ All APIs follow consistent naming patterns:
 - Add new adaptation logic
 - Change signal detection algorithms
 
-### Styles Package (`@adapt-ux/neuro-styles`)
+### Styles Package (`@adapt-ux/neuro-ux-sdk-styles`)
 
 **Responsibilities:**
 - CSS variable generation
@@ -410,9 +410,9 @@ All APIs follow consistent naming patterns:
 
 **Does NOT:**
 - Detect when styles should change (that's Core's rules/heuristics)
-- Implement UI components (that's `@adapt-ux/neuro-assist`)
+- Implement UI components (that's `@adapt-ux/neuro-ux-sdk-assist`)
 
-### Assist Package (`@adapt-ux/neuro-assist`)
+### Assist Package (`@adapt-ux/neuro-ux-sdk-assist`)
 
 **Responsibilities:**
 - Web Components UI (NeuroToggle, AssistButton, AssistMenu)

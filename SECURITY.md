@@ -83,11 +83,11 @@ No public disclosure is made until a patched version is available.
 
 This security policy covers:
 
-* `@adapt-ux/neuro-core`
-* `@adapt-ux/neuro-assist`
-* `@adapt-ux/neuro-styles`
-* `@adapt-ux/neuro-signals`
-* `@adapt-ux/neuro-utils`
+* `@adapt-ux/neuro-ux-sdk-core`
+* `@adapt-ux/neuro-ux-sdk-assist`
+* `@adapt-ux/neuro-ux-sdk-styles`
+* `@adapt-ux/neuro-ux-sdk-signals`
+* `@adapt-ux/neuro-ux-sdk-utils`
 * Framework wrappers (React, Vue, Angular, Svelte, JS, Next)
 
 We **cannot** guarantee or patch security issues caused by:

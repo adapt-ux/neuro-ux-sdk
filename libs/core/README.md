@@ -12,7 +12,7 @@ It provides:
 This document describes the **public API** available to developers when using:
 
 ```ts
-import { createNeuroUX } from "@adapt-ux/core";
+import { createNeuroUX } from "@adapt-ux/neuro-ux-sdk-core";
 ```
 
 ---
@@ -30,7 +30,7 @@ Initializes the NeuroUX engine with the provided configuration.
 ### **Basic Example**
 
 ```ts
-import { createNeuroUX } from "@adapt-ux/core";
+import { createNeuroUX } from "@adapt-ux/neuro-ux-sdk-core";
 
 const neuro = createNeuroUX({
   profile: "adhd",
@@ -243,7 +243,7 @@ Later stages will add:
 # ## 9. Example: Full Usage
 
 ```ts
-import { createNeuroUX } from "@adapt-ux/core";
+import { createNeuroUX } from "@adapt-ux/neuro-ux-sdk-core";
 
 const neuro = createNeuroUX({
   profile: "adhd",

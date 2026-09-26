@@ -3,7 +3,7 @@ import {
   NeuroUXProvider,
   AssistButton,
   AssistMenu,
-} from '@adapt-ux/neuro-react';
+} from '@adapt-ux/neuro-ux-sdk-react';
 import { SignalBridge } from './SignalBridge';
 import { DebugPanel } from './DebugPanel';
 

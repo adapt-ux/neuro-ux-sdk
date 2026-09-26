@@ -1,8 +1,8 @@
 'use client';
 
-import { AssistProvider as ReactAssistProvider } from '@adapt-ux/neuro-react';
+import { AssistProvider as ReactAssistProvider } from '@adapt-ux/neuro-ux-sdk-react';
 import type { NeuroUXNextConfig } from '../types';
-import type { NeuroUXConfig } from '@adapt-ux/neuro-core';
+import type { NeuroUXConfig } from '@adapt-ux/neuro-ux-sdk-core';
 
 /**
  * AssistProvider for Next.js - Client Component

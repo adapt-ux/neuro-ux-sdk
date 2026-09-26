@@ -100,7 +100,7 @@
             },
             "description": "Angular wrapper for NeuroUX Web Components, enabling smooth integration of the adaptive UI in Angular applications.",
             "js": {
-              "packageName": "@adapt-ux/neuro-angular",
+              "packageName": "@adapt-ux/neuro-ux-sdk-angular",
               "packageVersion": "0.1.0-rc.1",
               "packageExports": {
                 ".": {
@@ -116,7 +116,7 @@
           "$schema": "../../node_modules/nx/schemas/project-schema.json",
           "sourceRoot": "libs/neuro-angular/src",
           "projectType": "library",
-          "importPath": "@adapt-ux/neuro-angular",
+          "importPath": "@adapt-ux/neuro-ux-sdk-angular",
           "implicitDependencies": []
         }
       },
@@ -218,7 +218,7 @@
             },
             "description": "Svelte wrapper for NeuroUX Web Components, providing seamless use of adaptive UI elements inside Svelte and SvelteKit applications.",
             "js": {
-              "packageName": "@adapt-ux/neuro-svelte",
+              "packageName": "@adapt-ux/neuro-ux-sdk-svelte",
               "packageVersion": "0.1.0-rc.1",
               "packageExports": {
                 ".": {
@@ -234,7 +234,7 @@
           "$schema": "../../node_modules/nx/schemas/project-schema.json",
           "sourceRoot": "libs/neuro-svelte/src",
           "projectType": "library",
-          "importPath": "@adapt-ux/neuro-svelte",
+          "importPath": "@adapt-ux/neuro-ux-sdk-svelte",
           "implicitDependencies": []
         }
       },
@@ -336,7 +336,7 @@
             },
             "description": "React wrapper for NeuroUX Web Components, providing seamless integration with the adaptive UI engine.",
             "js": {
-              "packageName": "@adapt-ux/neuro-react",
+              "packageName": "@adapt-ux/neuro-ux-sdk-react",
               "packageVersion": "0.1.0-rc.1",
               "packageExports": {
                 ".": {
@@ -352,7 +352,7 @@
           "$schema": "../../node_modules/nx/schemas/project-schema.json",
           "sourceRoot": "libs/neuro-react/src",
           "projectType": "library",
-          "importPath": "@adapt-ux/neuro-react",
+          "importPath": "@adapt-ux/neuro-ux-sdk-react",
           "implicitDependencies": []
         }
       },
@@ -443,7 +443,7 @@
             },
             "description": "Next.js wrapper for NeuroUX Web Components, providing seamless integration with the adaptive UI engine for Next.js applications.",
             "js": {
-              "packageName": "@adapt-ux/neuro-next",
+              "packageName": "@adapt-ux/neuro-ux-sdk-next",
               "packageVersion": "0.1.0-rc.1",
               "packageExports": {
                 ".": {
@@ -459,7 +459,7 @@
           "$schema": "../../node_modules/nx/schemas/project-schema.json",
           "sourceRoot": "libs/neuro-next/src",
           "projectType": "library",
-          "importPath": "@adapt-ux/neuro-next",
+          "importPath": "@adapt-ux/neuro-ux-sdk-next",
           "implicitDependencies": []
         }
       },
@@ -547,7 +547,7 @@
             },
             "description": "Vue wrapper for NeuroUX Web Components, enabling easy use of the adaptive UI across Vue applications.",
             "js": {
-              "packageName": "@adapt-ux/neuro-vue",
+              "packageName": "@adapt-ux/neuro-ux-sdk-vue",
               "packageVersion": "0.1.0-rc.1",
               "packageExports": {
                 ".": {
@@ -563,7 +563,7 @@
           "$schema": "../../node_modules/nx/schemas/project-schema.json",
           "sourceRoot": "libs/neuro-vue/src",
           "projectType": "library",
-          "importPath": "@adapt-ux/neuro-vue",
+          "importPath": "@adapt-ux/neuro-ux-sdk-vue",
           "implicitDependencies": []
         }
       },
@@ -667,7 +667,7 @@
             },
             "description": "Universal JavaScript loader and helpers for NeuroUX Web Components, enabling adaptive UI in any environment without frameworks.",
             "js": {
-              "packageName": "@adapt-ux/neuro-js",
+              "packageName": "@adapt-ux/neuro-ux-sdk-js",
               "packageVersion": "0.1.0-rc.1",
               "packageExports": {
                 ".": {
@@ -683,7 +683,7 @@
           "$schema": "../../node_modules/nx/schemas/project-schema.json",
           "sourceRoot": "libs/neuro-js/src",
           "projectType": "library",
-          "importPath": "@adapt-ux/neuro-js",
+          "importPath": "@adapt-ux/neuro-ux-sdk-js",
           "implicitDependencies": []
         }
       },
@@ -786,7 +786,7 @@
             },
             "description": "Lightweight behavioral signal detectors that identify focus, overload, motion sensitivity, and interaction patterns for adaptive UI.",
             "js": {
-              "packageName": "@adapt-ux/neuro-signals",
+              "packageName": "@adapt-ux/neuro-ux-sdk-signals",
               "packageVersion": "0.1.0-rc.1",
               "packageExports": {
                 ".": {
@@ -802,7 +802,7 @@
           "$schema": "../../node_modules/nx/schemas/project-schema.json",
           "sourceRoot": "libs/signals/src",
           "projectType": "library",
-          "importPath": "@adapt-ux/neuro-signals",
+          "importPath": "@adapt-ux/neuro-ux-sdk-signals",
           "implicitDependencies": []
         }
       },
@@ -908,7 +908,7 @@
             },
             "description": "Framework-agnostic Web Components UI providing customizable accessibility and comfort tools for adaptive user experiences.",
             "js": {
-              "packageName": "@adapt-ux/neuro-assist",
+              "packageName": "@adapt-ux/neuro-ux-sdk-assist",
               "packageVersion": "0.1.0-rc.1",
               "packageExports": {
                 ".": {
@@ -924,7 +924,7 @@
           "$schema": "../../node_modules/nx/schemas/project-schema.json",
           "sourceRoot": "libs/assist/src",
           "projectType": "library",
-          "importPath": "@adapt-ux/neuro-assist",
+          "importPath": "@adapt-ux/neuro-ux-sdk-assist",
           "implicitDependencies": []
         }
       },
@@ -1027,7 +1027,7 @@
             },
             "description": "SCSS design tokens, themes, and utilities for building adaptive, neuro-friendly interfaces using the NeuroUX system.",
             "js": {
-              "packageName": "@adapt-ux/neuro-styles",
+              "packageName": "@adapt-ux/neuro-ux-sdk-styles",
               "packageVersion": "0.1.0-rc.1",
               "packageExports": {
                 ".": {
@@ -1043,7 +1043,7 @@
           "$schema": "../../node_modules/nx/schemas/project-schema.json",
           "sourceRoot": "libs/styles/src",
           "projectType": "library",
-          "importPath": "@adapt-ux/neuro-styles",
+          "importPath": "@adapt-ux/neuro-ux-sdk-styles",
           "implicitDependencies": []
         }
       },
@@ -1143,7 +1143,7 @@
             },
             "description": "Shared utility functions supporting the NeuroUX adaptive engine and UI components.",
             "js": {
-              "packageName": "@adapt-ux/neuro-utils",
+              "packageName": "@adapt-ux/neuro-ux-sdk-utils",
               "packageVersion": "0.1.0-rc.1",
               "packageExports": {
                 ".": {
@@ -1159,7 +1159,7 @@
           "$schema": "../../node_modules/nx/schemas/project-schema.json",
           "sourceRoot": "libs/utils/src",
           "projectType": "library",
-          "importPath": "@adapt-ux/neuro-utils",
+          "importPath": "@adapt-ux/neuro-ux-sdk-utils",
           "implicitDependencies": []
         }
       },
@@ -1265,7 +1265,7 @@
             },
             "description": "Universal adaptive UX engine that enables cognitive-friendly interface adjustments based on user interaction patterns.",
             "js": {
-              "packageName": "@adapt-ux/neuro-core",
+              "packageName": "@adapt-ux/neuro-ux-sdk-core",
               "packageVersion": "0.1.0-rc.1",
               "packageExports": {
                 ".": {
@@ -1281,7 +1281,7 @@
           "$schema": "../../node_modules/nx/schemas/project-schema.json",
           "sourceRoot": "libs/core/src",
           "projectType": "library",
-          "importPath": "@adapt-ux/neuro-core",
+          "importPath": "@adapt-ux/neuro-ux-sdk-core",
           "implicitDependencies": []
         }
       },

@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { useNeuroUX } from '@adapt-ux/neuro-react';
+import { useNeuroUX } from '@adapt-ux/neuro-ux-sdk-react';
 import {
   SignalManager,
   IdleSignal,
   ScrollSignal,
-} from '@adapt-ux/neuro-signals';
+} from '@adapt-ux/neuro-ux-sdk-signals';
 
 /**
  * SignalBridge - Connects SignalManager (IdleSignal, ScrollSignal) to NeuroUX Core.

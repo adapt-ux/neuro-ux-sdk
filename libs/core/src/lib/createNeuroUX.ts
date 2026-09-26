@@ -5,7 +5,7 @@ import { createSignalsRegistry } from './signals/signals-registry';
 import { createUiChannel } from './ui-channel';
 import { createRuleProcessor, Rule } from './rule-processor';
 import { createHeuristicsEngine } from './heuristics-engine';
-// import { createStylingEngine } from '@adapt-ux/neuro-styles';
+// import { createStylingEngine } from '@adapt-ux/neuro-ux-sdk-styles';
 import { createDebugStore, createDebugAPI } from './debug';
 
 /**
@@ -18,7 +18,7 @@ import { createDebugStore, createDebugAPI } from './debug';
  *
  * @example
  * ```typescript
- * import { createNeuroUX } from '@adapt-ux/neuro-core';
+ * import { createNeuroUX } from '@adapt-ux/neuro-ux-sdk-core';
  *
  * const neuroUX = createNeuroUX({
  *   profile: 'adhd',
