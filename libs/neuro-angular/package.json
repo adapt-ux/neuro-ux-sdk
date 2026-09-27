@@ -30,7 +30,6 @@
   "scripts": {
     "build": "nx build neuro-angular",
     "test": "nx test neuro-angular",
-    "lint": "nx lint neuro-angular",
     "prepare": "nx build neuro-angular"
   },
   "publishConfig": {

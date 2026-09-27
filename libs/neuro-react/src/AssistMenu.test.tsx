@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, waitFor, screen, act } from '@testing-library/react';
 import { AssistMenu } from './AssistMenu';
-import { AssistProvider } from './AssistProvider';
+import { NeuroUXProvider } from './NeuroUXProvider';
 
-// Mock @adapt-ux/neuro-ux-sdk-core so AssistProvider's dynamic import resolves immediately
+// Mock @adapt-ux/neuro-ux-sdk-core so NeuroUXProvider's dynamic import resolves immediately
 vi.mock('@adapt-ux/neuro-ux-sdk-core', async () => {
   const actual = await vi.importActual<typeof import('@adapt-ux/neuro-ux-sdk-core')>(
     '@adapt-ux/neuro-ux-sdk-core'
@@ -19,9 +19,9 @@ describe('AssistMenu', () => {
   describe('rendering', () => {
     it('should render assist-menu element', async () => {
       render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -32,9 +32,9 @@ describe('AssistMenu', () => {
 
     it('should render with default position', async () => {
       render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -45,9 +45,9 @@ describe('AssistMenu', () => {
 
     it('should render with custom position', async () => {
       render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu position="top-left" />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -58,9 +58,9 @@ describe('AssistMenu', () => {
 
     it('should be closed by default', async () => {
       render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -74,9 +74,9 @@ describe('AssistMenu', () => {
   describe('open/close', () => {
     it('should open when open prop is true', async () => {
       render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu open={true} />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -88,9 +88,9 @@ describe('AssistMenu', () => {
 
     it('should close when open prop is false', async () => {
       const { rerender } = render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu open={true} />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -99,9 +99,9 @@ describe('AssistMenu', () => {
       });
 
       rerender(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu open={false} />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -116,9 +116,9 @@ describe('AssistMenu', () => {
       const ref = { current: null } as any;
 
       render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu ref={ref} onOpenChange={onOpenChange} />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -140,9 +140,9 @@ describe('AssistMenu', () => {
       const onOptionChange = vi.fn();
 
       render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu onOptionChange={onOptionChange} />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -162,9 +162,9 @@ describe('AssistMenu', () => {
 
     it('should apply calmMode to Core Engine when toggled', async () => {
       render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -184,9 +184,9 @@ describe('AssistMenu', () => {
 
     it('should apply contrast to Core Engine when toggled', async () => {
       render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -206,9 +206,9 @@ describe('AssistMenu', () => {
 
     it('should apply focusMode to Core Engine when toggled', async () => {
       render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -232,9 +232,9 @@ describe('AssistMenu', () => {
       const ref = { current: null } as any;
 
       render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu ref={ref} />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -251,9 +251,9 @@ describe('AssistMenu', () => {
       const ref = { current: null } as any;
 
       render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu ref={ref} />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -284,9 +284,9 @@ describe('AssistMenu', () => {
       const ref = { current: null } as any;
 
       render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu ref={ref} />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       await waitFor(() => {
@@ -308,9 +308,9 @@ describe('AssistMenu', () => {
   describe('state synchronization', () => {
     it('should sync initial state from Core Engine', async () => {
       render(
-        <AssistProvider>
+        <NeuroUXProvider>
           <AssistMenu />
-        </AssistProvider>
+        </NeuroUXProvider>
       );
 
       // Wait for component to mount and sync state
