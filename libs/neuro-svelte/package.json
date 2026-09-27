@@ -55,6 +55,6 @@
     "@adapt-ux/neuro-assist": "^0.0.1"
   },
   "devDependencies": {
-    "svelte": "^5.0.0"
+    "svelte": "^5.57.1"
   }
 }
