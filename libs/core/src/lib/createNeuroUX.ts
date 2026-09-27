@@ -52,7 +52,9 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
   const heuristics = createHeuristicsEngine(signals, eventBus);
   // const styling = createStylingEngine(ui, { eventBus });
   const styling = {
-    destroy: () => {}, // Placeholder for now
+    destroy: () => {
+      // Styling engine is not wired yet.
+    },
   };
 
   // Sync signal updates to state

@@ -30,7 +30,6 @@
   "scripts": {
     "build": "nx build neuro-svelte",
     "test": "nx test neuro-svelte",
-    "lint": "nx lint neuro-svelte",
     "prepare": "nx build neuro-svelte"
   },
   "publishConfig": {

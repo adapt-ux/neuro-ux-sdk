@@ -3,7 +3,7 @@
 # **NeuroUX SDK**
 
 ![Build](https://img.shields.io/github/actions/workflow/status/adapt-ux/neuro-ux-sdk/ci.yml?label=build&style=flat)
-![Release](https://img.shields.io/github/v/release/adapt-ux/neuro-ux-sdk?style=flat)
+![Release](https://img.shields.io/github/v/release/adapt-ux/neuro-ux-sdk?include_prereleases&style=flat)
 ![License](https://img.shields.io/github/license/adapt-ux/neuro-ux-sdk?style=flat)
 [![NPM Version](https://img.shields.io/npm/v/%40adapt-ux/neuro-ux-sdk-core?style=flat)](https://www.npmjs.com/package/@adapt-ux/neuro-ux-sdk-core)
 [![Downloads](https://img.shields.io/npm/dm/%40adapt-ux/neuro-ux-sdk-core?style=flat)](https://www.npmjs.com/package/@adapt-ux/neuro-ux-sdk-core)
