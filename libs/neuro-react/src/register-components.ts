@@ -5,4 +5,4 @@
 
 // Import the Web Components to register them
 // The components are auto-registered when imported
-import '@adapt-ux/neuro-assist';
+import '@adapt-ux/neuro-ux-sdk-assist';

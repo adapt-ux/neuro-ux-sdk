@@ -1,3 +1,5 @@
+import type { AssistOption, AssistMenuOptions } from '../types';
+
 /**
  * AssistMenu - Panel with list of available assists
  *
@@ -8,18 +10,6 @@
  *
  * Direct integration with Core Engine via custom events.
  */
-
-export interface AssistOption {
-  id: string;
-  label: string;
-  description?: string;
-  checked?: boolean;
-}
-
-export interface AssistMenuOptions {
-  options?: AssistOption[];
-  position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
-}
 
 export class AssistMenu extends HTMLElement {
   private _options: AssistOption[] = [

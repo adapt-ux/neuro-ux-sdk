@@ -1,11 +1,11 @@
 'use client';
 
 import { createContext, useEffect, useState, type ReactNode } from 'react';
-import type { NeuroUXConfig } from '@adapt-ux/neuro-core';
-import type { createNeuroUX } from '@adapt-ux/neuro-core';
+import type { NeuroUXConfig } from '@adapt-ux/neuro-ux-sdk-core';
+import type { createNeuroUX } from '@adapt-ux/neuro-ux-sdk-core';
 
 // Use dynamic import type to avoid static import of lazy-loaded library
-type NeuroUXModule = typeof import('@adapt-ux/neuro-core');
+type NeuroUXModule = typeof import('@adapt-ux/neuro-ux-sdk-core');
 type CreateNeuroUX = NeuroUXModule['createNeuroUX'];
 export type NeuroUXInstance = ReturnType<CreateNeuroUX>;
 
@@ -29,7 +29,7 @@ export function NeuroUXProvider({ children, config = {} }: NeuroUXProviderProps)
     let instance: NeuroUXInstance | null = null;
 
     // Dynamically import createNeuroUX to avoid static import issues
-    import('@adapt-ux/neuro-core').then((module) => {
+    import('@adapt-ux/neuro-ux-sdk-core').then((module) => {
       if (mounted) {
         instance = module.createNeuroUX(config);
         setNeuroUX(instance);

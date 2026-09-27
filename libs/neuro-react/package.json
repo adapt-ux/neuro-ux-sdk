@@ -1,6 +1,6 @@
 {
-  "name": "@adapt-ux/neuro-react",
-  "version": "0.0.1",
+  "name": "@adapt-ux/neuro-ux-sdk-react",
+  "version": "0.1.0-rc.1",
   "description": "React wrapper for NeuroUX Web Components, providing seamless integration with the adaptive UI engine.",
   "keywords": [
     "react",
@@ -13,14 +13,12 @@
   ],
   "license": "MIT",
   "author": "AdaptUX",
-  "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "files": [
@@ -50,12 +48,14 @@
     "react-dom": ">=18"
   },
   "dependencies": {
-    "@adapt-ux/neuro-assist": "workspace:*",
-    "@adapt-ux/neuro-core": "workspace:*"
+    "@adapt-ux/neuro-ux-sdk-assist": "0.1.0-rc.1",
+    "@adapt-ux/neuro-ux-sdk-core": "0.1.0-rc.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "types": "./dist/index.d.ts",
+  "type": "module"
 }

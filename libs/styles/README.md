@@ -1,10 +1,10 @@
-# @adapt-ux/neuro-styles
+# @adapt-ux/neuro-ux-sdk-styles
 
 SCSS design tokens, themes, and utilities for building adaptive, neuro-friendly interfaces using the NeuroUX system. Includes both UI Channel-based and Core State-based styling engines for dynamic CSS variable management.
 
 ## Overview
 
-The `@adapt-ux/neuro-styles` library provides:
+The `@adapt-ux/neuro-ux-sdk-styles` library provides:
 
 1. **SCSS Design Tokens**: Colors, spacing, typography, and other design system variables
 2. **UI Channel Styling Engine**: Maps UI channel outputs to CSS variables (existing)
@@ -29,7 +29,7 @@ The `@adapt-ux/neuro-styles` library provides:
 ## Installation
 
 ```bash
-npm install @adapt-ux/neuro-styles
+npm install @adapt-ux/neuro-ux-sdk-styles
 ```
 
 ## Usage
@@ -37,8 +37,8 @@ npm install @adapt-ux/neuro-styles
 ### Core State Styling Engine
 
 ```typescript
-import { createCoreStylingEngine } from '@adapt-ux/neuro-styles';
-import { createNeuroUX } from '@adapt-ux/neuro-core';
+import { createCoreStylingEngine } from '@adapt-ux/neuro-ux-sdk-styles';
+import { createNeuroUX } from '@adapt-ux/neuro-ux-sdk-core';
 
 const core = createNeuroUX();
 const styling = createCoreStylingEngine();
@@ -57,8 +57,8 @@ styling.apply({
 ### UI Channel Styling Engine (existing)
 
 ```typescript
-import { createStylingEngine } from '@adapt-ux/neuro-styles';
-import { createUiChannel } from '@adapt-ux/neuro-core';
+import { createStylingEngine } from '@adapt-ux/neuro-ux-sdk-styles';
+import { createUiChannel } from '@adapt-ux/neuro-ux-sdk-core';
 
 const ui = createUiChannel();
 const styling = createStylingEngine(ui, { eventBus });
@@ -70,7 +70,7 @@ ui.set('colorMode', 'calm');
 ### Scoped CSS Variables
 
 ```typescript
-import { createCoreStylingEngine } from '@adapt-ux/neuro-styles';
+import { createCoreStylingEngine } from '@adapt-ux/neuro-ux-sdk-styles';
 
 const styling = createCoreStylingEngine();
 
@@ -84,7 +84,7 @@ styling.apply({
 ### Custom Mappings
 
 ```typescript
-import { createCoreStylingEngine } from '@adapt-ux/neuro-styles';
+import { createCoreStylingEngine } from '@adapt-ux/neuro-ux-sdk-styles';
 
 const customMappings = {
   myCustomProperty: {

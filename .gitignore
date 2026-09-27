@@ -56,3 +56,6 @@ vitest.config.*.timestamp*
 /neuro-ux-sdk-spec/
 /adapt-ux-spec/
 /neuro-ux-sdk-spec/
+
+PR*.md
+ISSUE*.md

@@ -4,19 +4,20 @@
     "module": "ESNext",
     "jsx": "react-jsx",
     "moduleResolution": "node",
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@adapt-ux/neuro-core": ["libs/core/src/index.ts"],
-      "@adapt-ux/neuro-assist": ["libs/assist/src/index.ts"],
-      "@adapt-ux/neuro-styles": ["libs/styles/src/index.ts"],
-      "@adapt-ux/neuro-signals": ["libs/signals/src/index.ts"],
-      "@adapt-ux/neuro-utils": ["libs/utils/src/index.ts"],
-      "@adapt-ux/neuro-react": ["libs/neuro-react/src/index.ts"],
-      "@adapt-ux/neuro-next": ["libs/neuro-next/src/index.ts"],
-      "@adapt-ux/neuro-vue": ["libs/neuro-vue/src/index.ts"],
-      "@adapt-ux/neuro-svelte": ["libs/neuro-svelte/src/index.ts"],
-      "@adapt-ux/neuro-angular": ["libs/neuro-angular/src/index.ts"],
-      "@adapt-ux/neuro-js": ["libs/neuro-js/src/index.ts"]
+      "@adapt-ux/neuro-ux-sdk-core": ["libs/core/src/index.ts"],
+      "@adapt-ux/neuro-ux-sdk-assist": ["libs/assist/src/index.ts"],
+      "@adapt-ux/neuro-ux-sdk-styles": ["libs/styles/src/index.ts"],
+      "@adapt-ux/neuro-ux-sdk-signals": ["libs/signals/src/index.ts"],
+      "@adapt-ux/neuro-ux-sdk-utils": ["libs/utils/src/index.ts"],
+      "@adapt-ux/neuro-ux-sdk-react": ["libs/neuro-react/src/index.ts"],
+      "@adapt-ux/neuro-ux-sdk-next": ["libs/neuro-next/src/index.ts"],
+      "@adapt-ux/neuro-ux-sdk-vue": ["libs/neuro-vue/src/index.ts"],
+      "@adapt-ux/neuro-ux-sdk-svelte": ["libs/neuro-svelte/src/index.ts"],
+      "@adapt-ux/neuro-ux-sdk-angular": ["libs/neuro-angular/src/index.ts"],
+      "@adapt-ux/neuro-ux-sdk-js": ["libs/neuro-js/src/index.ts"]
     }
   }
 }

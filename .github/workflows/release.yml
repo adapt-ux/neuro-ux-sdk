@@ -43,6 +43,7 @@ jobs:
           name: 'Release ${{ env.tag }}'
           body: ${{ steps.notes.outputs.notes }}
           generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
           omit_name: false
           fail_on_unmatched_files: true
         env:

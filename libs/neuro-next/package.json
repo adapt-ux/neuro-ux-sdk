@@ -1,6 +1,6 @@
 {
-  "name": "@adapt-ux/neuro-next",
-  "version": "0.0.1",
+  "name": "@adapt-ux/neuro-ux-sdk-next",
+  "version": "0.1.0-rc.1",
   "description": "Next.js wrapper for NeuroUX Web Components, providing seamless integration with the adaptive UI engine for Next.js applications.",
   "keywords": [
     "nextjs",
@@ -15,14 +15,12 @@
   ],
   "license": "MIT",
   "author": "AdaptUX",
-  "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "files": [
@@ -52,13 +50,15 @@
     "next": ">=14"
   },
   "dependencies": {
-    "@adapt-ux/neuro-core": "workspace:*",
-    "@adapt-ux/neuro-react": "workspace:*"
+    "@adapt-ux/neuro-ux-sdk-core": "0.1.0-rc.1",
+    "@adapt-ux/neuro-ux-sdk-react": "0.1.0-rc.1"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "next": "^16.3.6"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "types": "./dist/index.d.ts",
+  "type": "module"
 }

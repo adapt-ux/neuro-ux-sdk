@@ -8,7 +8,7 @@ import { getNeuroUXInstance, signalsStore, uiStateStore, neuroUXState } from './
  * @example
  * ```svelte
  * <script>
- *   import { useNeuroUX } from '@adapt-ux/neuro-svelte';
+ *   import { useNeuroUX } from '@adapt-ux/neuro-ux-sdk-svelte';
  *   import { onMount } from 'svelte';
  *   
  *   let neuro;

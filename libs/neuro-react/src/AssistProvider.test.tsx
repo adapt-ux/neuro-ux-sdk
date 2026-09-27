@@ -5,8 +5,8 @@ import type { NeuroUXInstance } from './AssistProvider';
 import * as React from 'react';
 
 // Mock the createNeuroUX function - define inside factory to avoid hoisting issues
-vi.mock('@adapt-ux/neuro-core', async () => {
-  const actual = await vi.importActual('@adapt-ux/neuro-core');
+vi.mock('@adapt-ux/neuro-ux-sdk-core', async () => {
+  const actual = await vi.importActual('@adapt-ux/neuro-ux-sdk-core');
   const mockFn = vi.fn();
   return {
     ...actual,
@@ -22,10 +22,10 @@ describe('AssistProvider', () => {
     vi.clearAllMocks();
     // Get actual implementation and mock function
     if (!actualCreateNeuroUX) {
-      const mod = await vi.importActual('@adapt-ux/neuro-core');
+      const mod = await vi.importActual('@adapt-ux/neuro-ux-sdk-core');
       actualCreateNeuroUX = (mod as any).createNeuroUX;
     }
-    const mod = await import('@adapt-ux/neuro-core');
+    const mod = await import('@adapt-ux/neuro-ux-sdk-core');
     mockCreateNeuroUX = vi.mocked(mod.createNeuroUX);
     // Reset mock to return actual implementation by default
     mockCreateNeuroUX.mockImplementation(actualCreateNeuroUX);

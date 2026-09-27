@@ -2,8 +2,8 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { provideNeuroUX } from './useNeuroUX';
 
 // Mock the createNeuroUX function
-vi.mock('@adapt-ux/neuro-core', async () => {
-  const actual = await vi.importActual('@adapt-ux/neuro-core');
+vi.mock('@adapt-ux/neuro-ux-sdk-core', async () => {
+  const actual = await vi.importActual('@adapt-ux/neuro-ux-sdk-core');
   return {
     ...actual,
     createNeuroUX: vi.fn(),
@@ -17,10 +17,10 @@ describe('provideNeuroUX', () => {
   beforeEach(async () => {
     vi.clearAllMocks();
     if (!actualCreateNeuroUX) {
-      const mod = await vi.importActual('@adapt-ux/neuro-core');
+      const mod = await vi.importActual('@adapt-ux/neuro-ux-sdk-core');
       actualCreateNeuroUX = (mod as any).createNeuroUX;
     }
-    const mod = await import('@adapt-ux/neuro-core');
+    const mod = await import('@adapt-ux/neuro-ux-sdk-core');
     mockCreateNeuroUX = vi.mocked(mod.createNeuroUX);
     mockCreateNeuroUX.mockImplementation(actualCreateNeuroUX);
   });

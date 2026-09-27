@@ -1,6 +1,6 @@
 {
-  "name": "@adapt-ux/neuro-svelte",
-  "version": "0.0.1",
+  "name": "@adapt-ux/neuro-ux-sdk-svelte",
+  "version": "0.1.0-rc.1",
   "description": "Svelte wrapper for NeuroUX Web Components, providing seamless use of adaptive UI elements inside Svelte and SvelteKit applications.",
   "keywords": [
     "svelte",
@@ -14,24 +14,24 @@
   ],
   "license": "MIT",
   "author": "AdaptUX",
-  "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "test": "nx test svelte",
-    "prepare": "nx build svelte"
+    "build": "nx build neuro-svelte",
+    "test": "nx test neuro-svelte",
+    "lint": "nx lint neuro-svelte",
+    "prepare": "nx build neuro-svelte"
   },
   "publishConfig": {
     "access": "public"
@@ -39,7 +39,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/adapt-ux/neuro-ux-sdk",
-    "directory": "libs/svelte"
+    "directory": "libs/neuro-svelte"
   },
   "homepage": "https://github.com/adapt-ux/neuro-ux-sdk#readme",
   "bugs": {
@@ -52,9 +52,10 @@
     "svelte": "^4.0.0 || ^5.0.0"
   },
   "dependencies": {
-    "@adapt-ux/neuro-assist": "^0.0.1"
+    "@adapt-ux/neuro-ux-sdk-assist": "0.1.0-rc.1"
   },
   "devDependencies": {
     "svelte": "^5.57.1"
-  }
+  },
+  "type": "module"
 }

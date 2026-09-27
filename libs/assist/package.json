@@ -1,6 +1,6 @@
 {
-  "name": "@adapt-ux/neuro-assist",
-  "version": "0.0.1",
+  "name": "@adapt-ux/neuro-ux-sdk-assist",
+  "version": "0.1.0-rc.1",
   "description": "Framework-agnostic Web Components UI providing customizable accessibility and comfort tools for adaptive user experiences.",
   "keywords": [
     "web-components",
@@ -16,17 +16,15 @@
   ],
   "license": "MIT",
   "author": "AdaptUX",
-  "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
   "sideEffects": [
     "**/*.scss"
   ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "files": [
@@ -52,5 +50,7 @@
   "dependencies": {},
   "devDependencies": {
     "sass": "^1.77.8"
-  }
+  },
+  "types": "./dist/index.d.ts",
+  "type": "module"
 }

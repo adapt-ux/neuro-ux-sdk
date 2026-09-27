@@ -5,8 +5,8 @@ import { NeuroUXProvider } from '../NeuroUXProvider';
 import * as React from 'react';
 
 // Mock the createNeuroUX function
-vi.mock('@adapt-ux/neuro-core', async () => {
-  const actual = await vi.importActual('@adapt-ux/neuro-core');
+vi.mock('@adapt-ux/neuro-ux-sdk-core', async () => {
+  const actual = await vi.importActual('@adapt-ux/neuro-ux-sdk-core');
   return {
     ...actual,
     createNeuroUX: vi.fn(),
@@ -18,12 +18,12 @@ describe('useUIState', () => {
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    const mod = await vi.importActual('@adapt-ux/neuro-core');
+    const mod = await vi.importActual('@adapt-ux/neuro-ux-sdk-core');
     const createNeuroUX = (mod as any).createNeuroUX;
 
     mockInstance = createNeuroUX({});
     
-    const mockModule = await import('@adapt-ux/neuro-core');
+    const mockModule = await import('@adapt-ux/neuro-ux-sdk-core');
     vi.mocked(mockModule.createNeuroUX).mockReturnValue(mockInstance);
   });
 

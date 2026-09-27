@@ -1,9 +1,30 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "../../",
+    "paths": {
+      "@adapt-ux/neuro-ux-sdk-core": [
+        "libs/core/src/index.ts"
+      ],
+      "@adapt-ux/neuro-ux-sdk-react": [
+        "libs/neuro-react/src/index.ts"
+      ]
+    },
     "outDir": "../../dist/out-tsc",
     "declaration": true,
-    "types": ["node"]
+    "types": [
+      "node"
+    ],
+    "rootDir": "src"
   },
-  "include": ["src/**/*.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.spec.ts",
+    "src/**/*.spec.tsx"
+  ]
 }

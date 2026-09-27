@@ -1,6 +1,6 @@
 {
-  "name": "@adapt-ux/neuro-js",
-  "version": "0.0.1",
+  "name": "@adapt-ux/neuro-ux-sdk-js",
+  "version": "0.1.0-rc.1",
   "description": "Universal JavaScript loader and helpers for NeuroUX Web Components, enabling adaptive UI in any environment without frameworks.",
   "keywords": [
     "javascript",
@@ -16,16 +16,14 @@
   ],
   "license": "MIT",
   "author": "AdaptUX",
-  "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "files": [
@@ -51,7 +49,8 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@adapt-ux/neuro-assist": "^0.0.1"
+    "@adapt-ux/neuro-ux-sdk-assist": "0.1.0-rc.1"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "type": "module"
 }

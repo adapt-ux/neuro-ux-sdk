@@ -1,7 +1,7 @@
 'use client';
 
-import { NeuroUXProvider as ReactNeuroUXProvider } from '@adapt-ux/neuro-react';
-import type { NeuroUXConfig } from '@adapt-ux/neuro-core';
+import { NeuroUXProvider as ReactNeuroUXProvider } from '@adapt-ux/neuro-ux-sdk-react';
+import type { NeuroUXConfig } from '@adapt-ux/neuro-ux-sdk-core';
 
 export interface NeuroUXProviderProps {
   children: React.ReactNode;

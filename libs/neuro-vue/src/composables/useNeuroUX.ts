@@ -1,10 +1,18 @@
 import { inject, provide, ref, type InjectionKey, type Ref } from 'vue';
-import type { NeuroUXConfig } from '@adapt-ux/neuro-core';
-import type { createNeuroUX } from '@adapt-ux/neuro-core';
 
-type NeuroUXModule = typeof import('@adapt-ux/neuro-core');
-type CreateNeuroUX = NeuroUXModule['createNeuroUX'];
-export type NeuroUXInstance = ReturnType<CreateNeuroUX>;
+// Define types locally to avoid module resolution issues during build
+export type NeuroUXConfig = {
+  profile?: string;
+  rules?: any[];
+  signals?: any[];
+  styling?: Record<string, any>;
+  features?: Record<string, boolean>;
+  debug?: boolean;
+};
+
+// Type for NeuroUX instance - will be resolved at runtime
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type NeuroUXInstance = any;
 
 const NeuroUXInjectionKey: InjectionKey<Ref<NeuroUXInstance | null>> = Symbol('neuro-ux');
 
@@ -18,7 +26,7 @@ const NeuroUXInjectionKey: InjectionKey<Ref<NeuroUXInstance | null>> = Symbol('n
  * @example
  * ```vue
  * <script setup>
- * import { provideNeuroUX } from '@adapt-ux/neuro-vue';
+ * import { provideNeuroUX } from '@adapt-ux/neuro-ux-sdk-vue';
  * 
  * const neuro = provideNeuroUX({ profile: 'adhd' });
  * </script>
@@ -35,9 +43,19 @@ export function provideNeuroUX(config?: NeuroUXConfig): Ref<NeuroUXInstance | nu
   const instanceRef = ref<NeuroUXInstance | null>(null);
   
   // Dynamically import and create instance
-  import('@adapt-ux/neuro-core').then((module) => {
-    instanceRef.value = module.createNeuroUX(config);
-  });
+  // Use dynamic import to avoid static import issues during build
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (async () => {
+    try {
+      const module = await import('@adapt-ux/neuro-ux-sdk-core' as any);
+      if (module && module.createNeuroUX) {
+        instanceRef.value = module.createNeuroUX(config);
+      }
+    } catch (error) {
+      // Handle import error at runtime
+      console.warn('Failed to load @adapt-ux/neuro-ux-sdk-core:', error);
+    }
+  })();
   
   provide(NeuroUXInjectionKey, instanceRef);
 
@@ -53,7 +71,7 @@ export function provideNeuroUX(config?: NeuroUXConfig): Ref<NeuroUXInstance | nu
  * @example
  * ```vue
  * <script setup>
- * import { useNeuroUX } from '@adapt-ux/neuro-vue';
+ * import { useNeuroUX } from '@adapt-ux/neuro-ux-sdk-vue';
  * 
  * const neuro = useNeuroUX();
  * const state = neuro.value.getState();
