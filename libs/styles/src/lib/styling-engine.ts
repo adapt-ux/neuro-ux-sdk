@@ -1,3 +1,5 @@
+import type { StyleMapping, StylingEngineOptions as BaseStylingEngineOptions } from './styling-types';
+
 /**
  * UI Channel interface
  */
@@ -18,30 +20,9 @@ export interface EventBus {
 }
 
 /**
- * Style mapping configuration
- * Maps UI output keys to CSS variable definitions
- * Values are converted to strings when used as keys
+ * Styling engine options for UI Channel-based engine
  */
-export interface StyleMapping {
-  [uiKey: string]: Record<string, Record<string, string>>;
-}
-
-/**
- * Styling engine options
- */
-export interface StylingEngineOptions {
-  /**
-   * Custom style mappings
-   * If not provided, uses default mappings
-   */
-  mappings?: StyleMapping;
-
-  /**
-   * CSS variable namespace prefix
-   * Default: 'neuroux'
-   */
-  namespace?: string;
-
+export interface UiChannelStylingEngineOptions extends Omit<BaseStylingEngineOptions, 'scope'> {
   /**
    * Event bus for emitting style:update events
    */
@@ -141,7 +122,7 @@ function getRootElement(): HTMLElement | null {
  */
 export function createStylingEngine(
   ui: UiChannel,
-  options: StylingEngineOptions = {}
+  options: UiChannelStylingEngineOptions = {}
 ): StylingEngine {
   const {
     mappings = DEFAULT_MAPPINGS,

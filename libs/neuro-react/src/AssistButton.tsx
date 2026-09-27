@@ -1,7 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useImperativeHandle, forwardRef, useState } from 'react';
-import type { AssistButtonOptions } from '@adapt-ux/neuro-assist';
+
+export interface AssistButtonOptions {
+  variant?: 'floating' | 'inline';
+  label?: string;
+  ariaLabel?: string;
+}
 
 export interface AssistButtonProps extends AssistButtonOptions {
   onClick?: () => void;

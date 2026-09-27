@@ -1,8 +1,8 @@
 import { writable, derived, get } from 'svelte/store';
-import type { NeuroUXConfig } from '@adapt-ux/neuro-core';
-import type { createNeuroUX } from '@adapt-ux/neuro-core';
+import type { NeuroUXConfig } from '@adapt-ux/neuro-ux-sdk-core';
+import type { createNeuroUX } from '@adapt-ux/neuro-ux-sdk-core';
 
-type NeuroUXModule = typeof import('@adapt-ux/neuro-core');
+type NeuroUXModule = typeof import('@adapt-ux/neuro-ux-sdk-core');
 type CreateNeuroUX = NeuroUXModule['createNeuroUX'];
 type NeuroUXInstance = ReturnType<CreateNeuroUX>;
 
@@ -30,7 +30,7 @@ export async function initNeuroUX(config?: NeuroUXConfig): Promise<NeuroUXInstan
     return instance;
   }
 
-  const module = await import('@adapt-ux/neuro-core');
+  const module = await import('@adapt-ux/neuro-ux-sdk-core');
   instance = module.createNeuroUX(config);
   initialized = true;
 

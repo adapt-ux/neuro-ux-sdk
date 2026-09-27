@@ -1,6 +1,6 @@
 {
-  "name": "@adapt-ux/neuro-angular",
-  "version": "0.0.1",
+  "name": "@adapt-ux/neuro-ux-sdk-angular",
+  "version": "0.1.0-rc.1",
   "description": "Angular wrapper for NeuroUX Web Components, enabling smooth integration of the adaptive UI in Angular applications.",
   "keywords": [
     "angular",
@@ -15,23 +15,23 @@
   ],
   "license": "MIT",
   "author": "AdaptUX",
-  "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "test": "nx test angular",
-    "prepare": "nx build angular"
+    "build": "nx build neuro-angular",
+    "test": "nx test neuro-angular",
+    "lint": "nx lint neuro-angular",
+    "prepare": "nx build neuro-angular"
   },
   "publishConfig": {
     "access": "public"
@@ -39,7 +39,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/adapt-ux/neuro-ux-sdk",
-    "directory": "libs/angular"
+    "directory": "libs/neuro-angular"
   },
   "homepage": "https://github.com/adapt-ux/neuro-ux-sdk#readme",
   "bugs": {
@@ -53,12 +53,13 @@
     "@angular/common": ">=16.0.0"
   },
   "dependencies": {
-    "@adapt-ux/neuro-assist": "^0.0.1"
+    "@adapt-ux/neuro-ux-sdk-assist": "0.1.0-rc.1"
   },
   "devDependencies": {
     "@angular/core": "^22.2.0",
     "@angular/common": "^22.2.0",
     "typescript": "^5.4.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "type": "module"
 }

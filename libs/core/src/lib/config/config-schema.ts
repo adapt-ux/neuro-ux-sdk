@@ -1,4 +1,4 @@
-import { Rule } from '../rules/rule-types';
+import { Rule } from '../rule-processor';
 
 /**
  * Signal constructor type

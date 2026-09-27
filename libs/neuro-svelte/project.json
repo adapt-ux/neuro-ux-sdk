@@ -3,12 +3,27 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/neuro-svelte/src",
   "projectType": "library",
-  "importPath": "@adapt-ux/neuro-svelte",
+  "importPath": "@adapt-ux/neuro-ux-sdk-svelte",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "{projectRoot}/dist",
+        "main": "libs/neuro-svelte/src/index.ts",
+        "tsConfig": "libs/neuro-svelte/tsconfig.lib.json",
+        "assets": [],
+        "rootDir": "libs/neuro-svelte/src"
+      }
+    },
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "{workspaceRoot}/coverage/{projectRoot}"

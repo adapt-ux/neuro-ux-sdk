@@ -3,12 +3,27 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/neuro-next/src",
   "projectType": "library",
-  "importPath": "@adapt-ux/neuro-next",
+  "importPath": "@adapt-ux/neuro-ux-sdk-next",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "{projectRoot}/dist",
+        "main": "libs/neuro-next/src/index.ts",
+        "tsConfig": "libs/neuro-next/tsconfig.lib.json",
+        "assets": [],
+        "rootDir": "libs/neuro-next/src"
+      }
+    },
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "{workspaceRoot}/coverage/{projectRoot}",

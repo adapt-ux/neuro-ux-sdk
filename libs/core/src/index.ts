@@ -1,5 +1,5 @@
 /**
- * @adapt-ux/neuro-core
+ * @adapt-ux/neuro-ux-sdk-core
  * 
  * Main entry point for the NeuroUX Core package.
  * 

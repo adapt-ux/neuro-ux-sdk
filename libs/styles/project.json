@@ -3,12 +3,29 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/styles/src",
   "projectType": "library",
-  "importPath": "@adapt-ux/neuro-styles",
+  "importPath": "@adapt-ux/neuro-ux-sdk-styles",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "{projectRoot}/dist",
+        "main": "libs/styles/src/index.ts",
+        "tsConfig": "libs/styles/tsconfig.lib.json",
+        "assets": [
+          "libs/styles/src/**/*.scss"
+        ],
+        "rootDir": "libs/styles/src"
+      }
+    },
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "{workspaceRoot}/coverage/{projectRoot}",

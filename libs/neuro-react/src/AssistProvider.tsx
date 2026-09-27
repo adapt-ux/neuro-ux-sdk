@@ -1,10 +1,10 @@
 'use client';
 
 import { createContext, useEffect, useState, type ReactNode } from 'react';
-import type { NeuroUXConfig } from '@adapt-ux/neuro-core';
+import type { NeuroUXConfig } from '@adapt-ux/neuro-ux-sdk-core';
 
 // Use dynamic import type to avoid static import of lazy-loaded library
-type NeuroUXModule = typeof import('@adapt-ux/neuro-core');
+type NeuroUXModule = typeof import('@adapt-ux/neuro-ux-sdk-core');
 type CreateNeuroUX = NeuroUXModule['createNeuroUX'];
 export type NeuroUXInstance = Awaited<ReturnType<CreateNeuroUX>>;
 
@@ -27,14 +27,14 @@ export function AssistProvider({ children, config = {} }: AssistProviderProps) {
     let instance: NeuroUXInstance | null = null;
 
     // Dynamically import createNeuroUX to avoid static import of lazy-loaded library
-    import('@adapt-ux/neuro-core').then((module) => {
+    import('@adapt-ux/neuro-ux-sdk-core').then((module) => {
       if (mounted) {
         instance = module.createNeuroUX(config);
         setNeuroUX(instance);
 
         // Apply initial UI state if needed
         const initialUi = instance.ui.getAll();
-        if (Object.keys(initialUi).length > 0) {
+        if (Object.keys(initialUi).length > 0 && 'apply' in instance.styling && typeof instance.styling.apply === 'function') {
           instance.styling.apply(initialUi);
         }
       }

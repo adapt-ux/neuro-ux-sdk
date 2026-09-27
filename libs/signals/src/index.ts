@@ -1,5 +1,5 @@
 /**
- * @adapt-ux/neuro-signals
+ * @adapt-ux/neuro-ux-sdk-signals
  * 
  * Signals package for NeuroUX SDK.
  * Provides signal classes and utilities for behavior detection.

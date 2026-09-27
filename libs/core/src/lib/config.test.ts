@@ -32,14 +32,14 @@ describe('loadConfig', () => {
     const userConfig: NeuroUXConfig = {
       profile: 'custom-profile',
       signals: ['signal1', 'signal2'],
-      rules: [{ id: 'rule1' }],
+      rules: [{ when: { signal: 'idle', op: '===', value: true }, apply: { ui: { focus: 'high' } } }],
     };
 
     const config = loadConfig(userConfig);
 
     expect(config.profile).toBe('custom-profile');
     expect(config.signals).toEqual(['signal1', 'signal2']);
-    expect(config.rules).toEqual([{ id: 'rule1' }]);
+    expect(config.rules).toEqual([{ when: { signal: 'idle', op: '===', value: true }, apply: { ui: { focus: 'high' } } }]);
     expect(config.styling).toEqual({});
     expect(config.features).toEqual({});
   });
@@ -71,14 +71,14 @@ describe('loadConfig', () => {
     const userConfig: NeuroUXConfig = {
       profile: 'new-profile',
       signals: ['new-signal'],
-      rules: [{ id: 'new-rule' }],
+      rules: [{ when: { signal: 'scroll', op: '>', value: 100 }, apply: { ui: { motion: 'reduced' } } }],
     };
 
     const config = loadConfig(userConfig);
 
     expect(config.profile).toBe('new-profile');
     expect(config.signals).toEqual(['new-signal']);
-    expect(config.rules).toEqual([{ id: 'new-rule' }]);
+    expect(config.rules).toEqual([{ when: { signal: 'scroll', op: '>', value: 100 }, apply: { ui: { motion: 'reduced' } } }]);
   });
 
   it('should return a valid NormalizedConfig object', () => {

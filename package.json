@@ -1,10 +1,12 @@
 {
-  "name": "@neuro-ux-sdk/source",
-  "version": "0.0.0",
+  "name": "@adapt-ux/neuro-ux-sdk",
+  "version": "0.1.0-rc.1",
   "license": "MIT",
   "scripts": {
     "prepare": "husky",
-    "test": "nx run-many --target=test --all"
+    "test": "nx run-many --target=test --all",
+    "build:packages": "nx run-many --target=build --projects=styles,utils,signals,assist,core,neuro-react,neuro-vue,neuro-angular,neuro-svelte,neuro-js,neuro-next",
+    "publish:packages": "node scripts/publish-packages.mjs"
   },
   "private": true,
   "devDependencies": {
