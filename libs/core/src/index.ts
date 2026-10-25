@@ -28,7 +28,7 @@ export * from './lib/state';
 
 // Rules system (public APIs)
 export * from './lib/rules';
-export { createRuleProcessor } from './lib/rule-processor';
+export { createRuleProcessor, isValidRule } from './lib/rule-processor';
 
 // Internal event bus (exported for framework wrappers, but marked @internal)
 export * from './lib/event-bus';

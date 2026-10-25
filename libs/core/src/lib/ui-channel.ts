@@ -5,6 +5,12 @@ export interface UiChannel {
   get(key: string): any;
   getAll(): Record<string, any>;
   onUpdate(handler: UiUpdateHandler): () => void;
+  /**
+   * Locks a key so rule output no longer writes it. Direct `set` still works.
+   */
+  lock(key: string): void;
+  unlock(key: string): void;
+  isLocked(key: string): boolean;
 }
 
 /**
@@ -16,6 +22,7 @@ export function createUiChannel(
 ): UiChannel {
   const state: Record<string, any> = {};
   const updateHandlers = new Set<UiUpdateHandler>();
+  const lockedKeys = new Set<string>();
 
   function set(key: string, value: any) {
     // Only update if value actually changed
@@ -48,10 +55,25 @@ export function createUiChannel(
     return () => updateHandlers.delete(handler);
   }
 
+  function lock(key: string) {
+    lockedKeys.add(key);
+  }
+
+  function unlock(key: string) {
+    lockedKeys.delete(key);
+  }
+
+  function isLocked(key: string): boolean {
+    return lockedKeys.has(key);
+  }
+
   return {
     set,
     get,
     getAll,
     onUpdate,
+    lock,
+    unlock,
+    isLocked,
   };
 }
