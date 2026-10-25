@@ -16,6 +16,7 @@
       ],
       "options": {
         "outputPath": "{projectRoot}/dist",
+        "generatePackageJson": false,
         "main": "libs/neuro-react/src/index.ts",
         "tsConfig": "libs/neuro-react/tsconfig.lib.json",
         "assets": [],

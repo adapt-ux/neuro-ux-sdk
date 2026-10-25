@@ -13,6 +13,7 @@
       ],
       "options": {
         "outputPath": "{projectRoot}/dist",
+        "generatePackageJson": false,
         "main": "libs/neuro-svelte/src/index.ts",
         "tsConfig": "libs/neuro-svelte/tsconfig.lib.json",
         "assets": [],
