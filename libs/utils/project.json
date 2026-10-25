@@ -13,6 +13,7 @@
       ],
       "options": {
         "outputPath": "{projectRoot}/dist",
+        "generatePackageJson": false,
         "main": "libs/utils/src/index.ts",
         "tsConfig": "libs/utils/tsconfig.lib.json",
         "assets": [],

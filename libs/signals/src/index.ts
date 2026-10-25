@@ -11,6 +11,7 @@
 export * from './lib/base-signal';
 export * from './lib/idle-signal';
 export * from './lib/scroll-signal';
+export * from './lib/tab-hidden-signal';
 
 // Public types
 export * from './lib/types';

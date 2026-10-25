@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeAll, beforeEach } from 'vitest';
 import { render, waitFor, screen, act } from '@testing-library/react';
 import { AssistButton } from './AssistButton';
 import { AssistProvider } from './AssistProvider';
@@ -12,6 +12,11 @@ vi.mock('@adapt-ux/neuro-ux-sdk-core', async () => {
 });
 
 describe('AssistButton', () => {
+  // A cold import of core can outlast waitFor's 1s default timeout
+  beforeAll(async () => {
+    await import('@adapt-ux/neuro-ux-sdk-core');
+  }, 30000);
+
   beforeEach(() => {
     vi.clearAllMocks();
   });

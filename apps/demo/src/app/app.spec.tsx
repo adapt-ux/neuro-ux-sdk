@@ -8,10 +8,15 @@ describe('App', () => {
     expect(baseElement).toBeTruthy();
   });
 
-  it('should have a greeting as the title', () => {
-    const { getAllByText } = render(<App />);
+  it('should render the demo title', async () => {
+    const { findByRole } = render(<App />);
+    // NeuroUXProvider renders children only after core is dynamically imported
     expect(
-      getAllByText(new RegExp('Welcome demo', 'gi')).length > 0
+      await findByRole(
+        'heading',
+        { level: 1, name: 'NeuroUX SDK Demo' },
+        { timeout: 10000 }
+      )
     ).toBeTruthy();
   });
 });

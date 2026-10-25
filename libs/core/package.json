@@ -43,6 +43,7 @@
     "node": ">=18"
   },
   "dependencies": {
+    "@adapt-ux/neuro-ux-sdk-signals": "0.1.0-rc.1",
     "@adapt-ux/neuro-ux-sdk-styles": "0.1.0-rc.1"
   },
   "devDependencies": {},

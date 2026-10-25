@@ -2,11 +2,14 @@ import { normalizeConfig, NeuroUXConfig, NormalizedConfig } from './config';
 import { createStateContainer } from './state';
 import { createEventBus } from './event-bus';
 import { createSignalsRegistry } from './signals/signals-registry';
-import { createUiChannel } from './ui-channel';
-import { createRuleProcessor, Rule } from './rule-processor';
+import { createUiChannel, UiChannel } from './ui-channel';
+import { createRuleProcessor, isValidRule, Rule } from './rule-processor';
 import { createHeuristicsEngine } from './heuristics-engine';
-// import { createStylingEngine } from '@adapt-ux/neuro-ux-sdk-styles';
+import { createStylingEngine } from '@adapt-ux/neuro-ux-sdk-styles';
+import { TabHiddenSignal } from '@adapt-ux/neuro-ux-sdk-signals';
 import { createDebugStore, createDebugAPI } from './debug';
+
+const TAB_HIDDEN_SIGNAL = 'tabHidden';
 
 /**
  * Creates a new NeuroUX instance.
@@ -50,12 +53,23 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
   const ruleProcessor = createRuleProcessor(config);
 
   const heuristics = createHeuristicsEngine(signals, eventBus);
-  // const styling = createStylingEngine(ui, { eventBus });
-  const styling = {
-    destroy: () => {
-      // Styling engine is not wired yet.
-    },
+
+  // Rule output reaches the styling engine through an explicit apply() call,
+  // so its own UI subscription must skip writes made by the rule cycle.
+  let writingRuleOutput = false;
+  const stylingUi: UiChannel = {
+    ...ui,
+    onUpdate: (handler) =>
+      ui.onUpdate((updates) => {
+        if (!writingRuleOutput) {
+          handler(updates);
+        }
+      }),
   };
+  const styling = createStylingEngine(stylingUi, { eventBus });
+
+  const runtimeRules = new Map<string, Rule>();
+  let runtimeRuleCounter = 0;
 
   // Sync signal updates to state
   signals.onUpdate((name, value) => {
@@ -140,7 +154,18 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
       signals: currentState.signals || {},
       profile: currentState.profile,
     };
-    const uiOutput = ruleProcessor.evaluate(evaluationState);
+    const rawOutput = ruleProcessor.evaluate(
+      evaluationState,
+      Array.from(runtimeRules.values())
+    );
+
+    // Locked keys belong to the user; rule output must not overwrite them
+    const uiOutput: Record<string, any> = {};
+    Object.entries(rawOutput).forEach(([key, value]) => {
+      if (!ui.isLocked(key)) {
+        uiOutput[key] = value;
+      }
+    });
 
     // Emit 'adaptation' event when output changes (MVP Rule Processor integration)
     const outputChanged =
@@ -151,9 +176,19 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
     }
 
     // Write rule processor output to UI channel
-    Object.entries(uiOutput).forEach(([key, value]) => {
-      ui.set(key, value);
-    });
+    const wasWritingRuleOutput = writingRuleOutput;
+    writingRuleOutput = true;
+    try {
+      Object.entries(uiOutput).forEach(([key, value]) => {
+        ui.set(key, value);
+      });
+    } finally {
+      writingRuleOutput = wasWritingRuleOutput;
+    }
+
+    if (outputChanged && Object.keys(uiOutput).length > 0) {
+      styling.apply({ ...uiOutput });
+    }
 
     // Debug: track rule evaluations
     if (debugStore && config.rules) {
@@ -232,6 +267,61 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
   // Initial rule evaluation
   evaluateRules();
 
+  const rules = {
+    /**
+     * Adds a rule at runtime. Returns its id, or null when the shape is invalid.
+     */
+    add(rule: Rule): string | null {
+      if (!isValidRule(rule)) {
+        return null;
+      }
+      runtimeRuleCounter += 1;
+      const id = `runtime-rule-${runtimeRuleCounter}`;
+      runtimeRules.set(id, rule);
+      evaluateRules();
+      return id;
+    },
+
+    /**
+     * Removes a runtime rule. Returns false when the id is unknown.
+     */
+    remove(id: string): boolean {
+      const removed = runtimeRules.delete(id);
+      if (removed) {
+        evaluateRules();
+      }
+      return removed;
+    },
+
+    list(): Array<{ id: string; rule: Rule }> {
+      return Array.from(runtimeRules, ([id, rule]) => ({ id, rule: { ...rule } }));
+    },
+  };
+
+  // Feed tab visibility into the signals registry
+  const tabHiddenSignal = new TabHiddenSignal({
+    emit(payload: unknown) {
+      if (
+        !payload ||
+        typeof payload !== 'object' ||
+        (payload as { type?: unknown }).type !== TAB_HIDDEN_SIGNAL
+      ) {
+        return;
+      }
+      const value = (payload as { value?: unknown }).value;
+      if (typeof value !== 'boolean') {
+        return;
+      }
+      if (signals.get(TAB_HIDDEN_SIGNAL) === undefined) {
+        signals.register(TAB_HIDDEN_SIGNAL, value);
+      }
+      signals.update(TAB_HIDDEN_SIGNAL, value);
+    },
+  });
+  tabHiddenSignal.start();
+
+  let destroyed = false;
+
   return {
     config,
 
@@ -254,12 +344,18 @@ export function createNeuroUX(userConfig: NeuroUXConfig = {}) {
 
     signals,
     ui,
+    rules,
     styling,
 
     // debug API
     debug,
 
     destroy() {
+      if (destroyed) {
+        return;
+      }
+      destroyed = true;
+      tabHiddenSignal.stop();
       styling.destroy();
       heuristics.destroy();
       if (debugStore) {

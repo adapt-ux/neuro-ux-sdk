@@ -13,6 +13,7 @@
       ],
       "options": {
         "outputPath": "{projectRoot}/dist",
+        "generatePackageJson": false,
         "main": "libs/signals/src/index.ts",
         "tsConfig": "libs/signals/tsconfig.lib.json",
         "assets": [],

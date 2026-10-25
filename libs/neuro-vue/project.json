@@ -13,6 +13,7 @@
       ],
       "options": {
         "outputPath": "{projectRoot}/dist",
+        "generatePackageJson": false,
         "main": "libs/neuro-vue/src/index.ts",
         "tsConfig": "libs/neuro-vue/tsconfig.lib.json",
         "assets": [],

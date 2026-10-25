@@ -61,7 +61,60 @@ export interface RuleProcessorState {
  * Rule processor interface
  */
 export interface RuleProcessor {
-  evaluate(state: RuleProcessorState): Record<string, any>;
+  /**
+   * Evaluates config rules, then `extraRules` in order. Later outputs win.
+   */
+  evaluate(state: RuleProcessorState, extraRules?: Rule[]): Record<string, any>;
+}
+
+const COMPARISON_OPERATORS: readonly ComparisonOperator[] = [
+  '>',
+  '<',
+  '>=',
+  '<=',
+  '===',
+  '!==',
+];
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+/**
+ * Checks whether a value has a valid Rule shape (simple rule, AND or OR group).
+ */
+export function isValidRule(rule: unknown): rule is Rule {
+  if (!isPlainObject(rule)) {
+    return false;
+  }
+
+  if ('and' in rule) {
+    const group = rule['and'];
+    return Array.isArray(group) && group.every(isValidRule);
+  }
+
+  if ('or' in rule) {
+    const group = rule['or'];
+    return Array.isArray(group) && group.every(isValidRule);
+  }
+
+  const when = rule['when'];
+  const apply = rule['apply'];
+  if (!isPlainObject(when) || !isPlainObject(apply)) {
+    return false;
+  }
+
+  const signal = when['signal'];
+  const valueType = typeof when['value'];
+  return (
+    typeof signal === 'string' &&
+    signal.trim().length > 0 &&
+    COMPARISON_OPERATORS.includes(when['op'] as ComparisonOperator) &&
+    (valueType === 'number' ||
+      valueType === 'string' ||
+      valueType === 'boolean') &&
+    isPlainObject(apply['ui'])
+  );
 }
 
 /**
@@ -222,7 +275,10 @@ export function createRuleProcessor(config: NormalizedConfig): RuleProcessor {
   );
 
   return {
-    evaluate(state: RuleProcessorState): Record<string, any> {
+    evaluate(
+      state: RuleProcessorState,
+      extraRules: Rule[] = []
+    ): Record<string, any> {
       if (!state || typeof state !== 'object') {
         return {};
       }
@@ -234,7 +290,7 @@ export function createRuleProcessor(config: NormalizedConfig): RuleProcessor {
       };
 
       // Evaluate all rules and collect UI outputs
-      return collectRuleOutputs(rules, safeState);
+      return collectRuleOutputs([...rules, ...extraRules], safeState);
     },
   };
 }
