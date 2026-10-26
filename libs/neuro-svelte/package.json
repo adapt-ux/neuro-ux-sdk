@@ -51,10 +51,11 @@
     "svelte": "^4.0.0 || ^5.0.0"
   },
   "dependencies": {
-    "@adapt-ux/neuro-ux-sdk-assist": "0.1.0-rc.1"
+    "@adapt-ux/neuro-ux-sdk-assist": "0.1.0-rc.1",
+    "@adapt-ux/neuro-ux-sdk-core": "0.1.0-rc.1",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "svelte": "^5.57.1"
-  },
-  "type": "module"
+  }
 }

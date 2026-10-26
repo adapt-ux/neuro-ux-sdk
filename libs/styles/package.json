@@ -43,9 +43,10 @@
   "engines": {
     "node": ">=18"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
   "devDependencies": {
     "sass": "^1.77.8"
-  },
-  "type": "module"
+  }
 }

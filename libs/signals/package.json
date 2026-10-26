@@ -39,8 +39,9 @@
   "engines": {
     "node": ">=18"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
   "devDependencies": {},
-  "types": "./dist/index.d.ts",
-  "type": "module"
+  "types": "./dist/index.d.ts"
 }

@@ -52,13 +52,14 @@
     "@angular/common": ">=16.0.0"
   },
   "dependencies": {
-    "@adapt-ux/neuro-ux-sdk-assist": "0.1.0-rc.1"
+    "@adapt-ux/neuro-ux-sdk-assist": "0.1.0-rc.1",
+    "@adapt-ux/neuro-ux-sdk-core": "0.1.0-rc.1",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular/core": "^22.2.0",
     "@angular/common": "^22.2.0",
     "typescript": "^5.4.0"
   },
-  "sideEffects": false,
-  "type": "module"
+  "sideEffects": false
 }

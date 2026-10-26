@@ -49,8 +49,8 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@adapt-ux/neuro-ux-sdk-assist": "0.1.0-rc.1"
+    "@adapt-ux/neuro-ux-sdk-assist": "0.1.0-rc.1",
+    "@adapt-ux/neuro-ux-sdk-core": "0.1.0-rc.1"
   },
-  "devDependencies": {},
-  "type": "module"
+  "devDependencies": {}
 }

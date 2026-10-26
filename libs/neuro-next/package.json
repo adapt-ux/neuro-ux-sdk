@@ -51,7 +51,8 @@
   },
   "dependencies": {
     "@adapt-ux/neuro-ux-sdk-core": "0.1.0-rc.1",
-    "@adapt-ux/neuro-ux-sdk-react": "0.1.0-rc.1"
+    "@adapt-ux/neuro-ux-sdk-react": "0.1.0-rc.1",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",
@@ -59,6 +60,5 @@
     "next": "^16.3.6"
   },
   "sideEffects": false,
-  "types": "./dist/index.d.ts",
-  "type": "module"
+  "types": "./dist/index.d.ts"
 }
