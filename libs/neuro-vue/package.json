@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-ux-sdk-vue",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-rc.2",
   "description": "Vue wrapper for NeuroUX Web Components, enabling easy use of the adaptive UI across Vue applications.",
   "keywords": [
     "vue",
@@ -47,8 +47,8 @@
     "vue": ">=3.3.0"
   },
   "dependencies": {
-    "@adapt-ux/neuro-ux-sdk-assist": "0.1.0-rc.1",
-    "@adapt-ux/neuro-ux-sdk-core": "0.1.0-rc.1",
+    "@adapt-ux/neuro-ux-sdk-assist": "0.1.0-rc.2",
+    "@adapt-ux/neuro-ux-sdk-core": "0.1.0-rc.2",
     "tslib": "^2.3.0"
   },
   "devDependencies": {

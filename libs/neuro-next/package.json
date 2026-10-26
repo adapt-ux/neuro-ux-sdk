@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-ux-sdk-next",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-rc.2",
   "description": "Next.js wrapper for NeuroUX Web Components, providing seamless integration with the adaptive UI engine for Next.js applications.",
   "keywords": [
     "nextjs",
@@ -50,8 +50,8 @@
     "next": ">=14"
   },
   "dependencies": {
-    "@adapt-ux/neuro-ux-sdk-core": "0.1.0-rc.1",
-    "@adapt-ux/neuro-ux-sdk-react": "0.1.0-rc.1",
+    "@adapt-ux/neuro-ux-sdk-core": "0.1.0-rc.2",
+    "@adapt-ux/neuro-ux-sdk-react": "0.1.0-rc.2",
     "tslib": "^2.3.0"
   },
   "devDependencies": {

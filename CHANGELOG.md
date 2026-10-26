@@ -16,6 +16,31 @@ This project adheres to **[Semantic Versioning](https://semver.org/)** and the *
 
 ---
 
+## [0.1.0-rc.2] – 2026-10-25
+
+### Added
+
+* `TabHiddenSignal` in `signals`, emitting `tabHidden` from page visibility changes
+* `createNeuroUX` feeds `tabHidden` into the signals registry when `document` exists
+* Runtime rules: `engine.rules.add()`, `remove()` and `list()`; runtime rules win over config rules on the same key
+* UI locks: `ui.lock()`, `ui.unlock()` and `ui.isLocked()`; rule output never overwrites a locked key
+* `isValidRule()` export in `core`
+
+### Changed
+
+* `engine.styling` is now the real styling engine (`apply`, `reset`, `destroy`, `onUpdate`) instead of a placeholder; UI output is written as `--neuroux-*` CSS variables
+* `engine.destroy()` is idempotent
+* `core` depends on `signals`
+
+### Fixed
+
+* Packages failed to load without `tslib` installed; `tslib` is now a dependency
+* Packages declared `"type": "module"` while shipping CommonJS
+* `angular`, `js`, `svelte` and `vue` imported `core` without declaring it as a dependency
+* Libraries importing other workspace libraries failed to build
+
+---
+
 ## [0.1.0-rc.1] – 2024-XX-XX
 
 ### Added

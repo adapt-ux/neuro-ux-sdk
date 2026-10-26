@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-ux-sdk-assist",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-rc.2",
   "description": "Framework-agnostic Web Components UI providing customizable accessibility and comfort tools for adaptive user experiences.",
   "keywords": [
     "web-components",
