@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-ux-sdk-js",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-rc.2",
   "description": "Universal JavaScript loader and helpers for NeuroUX Web Components, enabling adaptive UI in any environment without frameworks.",
   "keywords": [
     "javascript",
@@ -49,8 +49,8 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@adapt-ux/neuro-ux-sdk-assist": "0.1.0-rc.1"
+    "@adapt-ux/neuro-ux-sdk-assist": "0.1.0-rc.2",
+    "@adapt-ux/neuro-ux-sdk-core": "0.1.0-rc.2"
   },
-  "devDependencies": {},
-  "type": "module"
+  "devDependencies": {}
 }

@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-ux-sdk-core",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-rc.2",
   "description": "Universal adaptive UX engine that enables cognitive-friendly interface adjustments based on user interaction patterns.",
   "keywords": [
     "adaptive-ui",
@@ -43,10 +43,10 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@adapt-ux/neuro-ux-sdk-signals": "0.1.0-rc.1",
-    "@adapt-ux/neuro-ux-sdk-styles": "0.1.0-rc.1"
+    "@adapt-ux/neuro-ux-sdk-signals": "0.1.0-rc.2",
+    "@adapt-ux/neuro-ux-sdk-styles": "0.1.0-rc.2",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {},
-  "types": "./dist/index.d.ts",
-  "type": "module"
+  "types": "./dist/index.d.ts"
 }

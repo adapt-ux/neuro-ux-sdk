@@ -1,6 +1,6 @@
 {
   "name": "@adapt-ux/neuro-ux-sdk-signals",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-rc.2",
   "description": "Lightweight behavioral signal detectors that identify focus, overload, motion sensitivity, and interaction patterns for adaptive UI.",
   "keywords": [
     "behavioral-signals",
@@ -39,8 +39,9 @@
   "engines": {
     "node": ">=18"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
   "devDependencies": {},
-  "types": "./dist/index.d.ts",
-  "type": "module"
+  "types": "./dist/index.d.ts"
 }
