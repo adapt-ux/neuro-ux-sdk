@@ -186,14 +186,18 @@ Test quick start in each framework:
 
 Once all items are checked:
 
-1. **Create release branch** (if not already on one):
+See [Branches and releases](../CONTRIBUTING.md#branches-and-releases) for the branch flow.
+
+1. **Create release branch** from the version's pre-release branch:
    ```bash
-   git checkout -b release/v0.1.0-rc.1
+   git checkout -b release/0.1.0-rc.1 origin/pre-release/0.1.0-rc.1
    ```
 
 2. **Update versions**:
-   - Update all `package.json` files to `0.1.0-rc.1`
-   - Commit changes: `git commit -m "chore: bump version to 0.1.0-rc.1"`
+   - Update all `package.json` files and internal dependencies to `0.1.0-rc.1`
+   - Add the `CHANGELOG.md` entry
+   - Commit changes: `git commit -m "chore(release): 0.1.0-rc.1"`
+   - Open a PR from `release/0.1.0-rc.1` into `main` and merge it with a merge commit
 
 3. **Final verification**:
    ```bash
@@ -202,22 +206,23 @@ Once all items are checked:
    nx run-many --target=test --all
    ```
 
-4. **Tag release**:
+4. **Tag release** on the merge commit in `main`:
    ```bash
    git tag -a v0.1.0-rc.1 -m "Release v0.1.0-rc.1"
    git push origin v0.1.0-rc.1
    ```
 
-5. **Create GitHub Release**:
-   - Go to GitHub Releases
-   - Create new release from tag `v0.1.0-rc.1`
-   - Use release notes from `CHANGELOG.md`
-   - Mark as pre-release
+5. **Complete the GitHub Release**:
+   - The tag triggers `.github/workflows/release.yml`, which creates the release with generated notes
+   - Prepend the `CHANGELOG.md` entry to the notes
+   - Keep it marked as latest, not as pre-release, so it shows on the repository page
 
-6. **Publish to npm** (if approved):
+6. **Publish to npm** (if approved), from each `libs/<package>`, dependencies first:
    ```bash
-   npm publish --tag rc
+   npm publish --tag rc --access public
    ```
+
+7. **Delete the version's branches** (`pre-release`, `release`, `feat`, `fix`); the tag keeps the history.
 
 ---
 

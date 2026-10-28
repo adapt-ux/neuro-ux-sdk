@@ -166,10 +166,10 @@ docs: add wrapper usage section for Svelte
 # 7. Pull Request Process
 
 1. Fork the repository
-2. Create a feature branch
+2. Create a branch from the right base (see [Branches and releases](#branches-and-releases))
 
    ```bash
-   git checkout -b feat/my-feature
+   git checkout -b feat/my-feature origin/pre-release/0.1.0-rc.3
    ```
 3. Write clear commits
 4. Ensure your branch builds:
@@ -187,6 +187,25 @@ docs: add wrapper usage section for Svelte
 7. Maintainers will review and provide feedback
 
 PRs that do not follow the guidelines may be asked to make adjustments.
+
+## Branches and releases
+
+| Branch | Based on | PR into | Purpose |
+|--------|----------|---------|---------|
+| `pre-release/<version>` | `main` | `release/<version>` | Collects the work for one version |
+| `feat/<slug>`, `fix/<slug>` | `pre-release/<version>` | `pre-release/<version>` | One change for that version |
+| `release/<version>` | `pre-release/<version>` | `main` | Closes the version: version bump and changelog |
+| `docs/<slug>`, `ci/<slug>`, `chore/<slug>` | `main` | `main` | Changes that do not affect published packages |
+
+`<version>` has no `v` prefix (`0.1.0-rc.3`); tags do (`v0.1.0-rc.3`).
+
+* Changes to published packages (code in `libs/`, a library `package.json`) never go straight to
+  `main`; they land in a `pre-release/<version>` branch.
+* Version bumps and the `CHANGELOG.md` entry happen only on `release/<version>`.
+* `release/<version>` is merged into `main` with a merge commit, then tagged `v<version>`. The tag
+  triggers the release workflow, which creates the GitHub release.
+* Maintainers publish to npm; pre-releases use `npm publish --tag rc`.
+* After a release, the version's branches are deleted; the tag keeps the history.
 
 ---
 
