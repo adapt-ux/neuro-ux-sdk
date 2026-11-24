@@ -4,6 +4,9 @@
 dist
 tmp
 out-tsc
+artifacts/
+.tmp-pack/
+artifacts-test/
 
 # dependencies
 node_modules

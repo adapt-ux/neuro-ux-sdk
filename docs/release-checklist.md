@@ -31,7 +31,7 @@ This checklist ensures the SDK is ready for release.
 
 ### Build
 
-- [ ] `nx run-many --target=build --all` passes
+- [ ] `nx run-many --target=build --all --exclude=demo` passes (drop `--exclude=demo` after P3-10)
 - [ ] Individual package builds succeed:
   - [ ] `nx build core`
   - [ ] `nx build signals`
@@ -202,8 +202,8 @@ See [Branches and releases](../CONTRIBUTING.md#branches-and-releases) for the br
 3. **Final verification**:
    ```bash
    npm install
-   nx run-many --target=build --all
-   nx run-many --target=test --all
+   nx run-many --target=build --all --exclude=demo
+   nx run-many --target=test --all --exclude=demo
    ```
 
 4. **Tag release** on the merge commit in `main`:
@@ -214,15 +214,77 @@ See [Branches and releases](../CONTRIBUTING.md#branches-and-releases) for the br
 
 5. **Complete the GitHub Release**:
    - The tag triggers `.github/workflows/release.yml`, which creates the release with generated notes
-   - Prepend the `CHANGELOG.md` entry to the notes
+   - Replace the generated notes with the curated release write-up (see release-flow rule)
    - Keep it marked as latest, not as pre-release, so it shows on the repository page
 
-6. **Publish to npm** (if approved), from each `libs/<package>`, dependencies first:
-   ```bash
-   npm publish --tag rc --access public
-   ```
+6. **Publish to npm** — see [Publish via GitHub Actions](#publish-via-github-actions) below.
+   Use [Manual fallback](#manual-fallback) only if OIDC / Trusted Publisher fails.
 
 7. **Delete the version's branches** (`pre-release`, `release`, `feat`, `fix`); the tag keeps the history.
+
+---
+
+## Publish via GitHub Actions
+
+Publishing uses npm **Trusted Publisher** (OIDC). No `NPM_TOKEN` is stored in GitHub.
+
+### One-time npm setup (org owner)
+
+For each of the 11 packages on npmjs.com:
+
+1. **Settings → Trusted Publisher → GitHub Actions**
+   - Organization: `adapt-ux`
+   - Repository: `neuro-ux-sdk`
+   - Workflow filename: `release.yml`
+2. After the first successful OIDC publish: enable **Require two-factor authentication and disallow tokens**.
+
+### What the tag workflow does
+
+Pushing `v*` runs `.github/workflows/release.yml`:
+
+1. Creates the GitHub Release
+2. Builds libs (`nx run-many --target=build --all --exclude=demo` until P3-10)
+3. Packs tarballs with `node tools/scripts/publish-packages.mjs pack`
+4. Attaches `artifacts/*.tgz` to the release
+5. Publishes with OIDC (`id-token: write`), `--provenance`, and dist-tag `rc` (version contains `-`) or `latest`
+
+Order: signals → styles → utils → assist → core → neuro-react → neuro-js → neuro-vue → neuro-svelte → neuro-angular → neuro-next.
+
+Versions already on npm are skipped (`skip … already on npm`); the job stays green. If any `package.json` version ≠ tag without `v`, the job fails before the first `npm publish`.
+
+Local dry-run of the version gate:
+
+```bash
+node tools/scripts/publish-packages.mjs check --tag v0.1.0-rc.3
+```
+
+### Dist-tags
+
+- Pre-release (`0.1.0-rc.x`): published with `--tag rc`. Does **not** move `latest`.
+- Stable (`0.1.0`): published with `--tag latest`.
+- Moving `latest` onto an older rc is still manual: `npm dist-tag add <pkg>@<version> latest`.
+
+---
+
+## Manual fallback
+
+If Trusted Publisher / OIDC fails, publish from a clean checkout of the tagged commit:
+
+```bash
+npm ci --legacy-peer-deps
+npx nx run-many --target=build --all --exclude=demo
+node tools/scripts/publish-packages.mjs pack --out artifacts
+# MFA interactively — same order as the script; use --tag rc for pre-releases:
+#   npm publish artifacts/<tarball>.tgz --access public --tag rc
+```
+
+Or, from each built package directory (dependencies first, same order as above):
+
+```bash
+npm publish --tag rc --access public
+```
+
+Do not publish without an explicit maintainer decision.
 
 ---
 

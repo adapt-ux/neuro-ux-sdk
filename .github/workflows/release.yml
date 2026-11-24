@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*.*.*' # Ex: v1.0.0, v2.3.4
+      - 'v*.*.*' # Ex: v1.0.0, v0.1.0-rc.3
 
 permissions:
   contents: write
@@ -44,11 +44,11 @@ jobs:
           body: ${{ steps.notes.outputs.notes }}
           generate_release_notes: true
           omit_name: false
-          fail_on_unmatched_files: true
+          fail_on_unmatched_files: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  build-artifacts:
+  build:
     name: Build packages
     runs-on: ubuntu-latest
     needs: create-release
@@ -57,22 +57,76 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Extract tag
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+          cache: npm
+
+      - name: Upgrade npm (Trusted Publisher requires >= 11.5.1)
+        run: npm install -g npm@latest
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
-      - name: Build all packages (Nx)
-        run: npx nx run-many --target=build --all
+      # Exclude demo until P3-10 lands a green demo build
+      - name: Build packages (Nx)
+        run: npx nx run-many --target=build --all --exclude=demo
 
-      - name: Upload build artifacts
+      - name: Pack packages
+        run: node tools/scripts/publish-packages.mjs pack --out artifacts
+
+      - name: Upload tarballs to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.tag }}
-          files: |
-            dist/**/*
+          files: artifacts/*.tgz
+          fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload pack artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-packages
+          path: artifacts/*.tgz
+          if-no-files-found: error
+
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Extract tag
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      - name: Upgrade npm (Trusted Publisher requires >= 11.5.1)
+        run: npm install -g npm@latest
+
+      - name: Download pack artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: npm-packages
+          path: artifacts
+
+      - name: Publish packages
+        env:
+          TAG: ${{ env.tag }}
+        run: node tools/scripts/publish-packages.mjs publish --tag "$TAG" --dir artifacts

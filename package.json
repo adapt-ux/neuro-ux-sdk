@@ -6,7 +6,8 @@
     "prepare": "husky",
     "test": "nx run-many --target=test --all",
     "build:packages": "nx run-many --target=build --projects=styles,utils,signals,assist,core,neuro-react,neuro-vue,neuro-angular,neuro-svelte,neuro-js,neuro-next",
-    "publish:packages": "node scripts/publish-packages.mjs"
+    "pack:packages": "node tools/scripts/publish-packages.mjs pack",
+    "publish:packages": "node tools/scripts/publish-packages.mjs publish"
   },
   "private": true,
   "devDependencies": {

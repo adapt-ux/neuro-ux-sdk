@@ -203,8 +203,9 @@ PRs that do not follow the guidelines may be asked to make adjustments.
   `main`; they land in a `pre-release/<version>` branch.
 * Version bumps and the `CHANGELOG.md` entry happen only on `release/<version>`.
 * `release/<version>` is merged into `main` with a merge commit, then tagged `v<version>`. The tag
-  triggers the release workflow, which creates the GitHub release.
-* Maintainers publish to npm; pre-releases use `npm publish --tag rc`.
+  triggers the release workflow, which creates the GitHub release and publishes to npm via Trusted
+  Publisher (OIDC). Pre-releases use dist-tag `rc`.
+* Manual npm publish remains a fallback only (see `docs/release-checklist.md`).
 * After a release, the version's branches are deleted; the tag keeps the history.
 
 ---
